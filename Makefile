@@ -1,55 +1,46 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: rbrune <rbrune@student.42.fr>                +#+                      #
-#                                                    +#+                       #
-#    Created: 2022/01/17 11:14:11 by rbrune        #+#    #+#                  #
-#    Updated: 2022/05/30 17:23:52 by rbrune        ########   odam.nl          #
-#                                                                              #
-# **************************************************************************** #
+NAME 	= 	cub3d
 
+SRCS 	= 	src/rickmain.c 				\
 
-# Compiler and flags
-CC = gcc 
-CFLAGS  = -g3 -Werror -Wall -Wextra
+LIB				= ./libft/libft.a
+LIBFT_LOC		= libft
+LIBFT_LIB		= libft/libft.a
+MLX_LOC			= MLX42
+MLX_LIB			= MLX42/libmlx42.a
+MLX_FLAGS		= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+CFLAGS 			= -Wall -Wextra
+CC				= gcc
+# HEADER 			= src/cub3d.h
 
-# exe name
-NAME = fractol
+OBJECTS = $(SRCS:.c=.o)
 
-# C Files
-SRC = main.c fractals.c colors.c input.c
-# OBJect files
-OBJ = $(SRC:.c=.o)
+all: $(NAME)
 
-# Library's
-HEADERS			= -I ./include -I $(LIBMLX)/include -I $(LIBFT)
-LIBFT			= ./lib/libft
-LIBMLX			= ./lib/MLX42
-LIBS			= -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a
+$(NAME): $(OBJECTS) $(HEADER)
+	@echo "\033[0;33mCompiling..."
+	@$(MAKE) -s -C $(LIBFT_LOC)
+	@$(MAKE) -s -C $(MLX_LOC)
+	@$(CC) $(CFLAGS) $(MLX_FLAGS) $(OBJECTS) $(MLX_LIB) $(LIB) -o $(NAME)
+	@echo "\033[0m"
 
-all : libft libmlx $(NAME)
-	
-libft:
-	@$(MAKE) -s -C $(LIBFT)
-
-libmlx:
-	@$(MAKE) -s -C $(LIBMLX)
-
-$(NAME) : $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBS) -o $(NAME)
+%.o : %.c
+	@echo "\033[0;32mGenerating obj..."
+	@$(CC) $(CFLAGS) -Imlx -c -o $@ $<
+	@echo "\033[0m"
 
 clean:
-	@$(MAKE) -s -C $(LIBFT) clean
-	@$(MAKE) -s -C $(LIBMLX) clean
-	rm -f $(OBJ)
+	@echo "\033[0;31mCleaning..."
+	@$(RM) $(OBJECTS)
+	@$(MAKE) -s -C $(dir $(LIB)) clean
+	@$(MAKE) -s -C $(MLX_LOC) clean
+	@echo "\033[0m"
 
-fclean:
-	@$(MAKE) -s -C $(LIBFT) fclean
-	@$(MAKE) -s -C $(LIBMLX) fclean
-	rm -f $(NAME) $(OBJ) 
+fclean: clean
+	@echo "\033[0;31mRemoving executable..."
+	@$(RM) $(NAME)
+	@$(MAKE) -s -C $(dir $(LIB)) fclean
+	@echo "\033[0m"
 
 re: fclean all
 
-.PHONY: clean fclean all re
+.PHONY: all clean fclean re
