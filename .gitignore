@@ -1,0 +1,4 @@
+.DS_Store
+*.o
+cub3d
+*.a
