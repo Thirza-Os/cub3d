@@ -38,6 +38,24 @@ char	*ft_strjoin_free_cub3d(char const *s1, char const *s2)
 	return (str);
 }
 
+int	is_identifier(line)
+{
+	int	i;
+
+	i = 0;
+	while (ft_isspace(line[i]))
+		i++;
+	if (ft_strncmp(line, "NO", 2))
+		return (1);
+	else if (ft_strncmp(line, "SO", 2))
+		return (2)
+	else if (ft_strncmp(line, "WE", 2))
+		return (3)
+	else if (ft_strncmp(line, "ES", 2))
+		return (4)
+	return (0);
+}
+
 char	*parse_content(char *argv)
 {
 	char	**identifiers;
@@ -45,6 +63,7 @@ char	*parse_content(char *argv)
 	// char	*map_array;
 	int		i;
 	int		fd;
+	int		id;
 
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
@@ -56,10 +75,18 @@ char	*parse_content(char *argv)
 		print_error("The map is empty");
 	while (line != NULL)
 	{
-		map_array = ft_strjoin_free_cub3d(map_array, line);
-		line = NULL;
-		i++;
-		line = get_next_line(fd);
+		//handle empty lines
+		id = is_identifier(line);
+		while (id < 0)
+			{
+				//add line to identifiers
+			}
+		check_map(line);
+			//start making map
+			// map_array = ft_strjoin_free_cub3d(map_array, line);
+			// line = NULL;
+			// i++;
+		// line = get_next_line(fd);
 	}
 	free(line);
 	close(fd);
