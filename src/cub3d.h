@@ -7,4 +7,6 @@
 # include <stdio.h>
 # include <fcntl.h>
 
+void	print_error(char *message);
+
 #endif

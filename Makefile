@@ -1,6 +1,7 @@
 NAME 	= 	cub3d
 
-SRCS 	= 	src/test.c 				\
+SRCS 	= 		src/main.c 				\
+				src/utils.c
 
 LIB				= ./libft/libft.a
 LIBFT_LOC		= libft
