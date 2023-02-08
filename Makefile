@@ -3,7 +3,7 @@ NAME 	= 	cub3d
 SRCS 	= 		src/main.c 				\
 				src/utils.c				\
 				src/parse_input.c		\
-				src/parse_utils.C		\
+				src/parse_utils.c		\
 				src/get_next_line.c		\
 				src/get_next_line_utils.c 
 
@@ -15,7 +15,6 @@ MLX_LIB			= MLX42/libmlx42.a
 MLX_FLAGS		= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
 CFLAGS 			= -Wall -Wextra
 CC				= gcc
-# HEADER 			= src/cub3d.h
 
 OBJECTS = $(SRCS:.c=.o)
 

@@ -38,60 +38,92 @@ char	*ft_strjoin_free_cub3d(char const *s1, char const *s2)
 	return (str);
 }
 
-int	is_identifier(line)
+int	is_identifier(char *line, t_textures *texture)
 {
 	int	i;
 
 	i = 0;
-	while (ft_isspace(line[i]))
+	while (i < SIZE)
+	{
+		if (!ft_strncmp(line, g_labels[i], ft_strlen(g_labels[i])))
+		{
+			if (texture->elements[i] != '\0')
+			{
+				ft_free_narr(texture->elements, SIZE);
+				print_error("invalid object input");
+			}
+			texture->elements[i] = ft_strdup(line);
+			return (1);
+		}
 		i++;
-	if (ft_strncmp(line, "NO", 2))
-		return (1);
-	else if (ft_strncmp(line, "SO", 2))
-		return (2)
-	else if (ft_strncmp(line, "WE", 2))
-		return (3)
-	else if (ft_strncmp(line, "ES", 2))
-		return (4)
+	}
 	return (0);
 }
 
-char	*parse_content(char *argv)
+void	validate_identifiers(t_textures *texture)
 {
-	char	**identifiers;
-	char	*line;
-	// char	*map_array;
-	int		i;
-	int		fd;
-	int		id;
+	int	i;
+
+	i = 0;
+	while (i < SIZE)
+	{
+		if (!texture->elements[i])
+		{
+			ft_free_narr(texture->elements, SIZE);
+			print_error("invalid object input");
+		}
+		i++;
+	}
+}
+
+// leak all structs
+// handle all spaces and enters.
+void	parse_content(char *argv)
+{
+	char		*line;
+	char		*trimmed_line;
+	t_textures	texture;
+	char		*map;
+	int			fd;
+	int			id;
+	int			i;
 
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 		print_error("File opening failed.");
-	// map_array = NULL;
-	i = 0;
 	line = get_next_line(fd);
 	if (line == '\0')
 		print_error("The map is empty");
+	map = NULL;
+	i = 0;
+	ft_bzero(&texture, sizeof(t_textures));
 	while (line != NULL)
 	{
-		//handle empty lines
-		id = is_identifier(line);
-		while (id < 0)
-			{
-				//add line to identifiers
-			}
-		check_map(line);
-			//start making map
-			// map_array = ft_strjoin_free_cub3d(map_array, line);
-			// line = NULL;
-			// i++;
-		// line = get_next_line(fd);
+		trimmed_line = ft_strtrim(line, WHITESPACE);
+		id = is_identifier(trimmed_line, &texture);
+		while (id != 0)
+		{
+			free(line);
+			free(trimmed_line);
+			line = get_next_line(fd);
+			trimmed_line = ft_strtrim(line, WHITESPACE);
+			id = is_identifier(trimmed_line, &texture);
+		}
+		validate_identifiers(&texture);
+		i = 0;
+		if (ft_strchr("01NSEW", trimmed_line[i]))
+		{
+			free(trimmed_line);
+			map = ft_strjoin_free_cub3d(map, line);
+			line = NULL;
+			i++;
+			line = get_next_line(fd);
+		}
 	}
 	free(line);
 	close(fd);
-	printf("%s\n", map_array);
-	return (map_array);
+	printf("%s\n", map);
+	// return (map_array);
 }
 
 void	parse_input(int argc, char *argv[])

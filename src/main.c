@@ -1,6 +1,12 @@
 #include "cub3d.h"
 
-int	main(int argc, char *argv[])
+int main(int argc, char *argv[])
+{
+	main2(argc, argv);
+	while(1);
+}
+
+int	main2(int argc, char *argv[])
 {
 	if (argc != 2)
 		print_error("Invalid argument(s)");

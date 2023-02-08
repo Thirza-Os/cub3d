@@ -11,8 +11,33 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-void	print_error(char *message);
+# define WHITESPACE "\10\11\12\13\14\15\40"
 
+typedef enum e_tokens
+{
+	NO,
+	SO,
+	WE,
+	EA,
+	F,
+	C,
+	SIZE
+}	t_tokens;
+
+const static char	*g_labels[SIZE] = {"NO", "SO", "WE", "EA", "F", "C"};
+
+typedef struct s_textures
+{
+	char	*elements[SIZE];
+
+}	t_textures;
+
+void	print_error(char *message);
+void	*ft_malloc_check(void *s);
+
+void	parse_input(int argc, char *argv[]);
 char	*get_next_line(int fd);
+
+int		ft_isspace(char c);
 
 #endif
