@@ -26,11 +26,18 @@ typedef enum e_tokens
 
 const static char	*g_labels[SIZE] = {"NO", "SO", "WE", "EA", "F", "C"};
 
-typedef struct s_textures
+typedef struct	s_vector
 {
-	char	*elements[SIZE];
+	int	width;
+	int	height;
+}	t_vector;
 
-}	t_textures;
+typedef struct s_program
+{
+	char		*texture[5];
+	char		*colors[2];
+	t_vector	max_xy;
+}	t_program;
 
 void	print_error(char *message);
 void	*ft_malloc_check(void *s);
@@ -39,5 +46,7 @@ void	parse_input(int argc, char *argv[]);
 char	*get_next_line(int fd);
 
 int		ft_isspace(char c);
+char	**ft_free_narr(char **arr, size_t len);
+char	*ft_strjoin_free_cub3d(char const *s1, char const *s2);
 
 #endif

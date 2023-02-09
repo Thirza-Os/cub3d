@@ -11,7 +11,7 @@ void	*ft_malloc_check(void *s)
 {
 	if (s == 0)
 	{
-		printf("Error\n", 1);
+		printf("Error\n");
 		exit(1);
 	}
 	return (s);
