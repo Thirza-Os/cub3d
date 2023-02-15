@@ -1,9 +1,9 @@
-NO hh ./path_to_the_north_texture.png
+NO ./path_to_the_north_texture.png
 EA ./path_to_the_east_texture.png
 WE ./path_to_the_west_texture.png
 SO ./path_to_the_south_texture.png
-F 220,100,0
-C 225,30,
+F 220,255,69,
+C 225,    30, 1
 1111111111111111111111111
 1000000000110000000000001
 1011000001110000000000001

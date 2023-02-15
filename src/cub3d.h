@@ -26,7 +26,14 @@ typedef enum e_tokens
 
 const static char	*g_labels[SIZE] = {"NO", "SO", "WE", "EA", "F", "C"};
 
-typedef struct	s_vector
+typedef struct s_rgb
+{
+	int	*red;
+	int	*green;
+	int	*blue;
+}	t_rgb;
+
+typedef struct s_vector
 {
 	int	width;
 	int	height;
@@ -34,8 +41,9 @@ typedef struct	s_vector
 
 typedef struct s_program
 {
-	char		*texture[5];
-	char		*colors[2];
+	char		*textures[5];
+	t_rgb		floor_rgb;
+	t_rgb		ceiling_rgb;
 	t_vector	max_xy;
 }	t_program;
 
@@ -47,6 +55,9 @@ char	*get_next_line(int fd);
 
 int		ft_isspace(char c);
 char	**ft_free_narr(char **arr, size_t len);
-char	*ft_strjoin_free_cub3d(char const *s1, char const *s2);
+char	*ft_strjoin_cub3d(char const *s1, char const *s2);
+int		check_cub(char *arg);
+int		check_png(char *arg);
+int		ft_atorgb(const char *str);
 
 #endif

@@ -1,10 +1,5 @@
 #include "cub3d.h"
 
-// int main(int argc, char *argv[])
-// {
-// 	main2(argc, argv);
-// 	while(1);
-// }
 
 int	main(int argc, char *argv[])
 {
@@ -14,3 +9,9 @@ int	main(int argc, char *argv[])
 	// draw_game()
 	return (0);
 }
+
+// int main(int argc, char *argv[])
+// {
+// 	main2(argc, argv);
+// 	while(1);
+// }

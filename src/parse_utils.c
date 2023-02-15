@@ -20,7 +20,7 @@ char	**ft_free_narr(char **arr, size_t len)
 	return (0);
 }
 
-char	*ft_strjoin_free_cub3d(char const *s1, char const *s2)
+char	*ft_strjoin_cub3d(char const *s1, char const *s2)
 {
 	char	*str;
 	size_t	a;
@@ -44,7 +44,6 @@ char	*ft_strjoin_free_cub3d(char const *s1, char const *s2)
 	}
 	str[a] = '\0';
 	free((char *)s1);
-	free((char *)s2);
 	return (str);
 }
 
@@ -64,6 +63,23 @@ int	check_png(char *arg)
 
 	len = ft_strlen(arg);
 	if (len == 0 || ft_strncmp(&arg[len - 4], ".png", 4) != 0)
-		print_error("Not a .png file!");
-	return (0);
+		return (0);
+	return (1);
+}
+
+int	ft_atorgb(const char *str)
+{
+	long	i;
+
+	i = 0;
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (-1);
+		i = (i * 10 + *str - '0');
+		str++;
+	}
+	if (i > 255)
+		return (-1);
+	return (i);
 }
