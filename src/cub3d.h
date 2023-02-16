@@ -47,17 +47,26 @@ typedef struct s_program
 	t_vector	max_xy;
 }	t_program;
 
-void	print_error(char *message);
-void	*ft_malloc_check(void *s);
 
 void	parse_input(int argc, char *argv[]);
 char	*get_next_line(int fd);
 
-int		ft_isspace(char c);
-char	**ft_free_narr(char **arr, size_t len);
-char	*ft_strjoin_cub3d(char const *s1, char const *s2);
-int		check_cub(char *arg);
-int		check_png(char *arg);
-int		ft_atorgb(const char *str);
+// utils
+void	print_error(char *message);
+void	*ft_malloc_check(void *s);
+
+// parser
+void	parse_input(int argc, char *argv[]);
+
+// tokenizer
+char	**tokenize_input(char *argv);
+
+// parse input
+void	parse_file(char	**elements);
+
+//parse utils
+int	ft_atorgb(const char *str);
+int	check_png(char *arg);
+int	check_cub(char *arg);
 
 #endif

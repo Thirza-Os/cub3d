@@ -2,6 +2,8 @@ NAME 	= 	cub3d
 
 SRCS 	= 		src/main.c 				\
 				src/utils.c				\
+				src/parser.c			\
+				src/tokenize_input.c	\
 				src/parse_input.c		\
 				src/parse_utils.c		\
 				src/get_next_line.c		\
