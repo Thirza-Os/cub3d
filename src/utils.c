@@ -16,4 +16,3 @@ void	*ft_malloc_check(void *s)
 	}
 	return (s);
 }
-

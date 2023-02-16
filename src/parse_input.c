@@ -1,18 +1,16 @@
 #include "cub3d.h"
 
-// extra ,, in rgb
-// handle empty lines !!
-
-void	check_paths(char **elements)
+void	validate_structure_paths(char **elements, t_program *program)
 {
 	int	i;
 
 	i = 0;
-
 	while (i < 4)
 	{
 		if (!check_png(elements[i]) || (ft_strncmp("./", elements[i], 2) != 0))
 			print_error("Incorrect filepath input!");
+		program->textures[i] = ft_strdup(elements[i]);
+		free (elements[i]);
 		i++;
 	}
 }
@@ -33,7 +31,7 @@ void	convert_digits(char **input, int *colors)
 	}
 }
 
-void	validate_rgb(char *input, int *colors)
+void	convert_rgb(char *input, int *colors)
 {
 	char	**split_elements;
 	char	*temp;
@@ -58,30 +56,72 @@ void	validate_rgb(char *input, int *colors)
 	free(input);
 }
 
-void	check_colors(char **elements)
+void	validate_rgb_input(char **elements, t_program *program)
 {
-	int	*f_colors;
-	int	*c_colors;
-
-	f_colors = (int *)malloc(sizeof (int));  //1 (16 bytes) ROOT LEAK: 0x7f9946e0dac0 [16]
-	c_colors = (int *)malloc(sizeof (int)); // 1 (16 bytes) ROOT LEAK: 0x7f9946e0dac0 [16]
-	validate_rgb(elements[F], f_colors);
-	validate_rgb(elements[C], c_colors);
+	program->floor_rgb = (int *)malloc(sizeof (int));  //1 (16 bytes) ROOT LEAK: 0x7f9946e0dac0 [16]
+	program->ceiling_rgb = (int *)malloc(sizeof (int)); // 1 (16 bytes) ROOT LEAK: 0x7f9946e0dac0 [16]
+	convert_rgb(elements[F], program->floor_rgb);
+	convert_rgb(elements[C], program->ceiling_rgb);
 }
 
-void	check_map(char *map)
+void	fill_gaps(char *map)
 {
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		if (map[i] == ' ')
+			map[i] = '1';
+		i++;
+	}
 	printf("%s\n", map);
 }
 
-void	check_format(char **elements)
+int	check_characters(char *map)
 {
-	check_paths(elements);
-	check_colors(elements);
-	check_map(elements[SIZE]);
+	int		i;
+	char	flag_player;
+
+	i = 0;
+	flag_player = '\0';
+	while (map[i])
+	{
+		if ((ft_strchr(PLAYER_POS, map[i]) != NULL) && flag_player == '\0')
+		{
+			flag_player = map[i];
+			i++;
+		}
+		if (ft_strchr(VALID_MAP_CHARS, map[i]) != NULL)
+			i++;
+		else
+			print_error("Invalid map: wrong character input");
+	}
+	i = 0;
+	while (g_positions[i])
+	{
+		if (*g_positions[i] == flag_player)
+			break ;
+		i++;
+	}
+	return (i);
 }
 
-void	validate_identifiers(char **elements)
+void	check_surrounded_walls(char *map)
+{
+	
+}
+
+void	validate_map(char *map, t_program *program)
+{
+	int		spawning_pos;
+
+	program->spawning_pos = check_characters(map);
+	check_surrounded_walls(map);
+	// fill_gaps(map);
+}
+
+void	validate_nr_of_identifiers(char **elements)
 {
 	int	i;
 
@@ -92,12 +132,18 @@ void	validate_identifiers(char **elements)
 			print_error("Missing object input");
 		i++;
 	}
-	check_format(elements);
 }
 
-void	parse_file(char	**elements)
+void	parse_input(char **elements)
 {
-	validate_identifiers(elements);
+	int			i;
+	t_program	program;
+
+	i = 0;
+	validate_nr_of_identifiers(elements);
+	validate_structure_paths(elements, &program);
+	validate_rgb_input(elements, &program);
+	validate_map(elements[SIZE], &program);
 		// parse_textures(elements);
 }
 

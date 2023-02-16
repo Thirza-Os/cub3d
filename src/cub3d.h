@@ -13,6 +13,18 @@
 
 # define WHITESPACE "\10\11\12\13\14\15\40"
 
+# define VALID_MAP_CHARS "10\n "
+
+# define PLAYER_POS "NSEW"
+
+typedef enum e_player_pos
+{
+	N,
+	S,
+	W,
+	E,
+}	t_players_pos;
+
 typedef enum e_tokens
 {
 	NO,
@@ -24,49 +36,44 @@ typedef enum e_tokens
 	SIZE
 }	t_tokens;
 
-const static char	*g_labels[SIZE] = {"NO", "SO", "WE", "EA", "F", "C"};
+const static char	*g_positions[4] = {"N", "S", "W", "E"};
 
-typedef struct s_rgb
-{
-	int	*red;
-	int	*green;
-	int	*blue;
-}	t_rgb;
+const static char	*g_labels[SIZE] = {"NO", "SO", "WE", "EA", "F", "C"};
 
 typedef struct s_vector
 {
-	int	width;
-	int	height;
+	int	x;
+	int	y;
 }	t_vector;
 
 typedef struct s_program
 {
 	char		*textures[5];
-	t_rgb		floor_rgb;
-	t_rgb		ceiling_rgb;
+	int			*floor_rgb;
+	int			*ceiling_rgb;
+	char		*map;
 	t_vector	max_xy;
+	t_vector	start_pos;
+	int			spawning_pos;
 }	t_program;
-
-
-void	parse_input(int argc, char *argv[]);
-char	*get_next_line(int fd);
 
 // utils
 void	print_error(char *message);
 void	*ft_malloc_check(void *s);
 
 // parser
-void	parse_input(int argc, char *argv[]);
+void	parser(int argc, char *argv[]);
 
-// tokenizer
+// tokenize input
 char	**tokenize_input(char *argv);
+char	*get_next_line(int fd);
 
 // parse input
-void	parse_file(char	**elements);
+void	parse_input(char	**elements);
 
 //parse utils
-int	ft_atorgb(const char *str);
-int	check_png(char *arg);
-int	check_cub(char *arg);
+int		ft_atorgb(const char *str);
+int		check_png(char *arg);
+int		check_cub(char *arg);
 
 #endif
