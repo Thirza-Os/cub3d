@@ -64,19 +64,19 @@ void	validate_rgb_input(char **elements, t_program *program)
 	convert_rgb(elements[C], program->ceiling_rgb);
 }
 
-void	fill_gaps(char *map)
-{
-	int	i;
+// void	fill_gaps(char *map)
+// {
+// 	int	i;
 
-	i = 0;
-	while (map[i])
-	{
-		if (map[i] == ' ')
-			map[i] = '1';
-		i++;
-	}
-	printf("%s\n", map);
-}
+// 	i = 0;
+// 	while (map[i])
+// 	{
+// 		if (map[i] == ' ')
+// 			map[i] = '1';
+// 		i++;
+// 	}
+// 	printf("%s\n", map);
+// }
 
 int	check_characters(char *map)
 {
@@ -109,7 +109,7 @@ int	check_characters(char *map)
 
 void	check_surrounded_walls(char *map)
 {
-	
+	// check if the outer xy are walls
 }
 
 void	validate_map(char *map, t_program *program)
@@ -118,7 +118,6 @@ void	validate_map(char *map, t_program *program)
 
 	program->spawning_pos = check_characters(map);
 	check_surrounded_walls(map);
-	// fill_gaps(map);
 }
 
 void	validate_nr_of_identifiers(char **elements)
