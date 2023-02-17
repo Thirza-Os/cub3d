@@ -1,5 +1,8 @@
 #include "cub3d.h"
 
+// fix: one trailing enter!!!
+//, ,,, in rgb ??
+
 static char	*ft_strjoin_cub3d(char const *s1, char const *s2)
 {
 	char	*str;
@@ -75,7 +78,7 @@ static void	get_elements(int fd, char **elements)
 			if (trimmed_line[0] == '1')
 				elements[SIZE] = ft_strjoin_cub3d(elements[SIZE], line);
 			else
-				print_error("Invalid input");
+				print_error("Invalid input: Invalid map");
 		}
 		free(trimmed_line);
 		free(line);

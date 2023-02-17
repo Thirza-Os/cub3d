@@ -1,5 +1,7 @@
 #include "cub3d.h"
 
+// map bigger than int max??
+
 void	validate_structure_paths(char **elements, t_program *program)
 {
 	int	i;
@@ -97,6 +99,8 @@ int	check_characters(char *map)
 		else
 			print_error("Invalid map: wrong character input");
 	}
+	if (!flag_player)
+		print_error("Invalid map: No player input");
 	i = 0;
 	while (g_positions[i])
 	{
@@ -107,17 +111,77 @@ int	check_characters(char *map)
 	return (i);
 }
 
-void	check_surrounded_walls(char *map)
+void	find_max_xy(char *map, t_program *program)
 {
-	// check if the outer xy are walls
+	int	counter;
+	int	max_y;
+	int max_x;
+	int	max_x_counter;
+
+	max_y = 1;
+	max_x = 0;
+	max_x_counter = 0;
+	counter = 0;
+	while (map[counter])
+	{
+		if (map[counter] != '\n')
+			max_x_counter++;
+		if (map[counter] == '\n')
+		{
+			max_y++;
+			if (max_x_counter > max_x)
+				max_x = max_x_counter;
+			max_x_counter = 0;
+		}
+		counter++;
+	}
+	if (max_x_counter > max_x)
+		max_x = max_x_counter;
+	if (max_y < 3)
+		print_error("Invalid map: Map not big enough");
+	program->max_xy.y = max_y;
+	program->max_xy.x = max_x;
+}
+// map: surrounded by walls!!
+// player: surrounded by 1/0??
+
+
+// if ANY of surrounding 8 are whitespace/not 0/N/E/W/S = it must be a 1
+
+void	check_surrounded_walls(char *map, t_program *program)
+{
+	int	num_elements;
+	int	x;
+	int y;
+	int left;
+	int right;
+	int bottom;
+	int top;
+
+	num_elements = program->max_xy.x * program->max_xy.y;
+
+	while (i < num_elements)
+	{
+		x = i % program->max_xy.x;
+		y = i % program->max_xy.x;
+
+		// Left (what if it does not exist: seg?)
+		if (x > 0)
+		{
+			left = i - 1;
+			if (map[left] != ' ' && left >=0)
+				if (map [i])
+		}
+	}
 }
 
 void	validate_map(char *map, t_program *program)
 {
-	int		spawning_pos;
-
 	program->spawning_pos = check_characters(map);
-	check_surrounded_walls(map);
+	find_max_xy(map, program);
+	printf("%i\n", program->max_xy.x);
+	printf("%i\n", program->max_xy.y);
+	check_surrounded_walls(map, program);
 }
 
 void	validate_nr_of_identifiers(char **elements)
