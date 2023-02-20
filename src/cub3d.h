@@ -49,9 +49,9 @@ typedef struct s_vector
 typedef struct s_program
 {
 	char		*textures[5];
-	int			*floor_rgb;
-	int			*ceiling_rgb;
-	char		*map;
+	int			floor_rgb[3];
+	int			ceiling_rgb[3];
+	char		**map;
 	t_vector	max_xy;
 	t_vector	start_pos;
 	int			spawning_pos;

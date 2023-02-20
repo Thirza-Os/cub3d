@@ -78,7 +78,7 @@ static void	get_elements(int fd, char **elements)
 			if (trimmed_line[0] == '1')
 				elements[SIZE] = ft_strjoin_cub3d(elements[SIZE], line);
 			else
-				print_error("Invalid input: Invalid map");
+				print_error("Invalid input: Invalid map"); // pre check for the left trimmed lines in the map (has to be 1)
 		}
 		free(trimmed_line);
 		free(line);

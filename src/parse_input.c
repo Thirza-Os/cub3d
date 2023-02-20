@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-// map bigger than int max??
+// handles one enter
 
 void	validate_structure_paths(char **elements, t_program *program)
 {
@@ -60,25 +60,9 @@ void	convert_rgb(char *input, int *colors)
 
 void	validate_rgb_input(char **elements, t_program *program)
 {
-	program->floor_rgb = (int *)malloc(sizeof (int));  //1 (16 bytes) ROOT LEAK: 0x7f9946e0dac0 [16]
-	program->ceiling_rgb = (int *)malloc(sizeof (int)); // 1 (16 bytes) ROOT LEAK: 0x7f9946e0dac0 [16]
 	convert_rgb(elements[F], program->floor_rgb);
 	convert_rgb(elements[C], program->ceiling_rgb);
 }
-
-// void	fill_gaps(char *map)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (map[i])
-// 	{
-// 		if (map[i] == ' ')
-// 			map[i] = '1';
-// 		i++;
-// 	}
-// 	printf("%s\n", map);
-// }
 
 int	check_characters(char *map)
 {
@@ -115,7 +99,7 @@ void	find_max_xy(char *map, t_program *program)
 {
 	int	counter;
 	int	max_y;
-	int max_x;
+	int	max_x;
 	int	max_x_counter;
 
 	max_y = 1;
@@ -145,43 +129,70 @@ void	find_max_xy(char *map, t_program *program)
 // map: surrounded by walls!!
 // player: surrounded by 1/0??
 
-
 // if ANY of surrounding 8 are whitespace/not 0/N/E/W/S = it must be a 1
 
-void	check_surrounded_walls(char *map, t_program *program)
+void	check_surrounded_walls(t_program *program)
 {
-	int	num_elements;
-	int	x;
-	int y;
-	int left;
-	int right;
-	int bottom;
-	int top;
+	int nrows = program->max_xy.y;  // Number of rows in the array
+	int ncols = program->max_xy.x;  // Number of columns in the array
+	// Populate the array with values
 
-	num_elements = program->max_xy.x * program->max_xy.y;
-
-	while (i < num_elements)
-	{
-		x = i % program->max_xy.x;
-		y = i % program->max_xy.x;
-
-		// Left (what if it does not exist: seg?)
-		if (x > 0)
-		{
-			left = i - 1;
-			if (map[left] != ' ' && left >=0)
-				if (map [i])
+	int i = 0, j = 0;
+	while (i < nrows) {
+		j = 0;
+		while (j < ncols) {
+			// Check only cells with 'N' or '0'
+			if (program->map[i][j] == 'N' || program->map[i][j] == '0') {
+				int di = -1;
+				while (di <= 1) {
+					int dj = -1;
+					while (dj <= 1) {
+						int ni = i + di;
+						int nj = j + dj;
+						// Check if the surrounding point is out of bounds or empty
+						if (ni < 0 || ni >= nrows || nj < 0 || nj >= ncols || program->map[ni][nj] == ' ') 
+						{
+							print_error("Map is not surrounded");
+						}
+						dj++;
+					}
+					di++;
+				}
+			}
+			j++;
 		}
+		i++;
 	}
+}
+
+void	fill_map(char *map, t_program *program)
+{
+	char	**temp_map;
+	char	**dst_map;
+	int		y_counter;
+
+	y_counter = 0;
+	temp_map = ft_split(map, '\n');
+	dst_map = ft_calloc(program->max_xy.y, sizeof(char *));
+	while (y_counter < program->max_xy.y)
+	{
+		dst_map[y_counter] = ft_calloc(program->max_xy.x + 1, sizeof(char));
+		ft_memset(dst_map[y_counter], ' ', program->max_xy.x);
+		ft_memcpy(dst_map[y_counter], temp_map[y_counter], \
+			ft_strlen(temp_map[y_counter]));
+		y_counter++;
+	}
+	ft_free(temp_map);
+	free(map);
+	program->map = dst_map;
 }
 
 void	validate_map(char *map, t_program *program)
 {
 	program->spawning_pos = check_characters(map);
 	find_max_xy(map, program);
-	printf("%i\n", program->max_xy.x);
-	printf("%i\n", program->max_xy.y);
-	check_surrounded_walls(map, program);
+	fill_map(map, program);
+	check_surrounded_walls(program);
 }
 
 void	validate_nr_of_identifiers(char **elements)
