@@ -5,7 +5,7 @@ int	main(int argc, char *argv[])
 {
 	if (argc != 2)
 		print_error("Invalid argument(s)");
-	parser(argc, argv);
+	parser(argv);
 	// draw_game()
 	return (0);
 }

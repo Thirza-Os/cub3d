@@ -1,12 +1,13 @@
 NAME 	= 	cub3d
 
-SRCS 	= 		src/main.c 				\
-				src/utils.c				\
-				src/parser.c			\
-				src/tokenize_input.c	\
-				src/parse_input.c		\
-				src/parse_utils.c		\
-				src/get_next_line.c		\
+SRCS 	= 		src/main.c 					\
+				src/utils.c					\
+				src/parser.c				\
+				src/tokenize_input.c		\
+				src/validate_identifiers.c	\
+				src/validate_map.c			\
+				src/parse_utils.c			\
+				src/get_next_line.c			\
 				src/get_next_line_utils.c 
 
 LIB				= ./libft/libft.a

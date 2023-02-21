@@ -62,14 +62,21 @@ void	print_error(char *message);
 void	*ft_malloc_check(void *s);
 
 // parser
-void	parser(int argc, char *argv[]);
+void	parser(char *argv[]);
+void	validate_nr_of_identifiers(char **elements);
+void	validate_map(char *map, t_program *program);
+void	fill_map(char *map, t_program *program);
+void	check_surrounded_walls(t_program *program);
+void	find_max_xy(char *map, t_program *program);
+int		check_characters(char *map);
+void	validate_rgb_input(char **elements, t_program *program);
+void	convert_rgb(char *input, int *colors);
+void	convert_digits(char **input, int *colors);
+void	validate_structure_paths(char **elements, t_program *program);
 
 // tokenize input
 char	**tokenize_input(char *argv);
 char	*get_next_line(int fd);
-
-// parse input
-void	parse_input(char	**elements);
 
 //parse utils
 int		ft_atorgb(const char *str);

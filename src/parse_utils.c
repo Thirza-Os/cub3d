@@ -16,7 +16,7 @@ int	check_png(char *arg)
 
 	len = ft_strlen(arg);
 	if (len == 0 || ft_strncmp(&arg[len - 4], ".png", 4) != 0)
-		return (0);
+		print_error("Not a .png file!");
 	return (1);
 }
 
