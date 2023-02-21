@@ -62,45 +62,6 @@ void	find_max_xy(char *map, t_program *program)
 	program->max_xy.y = max_y;
 	program->max_xy.x = max_x;
 }
-// player & 0: can not be surrounded by any blank spaces
-// Check only cells with 'N' or '0'
-// Check if the surrounding point is out of bounds or empty
-void	check_surrounded_walls(t_program *program)
-{
-	int	y_counter;
-	int	x_counter;
-
-	y_counter = 0;
-	x_counter = 0;
-	while (y_counter < program->max_xy.y)
-	{
-		x_counter = 0;
-		while (x_counter < program->max_xy.x)
-		{
-			if (ft_strchr(PLAYER_POS, program->map[y_counter][x_counter]) != NULL || program->map[y_counter][x_counter] == '0') 
-			{
-				int di = -1;
-				while (di <= 1) 
-				{
-					int dj = -1;
-					while (dj <= 1) 
-					{
-						int ni = y_counter + di;
-						int nj = x_counter + dj;
-						if (ni < 0 || ni >= program->max_xy.y || nj < 0 || nj >= program->max_xy.x || program->map[ni][nj] == ' ') 
-						{
-							print_error("Map is not surrounded");
-						}
-						dj++;
-					}
-					di++;
-				}
-			}
-			x_counter++;
-		}
-		y_counter++;
-	}
-}
 
 void	fill_map(char *map, t_program *program)
 {
