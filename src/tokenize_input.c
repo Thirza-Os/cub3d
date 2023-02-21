@@ -1,8 +1,5 @@
 #include "cub3d.h"
 
-// fix: one trailing enter!!!
-//, ,,, in rgb ??
-
 static char	*ft_strjoin_cub3d(char const *s1, char const *s2)
 {
 	char	*str;
@@ -30,6 +27,8 @@ static char	*ft_strjoin_cub3d(char const *s1, char const *s2)
 	return (str);
 }
 
+// Place the identifiers in the right order for parsing.
+// Pre check for double elements.
 static int	is_identifier(char *trimmed_line, char **elements)
 {
 	int		i;
@@ -58,6 +57,11 @@ static int	is_identifier(char *trimmed_line, char **elements)
 	return (0);
 }
 
+// Get input line by line.
+// Check if the line contains identifier or map input.
+// Handle as such:
+// Use the trimmed line for elements, untrimmed line for the map.
+// Pre check for the left trimmed lines in the map (has to be 1).
 static void	get_elements(int fd, char **elements)
 {
 	char		*line;
@@ -78,13 +82,14 @@ static void	get_elements(int fd, char **elements)
 			if (trimmed_line[0] == '1')
 				elements[SIZE] = ft_strjoin_cub3d(elements[SIZE], line);
 			else
-				print_error("Invalid input: Invalid map"); // pre check for the left trimmed lines in the map (has to be 1)
+				print_error("Invalid input: Invalid map");
 		}
 		free(trimmed_line);
 		free(line);
 	}
 }
 
+// allocate space for the elements & fill the char pointer with tokenized input.
 char	**tokenize_input(char *argv)
 {
 	int			fd;

@@ -126,31 +126,32 @@ void	find_max_xy(char *map, t_program *program)
 	program->max_xy.y = max_y;
 	program->max_xy.x = max_x;
 }
-// map: surrounded by walls!!
-// player: surrounded by 1/0??
-
-// if ANY of surrounding 8 are whitespace/not 0/N/E/W/S = it must be a 1
-
+// player & 0: can not be surrounded by any blank spaces
+// Check only cells with 'N' or '0'
+// Check if the surrounding point is out of bounds or empty
 void	check_surrounded_walls(t_program *program)
 {
-	int nrows = program->max_xy.y;  // Number of rows in the array
-	int ncols = program->max_xy.x;  // Number of columns in the array
-	// Populate the array with values
+	int	y_counter;
+	int	x_counter;
 
-	int i = 0, j = 0;
-	while (i < nrows) {
-		j = 0;
-		while (j < ncols) {
-			// Check only cells with 'N' or '0'
-			if (program->map[i][j] == 'N' || program->map[i][j] == '0') {
+	y_counter = 0;
+	x_counter = 0;
+	while (y_counter < program->max_xy.y)
+	{
+		x_counter = 0;
+		while (x_counter < program->max_xy.x)
+		{
+			if (ft_strchr(PLAYER_POS, program->map[y_counter][x_counter]) != NULL || program->map[y_counter][x_counter] == '0') 
+			{
 				int di = -1;
-				while (di <= 1) {
+				while (di <= 1) 
+				{
 					int dj = -1;
-					while (dj <= 1) {
-						int ni = i + di;
-						int nj = j + dj;
-						// Check if the surrounding point is out of bounds or empty
-						if (ni < 0 || ni >= nrows || nj < 0 || nj >= ncols || program->map[ni][nj] == ' ') 
+					while (dj <= 1) 
+					{
+						int ni = y_counter + di;
+						int nj = x_counter + dj;
+						if (ni < 0 || ni >= program->max_xy.y || nj < 0 || nj >= program->max_xy.x || program->map[ni][nj] == ' ') 
 						{
 							print_error("Map is not surrounded");
 						}
@@ -159,9 +160,9 @@ void	check_surrounded_walls(t_program *program)
 					di++;
 				}
 			}
-			j++;
+			x_counter++;
 		}
-		i++;
+		y_counter++;
 	}
 }
 
@@ -218,6 +219,5 @@ void	parse_input(char **elements)
 	validate_structure_paths(elements, &program);
 	validate_rgb_input(elements, &program);
 	validate_map(elements[SIZE], &program);
-		// parse_textures(elements);
 }
 
