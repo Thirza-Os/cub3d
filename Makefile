@@ -9,7 +9,8 @@ SRCS 	= 		src/main.c 						\
 				src/validate_map_surrounded.c	\
 				src/parse_utils.c				\
 				src/get_next_line.c				\
-				src/get_next_line_utils.c 
+				src/get_next_line_utils.c 		\
+				src/mlx_processing.c
 
 LIB				= ./libft/libft.a
 LIBFT_LOC		= libft

@@ -48,31 +48,35 @@ typedef struct s_vector
 
 typedef struct s_program
 {
-	char		*textures[5];
-	int			floor_rgb[3];
-	int			ceiling_rgb[3];
-	char		**map;
-	t_vector	max_xy;
-	t_vector	start_pos;
-	int			spawning_pos;
+	char			*textures[5];
+	mlx_texture_t	*mlx_textures[4];
+	int				floor_rgb[3];
+	int				ceiling_rgb[3];
+	char			**map;
+	t_vector		max_xy;
+	t_vector		start_pos;
+	int				spawning_pos;
 }	t_program;
 
 // utils
-void	print_error(char *message);
-void	*ft_malloc_check(void *s);
+void		print_error(char *message);
+void		*ft_malloc_check(void *s);
 
 // parser
-void	parser(char *argv[]);
-char	**tokenize_input(char *argv);
-char	*get_next_line(int fd);
-void	validate_nr_of_identifiers(char **elements);
-void	validate_rgb_input(char **elements, t_program *program);
-void	validate_structure_paths(char **elements, t_program *program);
-void	validate_map(char *map, t_program *program);
-void	check_surrounded_walls(t_program *program);
+void		parser(char *argv[]);
+char		**tokenize_input(char *argv);
+char		*get_next_line(int fd);
+void		validate_nr_of_identifiers(char **elements);
+void		validate_rgb_input(char **elements, t_program *program);
+void		validate_structure_paths(char **elements, t_program *program);
+void		validate_map(char *map, t_program *program);
+void		check_surrounded_walls(t_program *program);
 //parse utils
-int		ft_atorgb(const char *str);
-int		check_png(char *arg);
-int		check_cub(char *arg);
+int			ft_atorgb(const char *str);
+int			check_png(char *arg);
+int			check_cub(char *arg);
+// mlx_processing
+void		extract_mlx_pixels(t_program program);
+uint32_t	get_pixel(double x, double y, mlx_texture_t *texture);
 
 #endif
