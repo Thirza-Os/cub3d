@@ -76,7 +76,7 @@ int			ft_atorgb(const char *str);
 int			check_png(char *arg);
 int			check_cub(char *arg);
 // mlx_processing
-void		extract_mlx_pixels(t_program program);
+void		extract_mlx_pixels(t_program *program);
 uint32_t	get_pixel(double x, double y, mlx_texture_t *texture);
 
 #endif
