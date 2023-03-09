@@ -17,21 +17,21 @@ int get_rgba(int r, int g, int b, int a)
     return (r << 24 | g << 16 | b << 8 | a);
 }
 
-// get scaled x and y -> between 0 and 1.
-// mask last 8 bytes.
-// NOT WORKING
 uint32_t	get_pixel(double x, double y, mlx_texture_t *texture)
 {
-	// printf("texture %p\n", texture);
 
-	// printf("x %f, y %f\n", x, y);
-	uint32_t ret;
+	uint32_t res;
+	uint8_t *image_pos;
 
-	const uint32_t	scaled_x = (x * (double)texture->width);
-	const uint32_t	scaled_y = (y * (double)texture->height);
+	const uint32_t	scaled_x = (x * ((double)texture->width));
+	const uint32_t	scaled_y = (y * ((double)texture->height));
 
-	// printf("x = %u, y = %u\n", scaled_x, scaled_y);
-	ret = texture->pixels[scaled_y * texture->width + scaled_x];
-	// printf("%x\n", ((uint32_t *)texture->pixels)[scaled_y * texture->width + scaled_x]);
-	return (((uint32_t *)texture->pixels)[scaled_y * texture->width + scaled_x]&0x111111FF);
+	image_pos = &texture->pixels[(scaled_y * texture->width + scaled_x) * texture->bytes_per_pixel];
+
+	((uint8_t *)(&res))[0] = image_pos[3];
+	((uint8_t *)(&res))[1] = image_pos[2];
+	((uint8_t *)(&res))[2] = image_pos[1];
+	((uint8_t *)(&res))[3] = image_pos[0];
+
+	return (res);
 }
