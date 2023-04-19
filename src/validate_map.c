@@ -85,10 +85,37 @@ void	fill_map(char *map, t_program *program)
 	program->map = dst_map;
 }
 
+void	fill_player(t_program *program)
+{
+	int	count_x;
+	int	count_y;
+
+	count_x = 0;
+	count_y = 0;
+
+	while (count_y < program->max_xy.y)
+	{
+		while (count_x < program->max_xy.x)
+		{
+			if (ft_strchr(PLAYER_POS, program->map[count_y][count_x]) != NULL)
+			{
+				program->start_pos.x = count_x;
+				program->start_pos.y = count_y;
+				return ;
+			}
+			count_x++;
+		}
+	count_x = 0;
+	count_y++;
+	}
+}
+
 void	validate_map(char *map, t_program *program)
 {
 	program->spawning_pos = check_characters(map);
 	find_max_xy(map, program);
 	fill_map(map, program);
+	fill_player(program);
+	printf("x: %i\n y: %i", program->start_pos.x, program->start_pos.y);
 	check_surrounded_walls(program);
 }

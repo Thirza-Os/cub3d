@@ -11,6 +11,12 @@ void	parser(char *argv[])
 	validate_structure_paths(elements, &program);
 	validate_rgb_input(elements, &program);
 	validate_map(elements[SIZE], &program);
+
+
+
+	// UNCOMMENT FOR PIXEL PUT TESTING
+
+
 	// extract_mlx_pixels(&program);
 
 
