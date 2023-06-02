@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "unistd.h": "c",
+        "__locale": "c",
+        "cctype": "c",
+        "locale": "c",
+        "fcntl.h": "c",
+        "limits": "c"
+    }
+}
