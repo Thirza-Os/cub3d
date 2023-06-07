@@ -6,7 +6,7 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/28 14:19:32 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/05/24 12:52:34 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/06/02 13:36:18 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	walls(t_cub3d *eng)
 	eng->dis_t = eng->dis_t * cos(eng->ca);
 	if (eng->dis_t < 1)
 		eng->dis_t = 1;
-	//eng->line_h = (int)(HEIGHT / eng->dis_t);
 	eng->line_h = (eng->map_s * (eng->map_y * 64)) / eng->dis_t;
 	if (eng->line_h > (eng->map_y * 64))
 		eng->line_h = (eng->map_y * 64);
@@ -92,7 +91,7 @@ void	draw_rays(t_cub3d *eng)
 	if (eng->ra > 2 * PI)
 		eng->ra -= 2 * PI;
 	eng->r = 0;
-	while (eng->r < 576)
+	while (eng->r < WIDTH)
 	{
 		calc_angle_hori(eng);
 		shoot_ray_hori(eng);

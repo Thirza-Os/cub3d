@@ -55,7 +55,7 @@ typedef struct s_program
 	char			**map;
 	t_vector		max_xy;
 	t_vector		start_pos;
-	int				spawning_pos;
+	t_players_pos	spawning_pos;
 }	t_program;
 
 // utils

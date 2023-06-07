@@ -54,7 +54,7 @@ void	create_player(t_cub3d *eng)
 		j = -3;
 		while (j < 3)
 		{
-			mlx_put_pixel(eng->g_img_p, (eng->player_x / 8)+ i, \
+			mlx_put_pixel(eng->g_img_p, (eng->player_x / 8) + i, \
 			(eng->player_y / 8) + j, 0x005099FF);
 			j++;
 		}
@@ -62,32 +62,48 @@ void	create_player(t_cub3d *eng)
 	}
 }
 
-void	drawgame(t_program *program)
-{
-	t_cub3d	eng;
+void	copy_map_determine_spawn(t_program *program, t_cub3d *eng)
+{	
+	int		y;
+	int		x;
+	int		i;
 
-	eng.map = malloc(sizeof(char *) * program->max_xy.y * program->max_xy.x);
-	int y = 0;
-	int i = 0;
+	i = 0;
+	y = 0;
 	while (y < program->max_xy.y)
 	{
-		int x = 0;
+		x = 0;
 		while (x < program->max_xy.x)
 		{
-			eng.map[i] = program->map[y][x];
+			eng->map[i] = program->map[y][x];
 			x++;
 			i++;
 		}
 		y++;
 	}
+	if (program->spawning_pos == N)
+		eng->player_a = (PI + PI / 2);
+	if (program->spawning_pos == S)
+		eng->player_a = (PI / 2);
+	if (program->spawning_pos == E)
+		eng->player_a = (PI * 2);
+	if (program->spawning_pos == W)
+		eng->player_a = (PI);
+}
+
+void	drawgame(t_program *program)
+{
+	t_cub3d	eng;
+
 	eng.program = program;
 	eng.color = 0;
-	eng.player_a = PI;
+	eng.map = malloc(sizeof(char *) * program->max_xy.y * program->max_xy.x);
+	copy_map_determine_spawn(program, &eng);
+	eng.player_x = program->start_pos.x * 64;
+	eng.player_y = program->start_pos.y * 64;
 	eng.pdx = cos(eng.player_a) * 5;
 	eng.pdy = sin(eng.player_a) * 5;
 	extract_mlx_pixels(eng.program);
-	eng.player_x = program->start_pos.x * 64;
-	eng.player_y = program->start_pos.y * 64;
 	eng.mlx_p = mlx_init(WIDTH, HEIGHT, "Cub3d", true);
 	eng.g_img_p = mlx_new_image(eng.mlx_p, WIDTH, HEIGHT);
 	mlx_image_to_window(eng.mlx_p, eng.g_img_p, 0, 0);
@@ -96,4 +112,5 @@ void	drawgame(t_program *program)
 	create_player(&eng);
 	draw_rays(&eng);
 	mlx_loop(eng.mlx_p);
+	free (eng.map);
 }
