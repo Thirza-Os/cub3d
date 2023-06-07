@@ -6,15 +6,17 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/28 14:22:02 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/06/06 15:10:39 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/06/07 13:05:42 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../engine.h"
 
-
-void	init_drawline(t_drawline *vars, int *cords)
+void	init_drawline(t_drawline *vars, int *cords, t_cub3d *eng)
 {
+	vars->ty = 0;
+	vars->tx = (int)(eng->rx / 2.0) % eng->active_texture->width;
+	vars->ty_step = eng->active_texture->height / (double)eng->line_h;
 	vars->x0 = cords[0];
 	vars->y0 = cords[1];
 	vars->x1 = cords[2];
@@ -35,18 +37,12 @@ void	init_drawline(t_drawline *vars, int *cords)
 void	draw_line_3d(t_cub3d *eng, int *cords)
 {
 	t_drawline	vars;
-	double		ty;
-	double		tx;
-	double		ty_step;
 	uint32_t	color;
 
-	tx = (int)(eng->rx / 2.0) % eng->active_texture->width;
-	ty_step = eng->active_texture->height / (double)eng->line_h;
-	init_drawline(&vars, cords);
-	ty = 0;
+	init_drawline(&vars, cords, eng);
 	while (vars.y0 < vars.y1)
 	{
-		color = get_pixel(tx, ty, eng->active_texture);
+		color = get_pixel(vars.tx, vars.ty, eng->active_texture);
 		if (vars.x0 < eng->map_x * 8 && vars.y0 < eng->map_y * 8)
 			(void) vars;
 		else if (vars.y0 < eng->map_s * eng->map_y && \
@@ -54,11 +50,10 @@ void	draw_line_3d(t_cub3d *eng, int *cords)
 		{
 			if (vars.y0 > 0)
 			{
-			//printf("vars.x0: %d vars.y0: %d\n", vars.x0, vars.y0);
-				mlx_put_pixel(eng->g_img_p, vars.x0 , vars.y0, color);
+				mlx_put_pixel(eng->g_img_p, vars.x0, vars.y0, color);
 			}
 		}
-		ty += ty_step;
+		vars.ty += vars.ty_step;
 		vars.y0++;
 	}
 }
@@ -68,7 +63,7 @@ void	draw_line_2d(t_cub3d *eng, int *cords, int color)
 	t_drawline	*vars;
 
 	vars = malloc(sizeof(t_drawline));
-	init_drawline(vars, cords);
+	init_drawline(vars, cords, eng);
 	while (vars->x0 != vars->x1 || vars->y0 != vars->y1)
 	{
 		if (vars->x0 >= 0 && vars->x0 < eng->map_s * eng->map_x && \
@@ -88,6 +83,7 @@ void	draw_line_2d(t_cub3d *eng, int *cords, int color)
 	}
 	if (vars->x1 >= 0 && vars->x1 < WIDTH && vars->y1 >= 0 && vars->y1 < HEIGHT)
 		mlx_put_pixel(eng->g_img_p, (vars->x0 / 8), (vars->y0 / 8), color);
+	free (vars);
 }
 
 double	dist(double ax, double ay, double bx, double by)

@@ -6,7 +6,7 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/01 10:55:06 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/05/24 11:07:47 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/06/07 13:09:38 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,48 +37,49 @@ typedef struct s_drawline {
 	int		sy;
 	int		err;
 	int		e2;
+	double	tx;
+	double	ty_step;
+	double	ty;
 }	t_drawline;
 
 typedef struct s_cub3d {
-	t_program 	*program;
-	mlx_image_t	*g_img_p;
-	mlx_t		*mlx_p;
-	mlx_texture_t *active_texture;
-	int			width;
-	int			height;
-	double		player_x;
-	double		player_y;
-	double		pdx;
-	double		pdy;
-	double		player_a;
-	int			map_x;
-	int			map_y;
-	int			map_s;
-	char		*map;
-	int			r;
-	int			mx;
-	int			my;
-	int			mp;
-	int			dof;
-	int			dis_t;
-	int			wall_side;
-	int			wall_x;
-	double		rx;
-	double		ry;
-	double		ra;
-	double		xo;
-	double		yo;
-	double		atan;
-	double		dis_h;
-	double		hx;
-	double		hy;
-	double		dis_v;
-	double		vx;
-	double		vy;
-	double		ntan;
-	double		ca;
-	double		line_h;
-	int			color;
+	t_program		*program;
+	mlx_image_t		*g_img_p;
+	mlx_t			*mlx_p;
+	mlx_texture_t	*active_texture;
+	int				width;
+	int				height;
+	double			player_x;
+	double			player_y;
+	double			pdx;
+	double			pdy;
+	double			player_a;
+	int				map_x;
+	int				map_y;
+	int				map_s;
+	char			*map;
+	int				r;
+	int				mx;
+	int				my;
+	int				mp;
+	int				dof;
+	int				dis_t;
+	double			rx;
+	double			ry;
+	double			ra;
+	double			xo;
+	double			yo;
+	double			atan;
+	double			dis_h;
+	double			hx;
+	double			hy;
+	double			dis_v;
+	double			vx;
+	double			vy;
+	double			ntan;
+	double			ca;
+	double			line_h;
+	int				color;
 }	t_cub3d;
 
 void drawgame(t_program *program);

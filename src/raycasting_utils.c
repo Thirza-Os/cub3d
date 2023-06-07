@@ -6,7 +6,7 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/28 13:44:36 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/06/07 12:47:20 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/06/07 13:09:31 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,24 +140,20 @@ void	check_distance_v_h(t_cub3d *eng)
 {
 	if (eng->dis_v < eng->dis_h)
 	{
-		eng->wall_side = 0;
 		eng->active_texture = eng->program->mlx_textures[3];
 		if (eng->player_x < eng->vx)
 			eng->active_texture = eng->program->mlx_textures[2];
 		eng->dis_t = eng->dis_v;
 		eng->rx = eng->vx;
 		eng->ry = eng->vy;
-		eng->wall_side = 0;
 	}
 	if (eng->dis_h < eng->dis_v)
 	{
-		eng->wall_side = 1;
 		eng->active_texture = eng->program->mlx_textures[1];
 		if (eng->player_y < eng->hy)
 			eng->active_texture = eng->program->mlx_textures[0];
 		eng->dis_t = eng->dis_h;
 		eng->rx = eng->hx;
 		eng->ry = eng->hy;
-		eng->wall_side = 1;
 	}
 }
