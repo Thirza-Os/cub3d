@@ -16,14 +16,16 @@ SRCS 	= 		src/main.c 						\
 				src/2dmap.c 					\
 				src/hooks.c 					\
 				src/utility.c					\
-				src/mlx_processing.c
+				src/mlx_processing.c			\
+				src/hooks_determine_ra.c		\
+				src/dda_raycast.c
 LIB				= ./libft/libft.a
 LIBFT_LOC		= libft
 LIBFT_LIB		= libft/libft.a
 MLX_LOC			= MLX42
 MLX_LIB			= MLX42/libmlx42.a
 MLX_FLAGS		= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
-CFLAGS 			= -Wall -Wextra -g
+CFLAGS 			= -Werror -Wall -Wextra -g -fsanitize=address
 CC				= gcc
 
 OBJECTS = $(SRCS:.c=.o)

@@ -6,44 +6,47 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/28 14:19:32 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/06/02 13:36:18 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/07/06 14:05:10 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../engine.h"
 
-void	make_ceiling_floor(t_cub3d *eng, int color_ceiling, int color_floor)
+void	convert_colors(t_cub3d *eng)
+{
+	((uint8_t *)(&eng->program->usable_floor))[3] = eng->program->floor_rgb[0];
+	((uint8_t *)(&eng->program->usable_floor))[2] = eng->program->floor_rgb[1];
+	((uint8_t *)(&eng->program->usable_floor))[1] = eng->program->floor_rgb[2];
+	((uint8_t *)(&eng->program->usable_floor))[0] = 255;
+	((uint8_t *)(&eng->program->usable_ceiling))[3] = \
+	eng->program->ceiling_rgb[0];
+	((uint8_t *)(&eng->program->usable_ceiling))[2] = \
+	eng->program->ceiling_rgb[1];
+	((uint8_t *)(&eng->program->usable_ceiling))[1] = \
+	eng->program->ceiling_rgb[2];
+	((uint8_t *)(&eng->program->usable_ceiling))[0] = 255;
+}
+
+void	make_ceiling_floor(t_cub3d *eng)
 {
 	int	i;
 	int	j;
 
 	i = 0;
+	convert_colors(eng);
 	while (i < WIDTH)
 	{
 		j = 0;
 		while (j < HEIGHT)
 		{
 			if (j < HEIGHT / 2)
-				mlx_put_pixel(eng->g_img_p, i, j, color_ceiling);
+				mlx_put_pixel(eng->g_img_p, i, j, eng->program->usable_ceiling);
 			else
-				mlx_put_pixel(eng->g_img_p, i, j, color_floor);
+				mlx_put_pixel(eng->g_img_p, i, j, eng->program->usable_floor);
 			j++;
 		}
 		i++;
 	}
-}
-
-void	draw3dwalls(t_cub3d *eng, int r, double line_h)
-{
-	double	line_o;
-	int		cords[4];
-
-	line_o = 200 - line_h / 2;
-	cords[0] = r;// - 512
-	cords[1] = 80 + 200 - line_h / 2; // 80 is the offset of the walls but should be based on the height of the window
-	cords[2] = r;// - 512
-	cords[3] = 80 + line_h + line_o;
-	draw_line_3d(eng, cords);
 }
 
 void	walls(t_cub3d *eng)
@@ -60,10 +63,7 @@ void	walls(t_cub3d *eng)
 	eng->dis_t = eng->dis_t * cos(eng->ca);
 	if (eng->dis_t < 1)
 		eng->dis_t = 1;
-	eng->line_h = (eng->map_s * (eng->map_y * 64)) / eng->dis_t;
-	if (eng->line_h > (eng->map_y * 64))
-		eng->line_h = (eng->map_y * 64);
-	draw3dwalls(eng, eng->r, eng->line_h);
+	draw_line_3d(eng);
 }
 
 void	init(t_cub3d *eng)
@@ -76,20 +76,20 @@ void	init(t_cub3d *eng)
 	eng->dis_v = 100000;
 	eng->vx = eng->player_x;
 	eng->vy = eng->player_y;
+	if (eng->ra < 0)
+		eng->ra += 2 * PI;
+	if (eng->ra > 2 * PI)
+		eng->ra -= 2 * PI;
 }
 
 void	draw_rays(t_cub3d *eng)
 {
 	int	cords[4];
 
-	make_ceiling_floor(eng, 10000, 0xFF00FFFF);
-	draw2DMap(eng);
+	make_ceiling_floor(eng);
+	draw2dmap(eng);
 	create_player(eng);
 	init(eng);
-	if (eng->ra < 0)
-		eng->ra += 2 * PI;
-	if (eng->ra > 2 * PI)
-		eng->ra -= 2 * PI;
 	eng->r = 0;
 	while (eng->r < WIDTH)
 	{

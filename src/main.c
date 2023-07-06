@@ -6,7 +6,7 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/06 13:03:26 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/06/07 12:36:00 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/07/06 14:10:51 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,5 @@ int	main(int argc, char *argv[])
 		print_error("Invalid argument(s)");
 	program = parser(argv);
 	drawgame(&program);
-	system("leaks cub3d");
 	return (0);
 }

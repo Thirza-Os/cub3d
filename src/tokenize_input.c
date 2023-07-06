@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   tokenize_input.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rbrune <rbrune@student.42.fr>                +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/07/06 14:18:46 by rbrune        #+#    #+#                 */
+/*   Updated: 2023/07/06 14:19:43 by rbrune        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static char	*ft_strjoin_cub3d(char const *s1, char const *s2)
@@ -27,8 +39,6 @@ static char	*ft_strjoin_cub3d(char const *s1, char const *s2)
 	return (str);
 }
 
-// Place the identifiers in the right order for parsing.
-// Pre check for double elements.
 static int	is_identifier(char *trimmed_line, char **elements)
 {
 	int		i;
@@ -39,7 +49,7 @@ static int	is_identifier(char *trimmed_line, char **elements)
 	{
 		if (!ft_strncmp(trimmed_line, g_labels[i], ft_strlen(g_labels[i])))
 		{
-			if (elements[i] != '\0')
+			if (elements[i] != NULL)
 				print_error("invalid object input");
 			if (i < 4)
 				elements[i] = \

@@ -63,7 +63,7 @@ void	create_player(t_cub3d *eng)
 }
 
 void	copy_map_determine_spawn(t_program *program, t_cub3d *eng)
-{	
+{
 	int		y;
 	int		x;
 	int		i;
@@ -108,7 +108,7 @@ void	drawgame(t_program *program)
 	eng.g_img_p = mlx_new_image(eng.mlx_p, WIDTH, HEIGHT);
 	mlx_image_to_window(eng.mlx_p, eng.g_img_p, 0, 0);
 	mlx_key_hook(eng.mlx_p, &my_keyhook, (void *)&eng);
-	draw2DMap(&eng);
+	draw2dmap(&eng);
 	create_player(&eng);
 	draw_rays(&eng);
 	mlx_loop(eng.mlx_p);

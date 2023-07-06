@@ -6,49 +6,21 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/28 14:08:32 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/05/17 12:50:46 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/07/06 14:10:31 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../engine.h"
+
+void	determine_ra(t_cub3d *eng, int direction);
 
 int	shoot_ray_key(t_cub3d *eng, int direction)
 {
 	int	i;
 
 	i = 0;
-	if (direction == 1)
-		eng->ra = eng->player_a - 0.1;
-	else if (direction == 2)
-	{
-		if (eng->player_a < PI + 0.1)
-			eng->ra = eng->player_a + PI - 0.1;
-		else
-			eng->ra = eng->player_a - PI - 0.1;
-	}
-	else if (direction == 3)
-	{
-		if (eng->player_a < PI / 2)
-			eng->ra = eng->player_a + PI / 2 - 0.1;
-		else if (eng->player_a > PI / 2 && eng->player_a < PI)
-			eng->ra = eng->player_a - PI / 2 - 0.1;
-		else if (eng->player_a > PI && eng->player_a < 3 * PI / 2)
-			eng->ra = eng->player_a + PI / 2 - 0.1;
-		else
-			eng->ra = eng->player_a - PI / 2 - 0.1;
-	}
-	else if (direction == 4)
-	{
-		if (eng->player_a < PI / 2)
-			eng->ra = eng->player_a - PI / 2 - 0.1;
-		else if (eng->player_a > PI / 2 && eng->player_a < PI)
-			eng->ra = eng->player_a + PI / 2 - 0.1;
-		else if (eng->player_a > PI && eng->player_a < 3 * PI / 2)
-			eng->ra = eng->player_a - PI / 2 - 0.1;
-		else
-			eng->ra = eng->player_a + PI / 2 - 0.1;
-	}
-	while (i < 3)
+	determine_ra(eng, direction);
+	while (i < 5)
 	{
 		calc_angle_hori(eng);
 		shoot_ray_hori(eng);
@@ -68,20 +40,20 @@ void	forward_backwards(mlx_key_data_t keydata, t_cub3d *eng)
 	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_REPEAT \
 	|| keydata.action == MLX_PRESS))
 	{
-		//if (shoot_ray_key(eng, 1) == 0)
-		//{
+		if (shoot_ray_key(eng, 1) == 0)
+		{
 			eng->player_x += eng->pdx;
 			eng->player_y += eng->pdy;
-		//}
+		}
 	}
 	if (keydata.key == MLX_KEY_S && (keydata.action == MLX_REPEAT \
 	|| keydata.action == MLX_PRESS))
 	{
-		//if (shoot_ray_key(eng, 2) == 0)
-		//{
+		if (shoot_ray_key(eng, 2) == 0)
+		{
 			eng->player_x -= eng->pdx;
 			eng->player_y -= eng->pdy;
-		//}
+		}
 	}
 }
 
@@ -92,8 +64,8 @@ void	move_left_right(mlx_key_data_t keydata, t_cub3d *eng)
 	{
 		if (shoot_ray_key(eng, 3) == 0)
 		{
-				eng->player_x += cos(eng->player_a - PI / 2) * 5;
-				eng->player_y += sin(eng->player_a - PI / 2) * 5;
+			eng->player_x += cos(eng->player_a - PI / 2) * 5;
+			eng->player_y += sin(eng->player_a - PI / 2) * 5;
 		}
 	}
 	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_REPEAT \
@@ -144,7 +116,7 @@ void	my_keyhook(mlx_key_data_t keydata, void *eng_void)
 	|| keydata.key == MLX_KEY_RIGHT) && (keydata.action == MLX_PRESS \
 	|| keydata.action == MLX_REPEAT))
 	{
-		draw2DMap(eng);
+		draw2dmap(eng);
 		create_player(eng);
 		draw_rays(eng);
 	}

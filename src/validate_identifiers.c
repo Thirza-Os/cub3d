@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   validate_identifiers.c                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rbrune <rbrune@student.42.fr>                +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/07/06 14:22:22 by rbrune        #+#    #+#                 */
+/*   Updated: 2023/07/06 14:22:23 by rbrune        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	validate_structure_paths(char **elements, t_program *program)
@@ -18,10 +30,8 @@ void	validate_structure_paths(char **elements, t_program *program)
 void	convert_digits(char **input, int *colors)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	while (i < 3)
 	{
 		colors[i] = ft_atorgb(input[i]);

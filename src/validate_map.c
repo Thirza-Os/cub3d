@@ -31,7 +31,6 @@ int	check_characters(char *map)
 	return (i);
 }
 
-
 void	find_max_xy(char *map, t_program *program)
 {
 	int	counter;

@@ -6,7 +6,7 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/01 10:55:06 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/06/07 13:09:38 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/07/06 14:09:43 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_cub3d {
 	int				color;
 }	t_cub3d;
 
-void drawgame(t_program *program);
+void	drawgame(t_program *program);
 
 // raycasting
 void	draw_rays(t_cub3d *eng);
@@ -92,13 +92,13 @@ void	shoot_ray_hori(t_cub3d *eng);
 void	shoot_rays_vert(t_cub3d *eng);
 void	check_distance_v_h(t_cub3d *eng);
 void	walls(t_cub3d *eng);
-void	draw3DWalls(t_cub3d *eng, int r, float line_h);
+
 // utility
 double	dist(double ax, double ay, double bx, double by);
 void	draw_line_2d(t_cub3d *eng, int *cords, int color);
-void	draw_line_3d(t_cub3d *eng, int *cords);
+void	draw_line_3d(t_cub3d *eng);
 // map
-void	draw2DMap(t_cub3d *eng);
+void	draw2dmap(t_cub3d *eng);
 
 // hooks
 void	my_keyhook(mlx_key_data_t keydata, void *eng_void);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   cub3d.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rbrune <rbrune@student.42.fr>                +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/07/06 14:10:01 by rbrune        #+#    #+#                 */
+/*   Updated: 2023/07/06 14:23:05 by rbrune        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -16,6 +28,10 @@
 # define VALID_MAP_CHARS "10\n "
 
 # define PLAYER_POS "NSEW"
+
+static const char	*g_positions[4] = {"N", "S", "W", "E"};
+
+static const char	*g_labels[] = {"NO", "SO", "WE", "EA", "F", "C"};
 
 typedef enum e_player_pos
 {
@@ -36,10 +52,6 @@ typedef enum e_tokens
 	SIZE
 }	t_tokens;
 
-const static char	*g_positions[4] = {"N", "S", "W", "E"};
-
-const static char	*g_labels[SIZE] = {"NO", "SO", "WE", "EA", "F", "C"};
-
 typedef struct s_vector
 {
 	int	x;
@@ -51,6 +63,8 @@ typedef struct s_program
 	char			*textures[5];
 	mlx_texture_t	*mlx_textures[4];
 	int				floor_rgb[3];
+	uint32_t		usable_floor;
+	uint32_t		usable_ceiling;
 	int				ceiling_rgb[3];
 	char			**map;
 	t_vector		max_xy;

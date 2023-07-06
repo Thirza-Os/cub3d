@@ -6,7 +6,7 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/06 12:19:30 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/06/07 12:42:48 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/06/14 13:29:40 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@ void	extract_mlx_pixels(t_program *program)
 	unsigned int	i;
 
 	i = 0;
-	//while (i < 4)
-	//{
-	//	free (program->mlx_textures[i]);
-	//	i++;
-	//}
 	while (i < 4)
 	{
 		program->mlx_textures[i] = mlx_load_png(program->textures[i]);
@@ -41,8 +36,7 @@ uint32_t	get_pixel(double x, double y, mlx_texture_t *texture)
 	const uint32_t	scaled_x = (x);
 	const uint32_t	scaled_y = (y);
 
-	if (scaled_y >= texture->height || scaled_y <= 0 \
-	|| scaled_x < 0 || scaled_x > texture->width)
+	if (scaled_y >= texture->height || scaled_x > texture->width)
 	{
 		return (0);
 	}

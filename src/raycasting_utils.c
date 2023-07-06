@@ -6,11 +6,14 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/28 13:44:36 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/06/07 13:09:31 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/07/06 14:32:41 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../engine.h"
+
+int	dda_vert(t_cub3d *eng);
+int	dda_hori(t_cub3d *eng);
 
 void	calc_angle_hori(t_cub3d *eng)
 {
@@ -74,15 +77,8 @@ void	shoot_ray_hori(t_cub3d *eng)
 		if (eng->mp > 0 && eng->mp < eng->map_x * \
 		eng->map_y && eng->map[eng->mp] == '1')
 		{
-			eng->hx = eng->rx;
-			eng->hy = eng->ry;
-			eng->dis_h = dist(eng->player_x, eng->player_y, eng->hx, eng->hy);
-			if (eng->dis_h < 0)
-			{
-				eng->dis_h = 1;
+			if (!dda_hori(eng))
 				break ;
-			}
-			eng->dof = eng->map_x;
 		}
 		else if (eng->mp % eng->map_x == 0 || eng->mp % \
 		eng->map_x == eng->map_x - 1 || eng->mp < eng->map_x || eng->mp > \
@@ -110,15 +106,8 @@ void	shoot_rays_vert(t_cub3d *eng)
 		if (eng->mp >= 0 && eng->mp < eng->map_x * \
 		eng->map_y && eng->map[eng->mp] == '1')
 		{
-			eng->vx = eng->rx;
-			eng->vy = eng->ry;
-			eng->dis_v = dist(eng->player_x, eng->player_y, eng->vx, eng->vy);
-			if (eng->dis_v < 0)
-			{
-				eng->dis_v = 1;
+			if (!dda_vert(eng))
 				break ;
-			}
-			eng->dof = eng->map_y;
 		}
 		else if (eng->mp % eng->map_x == 0 || eng->mp % \
 		eng->map_x == eng->map_x - 1 || eng->mp < eng->map_x || eng->mp > \
