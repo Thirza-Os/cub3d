@@ -1,7 +1,7 @@
-NO ./test.png
-SO ./SO.png
-WE ./WE.png
-EA ./EA.png
+NO ./House.png
+SO ./Rainbow.png
+WE ./Parrot.png
+EA ./NormalTree.png
 F 220,100,255
 C 1,30,0
 111111111
@@ -11,9 +11,5 @@ C 1,30,0
 100000001
 1000N0001
 101000001
-100000001
-100000001
-100000001
-100000001
 100000001
 111111111

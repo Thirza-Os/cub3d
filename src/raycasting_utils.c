@@ -6,7 +6,7 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/28 13:44:36 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/07/06 14:32:41 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/07/14 16:07:33 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,32 +41,6 @@ void	calc_angle_hori(t_cub3d *eng)
 	}
 }
 
-void	calc_angle_vert(t_cub3d *eng)
-{
-	eng->dof = 0;
-	eng->ntan = -tan(eng->ra);
-	if (eng->ra > P2 && eng->ra < P3)
-	{
-		eng->rx = (((int)eng->player_x >> 6) << 6) - 0.0001;
-		eng->ry = (eng->player_x - eng->rx) * eng->ntan + eng->player_y;
-		eng->xo = -64;
-		eng->yo = -eng->xo * eng->ntan;
-	}
-	if (eng->ra < P2 || eng->ra > P3)
-	{
-		eng->rx = (((int)eng->player_x >> 6) << 6) + 64;
-		eng->ry = (eng->player_x - eng->rx) * eng->ntan + eng->player_y;
-		eng->xo = 64;
-		eng->yo = -eng->xo * eng->ntan;
-	}
-	if (eng->ra == 0 || eng->ra == PI)
-	{
-		eng->rx = eng->player_x;
-		eng->ry = eng->player_y;
-		eng->dof = eng->map_y;
-	}
-}
-
 void	shoot_ray_hori(t_cub3d *eng)
 {
 	while (eng->dof < eng->map_x)
@@ -93,6 +67,32 @@ void	shoot_ray_hori(t_cub3d *eng)
 			eng->ry += eng->yo;
 			eng->dof += 1;
 		}
+	}
+}
+
+void	calc_angle_vert(t_cub3d *eng)
+{
+	eng->dof = 0;
+	eng->ntan = -tan(eng->ra);
+	if (eng->ra > P2 && eng->ra < P3)
+	{
+		eng->rx = (((int)eng->player_x >> 6) << 6) - 0.0001;
+		eng->ry = (eng->player_x - eng->rx) * eng->ntan + eng->player_y;
+		eng->xo = -64;
+		eng->yo = -eng->xo * eng->ntan;
+	}
+	if (eng->ra < P2 || eng->ra > P3)
+	{
+		eng->rx = (((int)eng->player_x >> 6) << 6) + 64;
+		eng->ry = (eng->player_x - eng->rx) * eng->ntan + eng->player_y;
+		eng->xo = 64;
+		eng->yo = -eng->xo * eng->ntan;
+	}
+	if (eng->ra == 0 || eng->ra == PI)
+	{
+		eng->rx = eng->player_x;
+		eng->ry = eng->player_y;
+		eng->dof = eng->map_y;
 	}
 }
 

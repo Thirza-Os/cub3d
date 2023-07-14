@@ -25,7 +25,7 @@ LIBFT_LIB		= libft/libft.a
 MLX_LOC			= MLX42
 MLX_LIB			= MLX42/libmlx42.a
 MLX_FLAGS		= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
-CFLAGS 			= -Werror -Wall -Wextra -g -fsanitize=address
+CFLAGS 			= -Werror -Wall -Wextra -g #-fsanitize=address
 CC				= gcc
 
 OBJECTS = $(SRCS:.c=.o)

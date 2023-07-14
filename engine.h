@@ -6,7 +6,7 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/01 10:55:06 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/07/06 14:09:43 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/07/11 15:15:25 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <stdio.h>
 # include <math.h>
 # include "src/cub3d.h"
+
 typedef struct s_drawline {
 	int		x0;
 	int		y0;

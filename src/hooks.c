@@ -6,7 +6,7 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/28 14:08:32 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/07/06 14:10:31 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/07/14 17:49:14 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	shoot_ray_key(t_cub3d *eng, int direction)
 		calc_angle_vert(eng);
 		shoot_rays_vert(eng);
 		check_distance_v_h(eng);
-		if (eng->dis_t < 15)
+		if (eng->dis_t < 30)
 			return (1);
 		eng->ra += 0.1;
 		i++;

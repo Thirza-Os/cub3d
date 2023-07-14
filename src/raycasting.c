@@ -6,7 +6,7 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/28 14:19:32 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/07/06 14:05:10 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/07/14 16:03:22 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,10 @@ void	draw_rays(t_cub3d *eng)
 	eng->r = 0;
 	while (eng->r < WIDTH)
 	{
-		calc_angle_hori(eng);
-		shoot_ray_hori(eng);
 		calc_angle_vert(eng);
 		shoot_rays_vert(eng);
+		calc_angle_hori(eng);
+		shoot_ray_hori(eng);
 		check_distance_v_h(eng);
 		cords[0] = eng->player_x;
 		cords[1] = eng->player_y;

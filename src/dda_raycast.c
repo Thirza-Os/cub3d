@@ -6,12 +6,13 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/06 14:17:02 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/07/06 14:32:34 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/07/11 12:36:39 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../engine.h"
 
+//These functions trigger when a wall is found
 int	dda_hori(t_cub3d *eng)
 {
 	eng->hx = eng->rx;

@@ -6,7 +6,7 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/28 14:22:02 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/07/06 14:33:32 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/07/14 16:06:59 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	init_draw_3d(t_drawline *vars, t_cub3d *eng)
 	double	ty_off;
 
 	ty_off = 0;
-	vars->tx = (int)fmod(eng->rx, eng->active_texture->width);
+	if (eng->dis_v < eng->dis_h)
+		vars->tx = (int)fmod(eng->ry, eng->active_texture->width);
+	if (eng->dis_h < eng->dis_v)
+		vars->tx = (int)fmod(eng->rx, eng->active_texture->width);
 	eng->line_h = (eng->map_s * (eng->map_y * 64)) / eng->dis_t;
 	vars->ty_step = eng->active_texture->height / (double)eng->line_h;
 	if (eng->line_h > (eng->map_y * 64))
@@ -42,12 +45,13 @@ void	draw_line_3d(t_cub3d *eng)
 	while (vars.y0 < vars.y1)
 	{
 		color = get_pixel(vars.tx, vars.ty, eng->active_texture);
+		//printf("tx: %f\n", vars.tx);
 		if (vars.x0 < eng->map_x * 8 && vars.y0 < eng->map_y * 8)
 			(void) vars;
 		else if (vars.y0 < eng->map_s * eng->map_y && \
 		vars.x0 < eng->map_s * eng->map_x)
 		{
-			if (vars.y0 > 0)
+			if (vars.y0 > 0 && vars.y0 < HEIGHT)
 			{
 				mlx_put_pixel(eng->g_img_p, vars.x0, vars.y0, color);
 			}
