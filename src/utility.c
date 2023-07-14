@@ -6,7 +6,7 @@
 /*   By: rbrune <rbrune@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/28 14:22:02 by rbrune        #+#    #+#                 */
-/*   Updated: 2023/07/14 16:06:59 by rbrune        ########   odam.nl         */
+/*   Updated: 2023/07/14 17:51:31 by rbrune        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	draw_line_3d(t_cub3d *eng)
 	while (vars.y0 < vars.y1)
 	{
 		color = get_pixel(vars.tx, vars.ty, eng->active_texture);
-		//printf("tx: %f\n", vars.tx);
 		if (vars.x0 < eng->map_x * 8 && vars.y0 < eng->map_y * 8)
 			(void) vars;
 		else if (vars.y0 < eng->map_s * eng->map_y && \
