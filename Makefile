@@ -1,17 +1,25 @@
 NAME 	= 	cub3d
 
-SRCS 	= 		src/main.c 				\
-				src/utils.c
+SRCS 	:= 		src/main.c 				\
+				src/utils.c				\
+				src/engine.c
 
 LIB				= ./libft/libft.a
 LIBFT_LOC		= libft
 LIBFT_LIB		= libft/libft.a
 MLX_LOC			= MLX42
 MLX_LIB			= MLX42/libmlx42.a
-MLX_FLAGS		= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+# MLX_FLAGS		= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
 CFLAGS 			= -Wall -Wextra
 CC				= gcc
-# HEADER 			= src/cub3d.h
+HEADER 			= include/cub3d.h include/engine.h
+
+MLX_FLAGS =
+ifeq ($(UNAME_S), Darwin)
+    MLX_FLAGS = -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+else ifeq ($(UNAME_S), Linux)
+    MLX_FLAGS = -ldl -lglfw -pthread -lm
+endif
 
 OBJECTS = $(SRCS:.c=.o)
 

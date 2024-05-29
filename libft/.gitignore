@@ -1,0 +1,5 @@
+*.o
+*.a
+infer-out/
+compile_commands.json
+.cache/

@@ -1,95 +1,80 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: tosinga <tosinga@student.42.fr>              +#+                      #
-#                                                    +#+                       #
-#    Created: 2022/02/02 18:40:40 by tosinga       #+#    #+#                  #
-#    Updated: 2022/02/02 18:40:40 by tosinga       ########   odam.nl          #
-#                                                                              #
-# **************************************************************************** #
+CC = cc
+CFLAGS = -Wall -Werror -Wextra -Wshadow -Wpedantic
 
-NAME	=		libft.a
+# Root source directory
+SRC = src/
 
-SRC		=		ft_isalpha.c \
-				ft_isdigit.c \
-				ft_isalnum.c \
-				ft_isascii.c \
-				ft_isprint.c \
-				ft_strlen.c \
-				ft_toupper.c \
-				ft_tolower.c \
-				ft_strchr.c \
-				ft_strrchr.c \
-				ft_strncmp.c \
-				ft_memset.c \
-				ft_bzero.c \
-				ft_memcpy.c \
-				ft_memmove.c \
-				ft_strlcpy.c \
-				ft_strlcat.c \
-				ft_memchr.c \
-				ft_memcmp.c \
-				ft_strnstr.c \
-				ft_atoi.c \
-				ft_calloc.c \
-				ft_strdup.c \
-				ft_substr.c \
-				ft_strjoin.c \
-				ft_strtrim.c \
-				ft_free.c \
-				ft_split.c \
-				ft_intlen.c \
-				ft_itoa.c \
-				ft_strmapi.c \
-				ft_striteri.c \
-				ft_putchar_fd.c \
-				ft_putstr_fd.c \
-				ft_putendl_fd.c \
-				ft_putnbr_fd.c
+# dirs
+OBJDIR = obj/
 
-BONUS_SRC = 	ft_lstnew.c \
-				ft_lstadd_front.c \
-				ft_lstsize.c \
-				ft_lstlast.c \
-				ft_lstadd_back.c \
-				ft_lstdelone.c \
-				ft_lstclear.c \
-				ft_lstiter.c \
-				ft_lstmap.c 
+LLDIR = $(SRC)ll/
+MEMDIR = $(SRC)mem/
+PRINTDIR = $(SRC)printer/
+STRDIR = $(SRC)str/
+GNLDIR = $(SRC)gnl/
+PRINTFDIR = $(SRC)ft_printf/
 
+# c files
+LLFILES = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
+MEMFILES = ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c
+PRINTFILES = ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c
+STRFILES = ft_strjoin.c ft_strlcat.c ft_itoa.c ft_atoi.c ft_isdigit.c ft_strlcpy.c ft_strdup.c ft_strncmp.c ft_tolower.c ft_strnstr.c ft_strchr.c ft_striteri.c ft_isascii.c ft_isalnum.c ft_split.c ft_isalpha.c ft_strrchr.c ft_strlen.c ft_isprint.c ft_strtrim.c ft_substr.c ft_strmapi.c ft_toupper.c ft_atoli.c ft_iswhitespace.c ft_split_ws.c ft_atof.c
+GNLFILES = get_next_line.c get_next_line_utils.c
+PRINTFFILES = ft_formatter.c ft_printf.c ft_writers.c
 
-HEADER		=	libft.h
-OBJECTS		=	$(SRC:.c=.o)
-BONUS_OBJS	=	$(BONUS_SRC:.c=.o) 
-CFLAGS		=	-Wall -Wextra -Werror
-CC			=	gcc
+# objects
+LLOBJ = $(LLFILES:%.c=$(OBJDIR)ll/%.o)
+MEMOBJ = $(MEMFILES:%.c=$(OBJDIR)mem/%.o)
+PRINTOBJ = $(PRINTFILES:%.c=$(OBJDIR)printer/%.o)
+STROBJ = $(STRFILES:%.c=$(OBJDIR)str/%.o)
+GNLOBJ = $(GNLFILES:%.c=$(OBJDIR)gnl/%.o)
+PRINTFOBJ = $(PRINTFFILES:%.c=$(OBJDIR)ft_printf/%.o)
 
-ifdef BONUS
-	COMPILATION=$(OBJECTS) $(BONUS_OBJS)
-else
-	COMPILATION=$(OBJECTS)
-endif
+HEADERS = -I include
+NAME = libft.a
+LIB = ar rcs
+
+.PHONY: all clean fclean re
+
+$(NAME): $(LLOBJ) $(MEMOBJ) $(PRINTOBJ) $(STROBJ) $(GNLOBJ) $(PRINTFOBJ) $(INCLUDE)
+	$(LIB) $(NAME) $(LLOBJ) $(MEMOBJ) $(PRINTOBJ) $(STROBJ) $(GNLOBJ) $(PRINTFOBJ) -s
 
 all: $(NAME)
 
-$(NAME): $(COMPILATION) $(HEADER)
-	$(AR) rcs $(NAME) $(COMPILATION)
+# linked list
+$(OBJDIR)ll/%.o: $(LLDIR)%.c
+	@mkdir -p $(OBJDIR)ll
+	$(CC) $(HEADERS) -c $(CFLAGS) -o $@ $<
 
+# mem
+$(OBJDIR)mem/%.o: $(MEMDIR)%.c
+	@mkdir -p $(OBJDIR)mem
+	$(CC) $(HEADERS) -c $(CFLAGS) -o $@ $<
 
-%.o: %.c
-	$(CC) -c $(CFLAGS) $< -o $@
+# print
+$(OBJDIR)printer/%.o: $(PRINTDIR)%.c
+	@mkdir -p $(OBJDIR)printer
+	$(CC) $(HEADERS) -c $(CFLAGS) -o $@ $<
+
+# str
+$(OBJDIR)str/%.o: $(STRDIR)%.c
+	@mkdir -p $(OBJDIR)str
+	$(CC) $(HEADERS) -c $(CFLAGS) -o $@ $<
+
+# gnl
+$(OBJDIR)gnl/%.o: $(GNLDIR)%.c
+	@mkdir -p $(OBJDIR)gnl
+	$(CC) $(HEADERS) -c $(CFLAGS) -o $@ $<
+
+# printf
+$(OBJDIR)ft_printf/%.o: $(PRINTFDIR)%.c
+	@mkdir -p $(OBJDIR)ft_printf
+	$(CC) $(HEADERS) -c $(CFLAGS) -o $@ $<
 
 clean:
-	$(RM) $(OBJECTS) $(BONUS_OBJS)
+	rm -rf $(OBJDIR)
 
 fclean: clean
-	$(RM) $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
-
-bonus:
-	@ $(MAKE) all BONUS=1
-
-.PHONY: all clean fclean re bonus
