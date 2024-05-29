@@ -128,16 +128,6 @@ void	init_state(void)
 
 			(void)hit_side;
 			(void)wall_dist;
-
-
-
-
-
-
-
-
-
-
 			index++;
 		}
 		break;
