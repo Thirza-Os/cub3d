@@ -6,14 +6,14 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/29 22:00:03 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/05/30 18:46:37 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/05/30 21:27:16 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENGINE_H
 # define ENGINE_H
 
-#include <stdbool.h>
+# include <stdbool.h>
 
 // # include "../MLX42/include/MLX42/MLX42.h"
 # include "../MLX42/include/MLX42/MLX42.h"
@@ -25,41 +25,69 @@
 # define SCREENWIDTH 640
 # define SCREENHEIGHT 480
 
-typedef struct s_player
+typedef union u_color
 {
-	int	x;
-	int	y;
-}	t_player;
+	struct
+	{
+		unsigned char	a;
+		unsigned char	r;
+		unsigned char	g;
+		unsigned char	b;
+	};
+	unsigned int		hexdecimal;
+	unsigned char		rgba[4];
+}	t_color;
 
-typedef struct s_dir
+typedef struct s_location
 {
-	int	x;
-	int	y;
-}	t_dir;
-
-typedef struct s_plane
-{
-	double	x;
-	double	y;
-}	t_plane;
+	size_t	x;
+	size_t	y;
+}	t_location;
 
 typedef struct s_ray
 {
-	double	x;
-	double	y;
+	float		len;
+	float		corr_len;
+	float		angle;
+	float		x;
+	float		y;
+	float		wall_ht;
+	uint8_t		wall;
+	mlx_image_t	*slice_old;
+	mlx_image_t	*slice_new;
 }	t_ray;
 
-typedef struct s_engine
+typedef struct s_player
 {
-	t_dir		dir;
-	t_player	player;
-	t_plane		plane;
-	t_ray		ray;
-	double		cur_time;
-	double		prev_time;
-} t_engine;
+	t_location	start;
+	float		location[2];
+	float		angle;
+	float		dx;
+	float		dy;
+	float		plane;
+	t_ray		*ray;
+	size_t		raycount;
+}	t_player;
 
-// pov
+typedef union u_wall
+{
+	struct
+	{
+		mlx_texture_t	*north;
+		mlx_texture_t	*south;
+		mlx_texture_t	*west;
+		mlx_texture_t	*east;
+	};
+	mlx_texture_t		*direction[4];
+}	t_wall;
+
+typedef struct s_map
+{
+	t_wall		*walls;
+	t_color		*floor;
+	t_color		*ceiling;
+	char		**map;
+}	t_map;
 
 void	init_state(void);
 #endif
