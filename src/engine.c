@@ -54,9 +54,10 @@ void	init_state(void)
 	double wall_dist = 0.0;  // voor als we een muur tegen komen
 	int step_x = 0;  // -1 of +1
 	int step_y = 0;  // -1 of +1
+	double timer = 5;
 	while (true)
 	{
-		// loop over alle breedte
+		// loop over alle breedte  eerste run heeft NaN waarom??
 		int index = 0;
 		while (index < MAPWIDTH)
 		{
@@ -126,8 +127,37 @@ void	init_state(void)
 				}
 			}
 
-			(void)hit_side;
-			(void)wall_dist;
+			if (hit_side == 0)
+			{
+				wall_dist = ray_dist_x - delta_dist_x;
+			}
+			else
+			{
+				wall_dist = ray_dist_y - delta_dist_y;
+			}
+			printf("Wall dist: %f\n", wall_dist);
+
+			int line_heigth = (int)(SCREENHEIGHT / wall_dist);
+			int draw_start = -line_heigth / 2 + SCREENHEIGHT / 2;
+			if (draw_start < 0)
+				draw_start = 0;
+			int draw_end = line_heigth / 2 + SCREENHEIGHT / 2;
+			if (draw_end >= SCREENHEIGHT)
+				draw_end = SCREENHEIGHT - 1;
+			printf("line_heigth: %d, draw_start: %d draw_end: %d\n", line_heigth, draw_start, draw_end);
+
+
+			// store time zodat we een const move hebben
+			timer += 0.05;
+			engine.prev_time = engine.cur_time;
+			double frame_time = (timer - engine.prev_time) / 1000.0;  // timer vervangen voor mlx versie
+			engine.cur_time = timer;  // vervangen voor time MLX
+			double move_speed = frame_time * 5.0;
+			double rot_speed = frame_time * 3.0;
+
+			printf("FPS: %f\n", 1.0 / frame_time);
+			printf("move_speed: %f\n", move_speed);
+			printf("rot_speed: %f\n", rot_speed);
 			index++;
 		}
 		break;
