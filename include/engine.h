@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/29 22:00:03 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/05/29 22:25:36 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/05/30 18:46:37 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define ENGINE_H
 
 #include <stdbool.h>
+
+// # include "../MLX42/include/MLX42/MLX42.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 
 // voor nu hardcoded zo dat ik mijn tracer kan checken
 // komt later van de parser af

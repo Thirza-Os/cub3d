@@ -1,6 +1,9 @@
 #include "../include/engine.h"
 #include "../include/cub3d.h"
 #include <math.h>
+#include <stdint.h>
+
+static mlx_image_t* image;
 
 // hardcoded map voor tracer word vervangen door parser
 int worldMap[MAPWIDTH][MAPHEIGHT]=
@@ -31,10 +34,54 @@ int worldMap[MAPWIDTH][MAPHEIGHT]=
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
+int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+}
+
+void ft_hook(void* param)
+{
+	mlx_t* mlx = param;
+
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(mlx);
+	if (mlx_is_key_down(mlx, MLX_KEY_UP))
+		printf("Pijltje op\n");
+	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
+		printf("Pijltje benede\n");
+	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
+		printf("Pijltje links\n");
+	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+		printf("Pijltje rechts\n");
+}
+
 
 void	init_state(void)
 {
 	t_engine engine;
+	mlx_t* mlx;
+
+	// Gotta error check this stuff
+	if (!(mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT, "MLX42", true)))
+	{
+		puts(mlx_strerror(mlx_errno));
+		return ;
+	}
+	if (!(image = mlx_new_image(mlx, SCREENWIDTH, SCREENHEIGHT)))
+	{
+		mlx_close_window(mlx);
+		puts(mlx_strerror(mlx_errno));
+		return ;
+	}
+	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
+	{
+		mlx_close_window(mlx);
+		puts(mlx_strerror(mlx_errno));
+		return ;
+	}
+
+	mlx_loop_hook(mlx, ft_hook, mlx);
+
 
 	engine.player.x = 22;
 	engine.player.y = 12;
@@ -55,6 +102,21 @@ void	init_state(void)
 	int step_x = 0;  // -1 of +1
 	int step_y = 0;  // -1 of +1
 	double timer = 5;
+
+	// init window met stuff...
+	int w = 0;
+	while (w < SCREENWIDTH)
+	{
+		int h = 0;
+		while (h < SCREENHEIGHT)
+		{
+			uint32_t color = ft_pixel(255, 255, 100, 255);
+			mlx_put_pixel(image, w, h, color);
+			h++;
+		}
+		w++;
+	}
+
 	while (true)
 	{
 		// loop over alle breedte  eerste run heeft NaN waarom??
@@ -158,8 +220,13 @@ void	init_state(void)
 			printf("FPS: %f\n", 1.0 / frame_time);
 			printf("move_speed: %f\n", move_speed);
 			printf("rot_speed: %f\n", rot_speed);
+
+
+
 			index++;
 		}
 		break;
 	}
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
 }
