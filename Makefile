@@ -10,7 +10,7 @@ PARSER_DIR := $(SRC_DIR)/parser
 ENGINE_DIR := $(SRC_DIR)/engine
 
 SRCS 	:= 	$(SRC_DIR)/main.c 						       \
-			$(SRC_DIR)/engine.c
+			$(SRC_DIR)/engine1.c
 
 OBJECTS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 LIB				= ./libft/libft.a

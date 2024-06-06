@@ -4,3 +4,4 @@ cub3d
 *.a
 compile_commands.json
 .cache
+MLX42/
