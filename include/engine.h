@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/29 22:00:03 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/08 19:36:40 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/06/08 20:05:45 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 
 // voor nu hardcoded zo dat ik mijn tracer kan checken
 // komt later van de parser af
-# define MAPWIDTH 8
-# define MAPHEIGHT 8
 # define SCREENWIDTH 1024
 # define SCREENHEIGHT 512
 
@@ -50,6 +48,7 @@ typedef struct s_mlx_state
 {
 	mlx_t		*mlx;
 	mlx_image_t	*image;
+	mlx_image_t	*mini_map;
 }	t_mlx_state;
 
 typedef struct s_game_state
@@ -64,5 +63,8 @@ bool	init_state(t_game_state *state);
 bool	err_handler(const char *msg, t_game_state *state);
 
 void	free_game_state(t_game_state *state);
+
+
+void	 key_hook(void *param);
 
 #endif

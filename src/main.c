@@ -1,6 +1,16 @@
 #include "../include/cub3d.h"
 #include "../include/engine.h"
 
+
+char	*map[] = {
+	"111111",
+	"100101",
+	"101001",
+	"1100N1",
+	"111111"
+};
+
+
 int	main(int argc, char *argv[])
 {
 	t_game_state	*state;
@@ -18,6 +28,11 @@ int	main(int argc, char *argv[])
 		err_handler("state", state);
 		return (EXIT_FAILURE);
 	}
+	state->map = map;
+	state->map_size[0] = 6;
+	state->map_size[1] = 5;
 	if (init_state(state) != true)
 		return (EXIT_FAILURE);
+	printf("player_x: %f, player_y: %f\n", state->player->pos[0], state->player->pos[1]);
+	printf("player facing: %c\n", state->player->faceing);
 }

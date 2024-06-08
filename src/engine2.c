@@ -6,14 +6,13 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/08 18:06:51 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/08 19:36:05 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/06/08 20:10:46 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/engine.h"
 
 // mlx_loop_hook(mlx, ft_randomize, mlx);
-// mlx_loop_hook(mlx, ft_hook, mlx);
 // mlx_terminate(mlx);
 
 static	bool	init_mlx(t_game_state *state)
@@ -24,7 +23,8 @@ static	bool	init_mlx(t_game_state *state)
 		ft_putstr_fd(mlx_strerror(mlx_errno), 2);
 		return (false);
 	}
-	state->mlx->image = mlx_new_image(state->mlx->mlx, 128, 128);
+	state->mlx->image = mlx_new_image(
+			state->mlx->mlx, SCREENWIDTH, SCREENHEIGHT);
 	if (!state->mlx->image)
 	{
 		mlx_close_window(state->mlx->mlx);
@@ -37,6 +37,7 @@ static	bool	init_mlx(t_game_state *state)
 		ft_putstr_fd(mlx_strerror(mlx_errno), 2);
 		return (false);
 	}
+	mlx_loop_hook(state->mlx->mlx, key_hook, state);
 	mlx_loop(state->mlx->mlx);
 	return (true);
 }
@@ -52,7 +53,7 @@ static	void	set_player_pos(t_game_state *state)
 		col = 0;
 		while (col < state->map_size[1])
 		{
-			if (ft_strchr("NSEW", state->map[row][col]))
+			if (ft_strchr("NSEW", state->map[row][col]) != NULL)
 			{
 				state->player->faceing = state->map[row][col];
 				state->player->pos[0] = row;
