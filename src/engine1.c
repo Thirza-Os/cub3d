@@ -10,19 +10,48 @@ static mlx_image_t *image1;
 
 // hardcoded map voor tracer word vervangen door parser
 int worldMap[MAPWIDTH][MAPHEIGHT] = {
-    {1, 1, 1, 1, 1, 1, 1, 1},
-	{1, 0, 1, 0, 0, 0, 0, 1},
-    {1, 0, 1, 0, 0, 0, 0, 1},
-	{1, 0, 1, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 1, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 1, 1}};
+    {1, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 1, 0, 0, 0, 0, 1},
+    {1, 0, 1, 0, 0, 0, 0, 1}, {1, 0, 1, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 1, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 1}, {1, 1, 1, 1, 1, 1, 1, 1}};
 
 float px, py, pdx, pdy, pa;
 
 int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a) {
   return (r << 24 | g << 16 | b << 8 | a);
+}
+
+double dist(double ax, double ay, double bx, double by) {
+  double dx;
+  double dy;
+
+  dx = bx - ax;
+  dy = by - ay;
+  return (sqrt(dx * dx + dy * dy));
+}
+
+int dda_hori(t_player *eng) {
+  eng->hx = eng->ray->x;
+  eng->hy = eng->ray->y;
+  eng->dis_h = dist(eng->player_x, eng->player_y, eng->hx, eng->hy);
+  if (eng->dis_h < 0) {
+    eng->dis_h = 1;
+    return (0);
+  }
+  eng->dof = eng->map_x;
+  return (1);
+}
+
+int dda_vert(t_cub3d *eng) {
+  eng->vx = eng->rx;
+  eng->vy = eng->ry;
+  eng->dis_v = dist(eng->player_x, eng->player_y, eng->vx, eng->vy);
+  if (eng->dis_v < 0) {
+    eng->dis_v = 1;
+    return (0);
+  }
+  eng->dof = eng->map_y;
+  return (1);
 }
 
 void draw_vierkant(int start_x, int start_y, int color[3], mlx_image_t *img,
@@ -39,6 +68,8 @@ void draw_vierkant(int start_x, int start_y, int color[3], mlx_image_t *img,
   }
 }
 
+void cast_ray(void) { return; }
+
 void ft_hook(void *param) {
   mlx_t *mlx = param;
 
@@ -48,13 +79,13 @@ void ft_hook(void *param) {
     printf("Pijltje op\n");
     px += pdx;
     py += pdy;
-    image1->instances[0].y -= 5;
+    image1->instances[0].y -= 1;
   }
   if (mlx_is_key_down(mlx, MLX_KEY_DOWN)) {
     printf("Pijltje benede\n");
     px -= pdx;
     py -= pdy;
-    image1->instances[0].y += 5;
+    image1->instances[0].y += 1;
   }
   if (mlx_is_key_down(mlx, MLX_KEY_LEFT)) {
     printf("Pijltje links\n");
@@ -65,7 +96,7 @@ void ft_hook(void *param) {
     pdx = cos(pa) * 5; // voor nu 5
     pdx = sin(pa) * 5; // voor nu 5
 
-    image1->instances[0].x -= 5;
+    image1->instances[0].x -= 1;
   }
   if (mlx_is_key_down(mlx, MLX_KEY_RIGHT)) {
     printf("Pijltje rechts\n");
@@ -75,7 +106,7 @@ void ft_hook(void *param) {
     }
     pdx = cos(pa) * 5; // voor nu 5
     pdx = sin(pa) * 5; // voor nu 5
-    image1->instances[0].x += 5;
+    image1->instances[0].x += 1;
   }
 }
 

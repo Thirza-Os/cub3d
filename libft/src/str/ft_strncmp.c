@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 13:00:15 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/05/04 23:17:22 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/06/08 19:19:51 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t			index;
-	unsigned char	*s1_;
-	unsigned char	*s2_;
+	size_t				index;
+	const unsigned char	*s1_;
+	const unsigned char	*s2_;
 
 	s1_ = (unsigned char *)s1;
 	s2_ = (unsigned char *)s2;

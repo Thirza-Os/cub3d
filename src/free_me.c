@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_writers.c                                       :+:    :+:            */
+/*   free_me.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/12 17:42:54 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/08 19:22:39 by lvan-gef      ########   odam.nl         */
+/*   Created: 2024/06/08 18:38:41 by lvan-gef      #+#    #+#                 */
+/*   Updated: 2024/06/08 18:38:58 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf.h"
+#include "engine.h"
 
-int	write_str(const char *s)
+static	void	free_player(t_player *player)
 {
-	int	count;
-	int	result;
-
-	count = 0;
-	if (!s)
-		s = "(null)";
-	while (s[count])
-	{
-		result = write_ascii(s[count]);
-		if (result < 0)
-			return (-1);
-		count++;
-	}
-	return (count);
+	if (player == NULL)
+		return ;
+	if (player->ray == NULL)
+		return ;
+	free(player->ray);
+	free(player);
 }
 
-int	write_ascii(int c)
+static	void	free_mlx(t_mlx_state *mlx)
 {
-	return (write(1, &c, 1));
+	if (mlx == NULL)
+		return ;
+	mlx_terminate(mlx->mlx);
+}
+
+void	free_game_state(t_game_state *state)
+{
+	if (state == NULL)
+		return ;
+	free_player(state->player);
+	free_mlx(state->mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/12 17:51:54 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/05/05 02:09:16 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/06/08 19:23:08 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ int	ft_printf(const char *s, ...);
 
 // src/ft_writers.c
 int	write_ascii(int c);
-int	write_str(char *s);
+int	write_str(const char *s);
 #endif

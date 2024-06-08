@@ -9,8 +9,9 @@ OBJ_DIR = ./obj
 PARSER_DIR := $(SRC_DIR)/parser
 ENGINE_DIR := $(SRC_DIR)/engine
 
-SRCS 	:= 	$(SRC_DIR)/main.c 						       \
-			$(SRC_DIR)/engine1.c
+SRCS 	:= 	$(SRC_DIR)/main.c 	 \
+			$(SRC_DIR)/engine2.c \
+			$(SRC_DIR)/free_me.c
 
 OBJECTS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 LIB				= ./libft/libft.a
