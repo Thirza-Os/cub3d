@@ -1,2 +1,5 @@
 https://github.dev/kposthuma/cub3d
 https://lodev.org/cgtutor/raycasting.html
+https://github.com/3DSage/OpenGL-Raycaster_v2
+https://github.com/ncase/nothing-to-hide
+https://www.redblobgames.com/articles/visibility/
