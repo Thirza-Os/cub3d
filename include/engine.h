@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/29 22:00:03 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/08 20:05:45 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/06/10 21:03:32 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 // komt later van de parser af
 # define SCREENWIDTH 1024
 # define SCREENHEIGHT 512
+# define CELLSIZE 64
 
 typedef struct s_ray
 {
@@ -66,5 +67,8 @@ void	free_game_state(t_game_state *state);
 
 
 void	 key_hook(void *param);
+
+
+void	run_game(t_game_state *state);
 
 #endif

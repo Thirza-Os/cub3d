@@ -6,14 +6,11 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/08 18:06:51 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/08 20:10:46 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/06/10 19:05:25 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/engine.h"
-
-// mlx_loop_hook(mlx, ft_randomize, mlx);
-// mlx_terminate(mlx);
 
 static	bool	init_mlx(t_game_state *state)
 {
@@ -37,8 +34,6 @@ static	bool	init_mlx(t_game_state *state)
 		ft_putstr_fd(mlx_strerror(mlx_errno), 2);
 		return (false);
 	}
-	mlx_loop_hook(state->mlx->mlx, key_hook, state);
-	mlx_loop(state->mlx->mlx);
 	return (true);
 }
 
@@ -86,11 +81,11 @@ bool	init_state(t_game_state *state)
 	state->mlx = ft_calloc(1, sizeof(*state->mlx));
 	if (state->mlx == NULL)
 		return (err_handler("MLX", state));
+	set_player_pos(state);
 	if (init_mlx(state) != true)
 	{
 		free_game_state(state);
 		return (NULL);
 	}
-	set_player_pos(state);
 	return (true);
 }

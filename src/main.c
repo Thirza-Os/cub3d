@@ -35,4 +35,5 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	printf("player_x: %f, player_y: %f\n", state->player->pos[0], state->player->pos[1]);
 	printf("player facing: %c\n", state->player->faceing);
+	run_game(state);
 }
