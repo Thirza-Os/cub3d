@@ -2,50 +2,107 @@
 #include <math.h>
 
 
+// void	dda(t_game_state *state)
+// {
+// 	float	start_ray[2];
+// 	start_ray[0] = state->player->pos[0];
+// 	start_ray[1] = state->player->pos[1];
+//
+// 	float	ray_dir[2];
+// 	ray_dir[0] = (state->player->pos[0] / CELLSIZE) - state->player->pos[0];
+// 	ray_dir[1] = (state->player->pos[1] / CELLSIZE) - state->player->pos[1];
+//
+// 	float unit_step[2];
+// 	unit_step[0] = sqrt(1 + (ray_dir[1] / ray_dir[0]) * (ray_dir[1] / ray_dir[0]));
+// 	unit_step[1] = sqrt(1 + (ray_dir[0] / ray_dir[1]) * (ray_dir[0] / ray_dir[1]));
+//
+// 	float map_check[2];
+// 	map_check[0] = start_ray[0];
+// 	map_check[1] = start_ray[1];
+//
+// 	float stepper[2];
+// 	float ray_len[2];
+//
+//
+// 	if (ray_dir[0] < 0)
+// 	{
+// 		stepper[0] = -1;
+// 		ray_len[0] = (start_ray[0] - map_check[0]) * unit_step[0];
+// 	}
+// 	else {
+// 		stepper[0] = 1;
+// 		ray_len[0] = (map_check[0] + 1 - start_ray[0]) * unit_step[0] ;
+// 	}
+//
+// 	if (ray_dir[1] < 0)
+// 	{
+// 		stepper[1] = -1;
+// 		ray_len[1] = (start_ray[0] - map_check[0]) * unit_step[1];
+// 	}
+// 	else {
+// 		stepper[1] = 1;
+// 		ray_len[1] = (map_check[0] + 1);
+// 	}
+//
+//
+//
+// }
+
+// typedef struct s_A {
+// 	float row;
+// 	float col;
+// } t_A;
+//
+// void iets_met_ray(t_game_state *state)
+// {
+// 	t_A A;
+// 	A.col = 0;
+// 	// laten we eerst de horizontaal checken
+// 	// checken of we naar boven of naar benede kijken (maar wat als beiden niet waar zijn dus we kijken naar links of rechts)
+// 	if (state->player->faceing == 'N')
+// 	{
+// 		printf("Kijken naar boven\n");
+// 		A.row = (state->player->pos.row / 64) * (64) - 1;
+// 	}
+// 	else if (state->player->faceing == 'S')
+// 	{
+// 		printf("Kijken naar benede\n");
+// 		A.row = (state->player->pos.row / 64) * (64) + 64;
+// 	}
+// 	else {
+// 		printf("wat nu ??\n");
+// 	}
+//
+// 	// check of je onder of boven de lijn zit??
+//
+//
+//
+// 	// laten we nu verticaal checken
+// 	//
+//
+//
+// }
+
+void	dda_pixels(t_game_state *state, int row)
+{
+	t_dda	*dda;
+
+	dda = state->dda;
+	dda->camera_col = 2 * (row /(double)SCREENWIDTH) - 1;
+	dda->ray_dir.row = state->player->pos.row + (dda->plane.row * dda->camera_col);
+	dda->ray_dir.col = state->player->pos.col + (dda->plane.col * dda->camera_col);
+}
+
 void	dda(t_game_state *state)
 {
-	float	start_ray[2];
-	start_ray[0] = state->player->pos[0];
-	start_ray[1] = state->player->pos[1];
+	size_t	x_index;
 
-	float	ray_dir[2];
-	ray_dir[0] = (state->player->pos[0] / CELLSIZE) - state->player->pos[0];
-	ray_dir[1] = (state->player->pos[1] / CELLSIZE) - state->player->pos[1];
-
-	float unit_step[2];
-	unit_step[0] = sqrt(1 + (ray_dir[1] / ray_dir[0]) * (ray_dir[1] / ray_dir[0]));
-	unit_step[1] = sqrt(1 + (ray_dir[0] / ray_dir[1]) * (ray_dir[0] / ray_dir[1]));
-
-	float map_check[2];
-	map_check[0] = start_ray[0];
-	map_check[1] = start_ray[1];
-
-	float stepper[2];
-	float ray_len[2];
-
-
-	if (ray_dir[0] < 0)
+	x_index = 0;
+	while (x_index < SCREENWIDTH)
 	{
-		stepper[0] = -1;
-		ray_len[0] = (start_ray[0] - map_check[0]) * unit_step[0];
+		dda_pixels(state, x_index);
+		x_index++;
 	}
-	else {
-		stepper[0] = 1;
-		ray_len[0] = (map_check[0] + 1 - start_ray[0]) * unit_step[0] ;
-	}
-
-	if (ray_dir[1] < 0)
-	{
-		stepper[1] = -1;
-		ray_len[1] = (start_ray[0] - map_check[0]) * unit_step[1];
-	}
-	else {
-		stepper[1] = 1;
-		ray_len[1] = (map_check[0] + 1);
-	}
-
-
-
 }
 
 int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
@@ -64,8 +121,8 @@ void	draw_player(t_game_state *state)
 		col = 0;
 		while (col < 16)
 		{
-			printf("put pixel: %f, %f\n", state->player->pos[0] + col, state->player->pos[1] + row);
-			mlx_put_pixel(state->mlx->image, state->player->pos[0] + col, state->player->pos[1] + row, ft_pixel(0, 255, 0, 255));
+			printf("put pixel: %f, %f\n", state->player->pos.col + col, state->player->pos.row + row);
+			mlx_put_pixel(state->mlx->image, state->player->pos.col + col, state->player->pos.row + row, ft_pixel(0, 255, 0, 255));
 			col++;
 		}
 		row++;

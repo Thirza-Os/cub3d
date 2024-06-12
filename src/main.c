@@ -33,7 +33,7 @@ int	main(int argc, char *argv[])
 	state->map_size[1] = 5;
 	if (init_state(state) != true)
 		return (EXIT_FAILURE);
-	printf("player_x: %f, player_y: %f\n", state->player->pos[0], state->player->pos[1]);
+	printf("player_x: %f, player_y: %f\n", state->player->pos.row, state->player->pos.col);
 	printf("player facing: %c\n", state->player->faceing);
 	run_game(state);
 }

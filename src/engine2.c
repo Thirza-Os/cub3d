@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/08 18:06:51 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/10 19:05:25 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/06/12 18:39:36 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static	void	set_player_pos(t_game_state *state)
 			if (ft_strchr("NSEW", state->map[row][col]) != NULL)
 			{
 				state->player->faceing = state->map[row][col];
-				state->player->pos[0] = row;
-				state->player->pos[1] = col;
+				state->player->pos.row = row;
+				state->player->pos.col = col;
 				return ;
 			}
 			col++;
@@ -75,9 +75,6 @@ bool	init_state(t_game_state *state)
 	state->player = ft_calloc(1, sizeof(*state->player));
 	if (state->player == NULL)
 		return (err_handler("player", state));
-	state->player->ray = ft_calloc(1, sizeof(*state->player->ray));
-	if (state->player->ray == NULL)
-		return (err_handler("ray", state));
 	state->mlx = ft_calloc(1, sizeof(*state->mlx));
 	if (state->mlx == NULL)
 		return (err_handler("MLX", state));
