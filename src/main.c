@@ -7,6 +7,7 @@ char	*map[] = {
 	"100101",
 	"101001",
 	"1100N1",
+	"100011",
 	"111111"
 };
 
@@ -30,7 +31,7 @@ int	main(int argc, char *argv[])
 	}
 	state->map = map;
 	state->map_size[0] = 6;
-	state->map_size[1] = 5;
+	state->map_size[1] = 6;
 	if (init_state(state) != true)
 		return (EXIT_FAILURE);
 	printf("player_x: %f, player_y: %f\n", state->player->pos.row, state->player->pos.col);

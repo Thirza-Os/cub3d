@@ -68,13 +68,17 @@ static	void	check_collision(t_game_state *state)
 		}
 
 		// voor nu ik heb een segfault
-		if ((int)dda->pos.row > 4 || (int)dda->pos.col > 5)
+		if ((int)dda->pos.row < 6 && (int)dda->pos.col < 6)
 		{
-			printf("Dit is niet goed...\n");
+			if (state->map[(int)dda->pos.row][(int)dda->pos.col] == '1')
+				break ;
+		}
+		else
+		{
+			printf("Dit is niet goed col of row...\n");
+			printf("row: %d, col: %d\n", (int)dda->pos.row, (int)dda->pos.col);
 			break ;
 		}
-		if (state->map[(int)dda->pos.row][(int)dda->pos.col] == '1')
-			break ;
 	}
 }
 
