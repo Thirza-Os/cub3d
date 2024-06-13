@@ -1,89 +1,8 @@
 #include "../include/engine.h"
 #include <math.h>
 
-
-// void	dda(t_game_state *state)
-// {
-// 	float	start_ray[2];
-// 	start_ray[0] = state->player->pos[0];
-// 	start_ray[1] = state->player->pos[1];
-//
-// 	float	ray_dir[2];
-// 	ray_dir[0] = (state->player->pos[0] / CELLSIZE) - state->player->pos[0];
-// 	ray_dir[1] = (state->player->pos[1] / CELLSIZE) - state->player->pos[1];
-//
-// 	float unit_step[2];
-// 	unit_step[0] = sqrt(1 + (ray_dir[1] / ray_dir[0]) * (ray_dir[1] / ray_dir[0]));
-// 	unit_step[1] = sqrt(1 + (ray_dir[0] / ray_dir[1]) * (ray_dir[0] / ray_dir[1]));
-//
-// 	float map_check[2];
-// 	map_check[0] = start_ray[0];
-// 	map_check[1] = start_ray[1];
-//
-// 	float stepper[2];
-// 	float ray_len[2];
-//
-//
-// 	if (ray_dir[0] < 0)
-// 	{
-// 		stepper[0] = -1;
-// 		ray_len[0] = (start_ray[0] - map_check[0]) * unit_step[0];
-// 	}
-// 	else {
-// 		stepper[0] = 1;
-// 		ray_len[0] = (map_check[0] + 1 - start_ray[0]) * unit_step[0] ;
-// 	}
-//
-// 	if (ray_dir[1] < 0)
-// 	{
-// 		stepper[1] = -1;
-// 		ray_len[1] = (start_ray[0] - map_check[0]) * unit_step[1];
-// 	}
-// 	else {
-// 		stepper[1] = 1;
-// 		ray_len[1] = (map_check[0] + 1);
-// 	}
-//
-//
-//
-// }
-
-// typedef struct s_A {
-// 	float row;
-// 	float col;
-// } t_A;
-//
-// void iets_met_ray(t_game_state *state)
-// {
-// 	t_A A;
-// 	A.col = 0;
-// 	// laten we eerst de horizontaal checken
-// 	// checken of we naar boven of naar benede kijken (maar wat als beiden niet waar zijn dus we kijken naar links of rechts)
-// 	if (state->player->faceing == 'N')
-// 	{
-// 		printf("Kijken naar boven\n");
-// 		A.row = (state->player->pos.row / 64) * (64) - 1;
-// 	}
-// 	else if (state->player->faceing == 'S')
-// 	{
-// 		printf("Kijken naar benede\n");
-// 		A.row = (state->player->pos.row / 64) * (64) + 64;
-// 	}
-// 	else {
-// 		printf("wat nu ??\n");
-// 	}
-//
-// 	// check of je onder of boven de lijn zit??
-//
-//
-//
-// 	// laten we nu verticaal checken
-// 	//
-//
-//
-// }
-
-void	dda_pixels(t_game_state *state, int row)
+// denk dat plane nooit is gezet
+void	set_dda(t_game_state *state, int row)
 {
 	t_dda	*dda;
 
@@ -91,17 +10,86 @@ void	dda_pixels(t_game_state *state, int row)
 	dda->camera_col = 2 * (row /(double)SCREENWIDTH) - 1;
 	dda->ray_dir.row = state->player->pos.row + (dda->plane.row * dda->camera_col);
 	dda->ray_dir.col = state->player->pos.col + (dda->plane.col * dda->camera_col);
+	if (dda->ray_dir.col == 0)
+		dda->delta_dist.col = INFINITY;
+	else
+		dda->delta_dist.col = fabs(1 / dda->ray_dir.col);
+	if (dda->ray_dir.row == 0)
+		dda->delta_dist.row = INFINITY;
+	else
+		dda->delta_dist.row = fabs(1 / dda->ray_dir.row);
+}
+
+static void	set_steps(t_game_state *state)
+{
+	t_dda	*dda;
+
+	dda = state->dda;
+	if (dda->ray_dir.col < 0)
+	{
+		dda->stepper.col = -1;
+		dda->side_dist.col = (state->player->pos.col - dda->pos.col) * dda->delta_dist.col;
+	}
+	else
+	{
+		dda->stepper.col = 1;
+		dda->side_dist.col = (dda->pos.col + 1 - state->player->pos.col) * dda->delta_dist.col;
+	}
+	if (dda->ray_dir.row < 0)
+	{
+		dda->stepper.row = -1;
+		dda->side_dist.row = (state->player->pos.row - dda->pos.row) * dda->delta_dist.row;
+	}
+	else
+	{
+		dda->stepper.row = 1;
+		dda->side_dist.row = (dda->pos.row + 1 - state->player->pos.row) * dda->delta_dist.row;
+	}
+}
+
+static	void	check_collision(t_game_state *state)
+{
+	t_dda	*dda;
+
+	dda = state->dda;
+	while (1)
+	{
+		if (dda->side_dist.col < dda->side_dist.row)
+		{
+			dda->side_dist.col += dda->delta_dist.col;
+			dda->pos.col += dda->stepper.col;
+			dda->side = 1;
+		}
+		else
+		{
+			dda->side_dist.row += dda->delta_dist.row;
+			dda->pos.row += dda->stepper.row;
+			dda->side = 2;
+		}
+
+		// voor nu ik heb een segfault
+		if ((int)dda->pos.row > 4 || (int)dda->pos.col > 5)
+		{
+			printf("Dit is niet goed...\n");
+			break ;
+		}
+		if (state->map[(int)dda->pos.row][(int)dda->pos.col] == '1')
+			break ;
+	}
 }
 
 void	dda(t_game_state *state)
 {
-	size_t	x_index;
+	size_t	col_index;
 
-	x_index = 0;
-	while (x_index < SCREENWIDTH)
+	col_index = 0;
+	// while (col_index < SCREENWIDTH)
+	while (col_index < 6)
 	{
-		dda_pixels(state, x_index);
-		x_index++;
+		set_dda(state, col_index);
+		set_steps(state);
+		check_collision(state);
+		col_index++;
 	}
 }
 
@@ -131,7 +119,8 @@ void	draw_player(t_game_state *state)
 
 void	run_game(t_game_state *state)
 {
-	draw_player(state);
-	mlx_loop_hook(state->mlx->mlx, key_hook, state);
-	mlx_loop(state->mlx->mlx);
+	dda(state);
+	// draw_player(state);
+	// mlx_loop_hook(state->mlx->mlx, key_hook, state);
+	// mlx_loop(state->mlx->mlx);
 }

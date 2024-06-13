@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/29 22:00:03 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/12 18:43:56 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/06/13 18:49:19 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ typedef struct s_draw_info
 typedef	struct	s_dda
 {
 	t_vector	plane;
-
 	double		camera_col;
 	t_vector	ray_dir;
-	t_vector	delta_dis;
+	t_vector	delta_dist;
 	t_vector	stepper;
 	t_vector	side_dist;
-
+	t_vector	pos;
 	double		prep_wall;
+	int			side;
 	t_draw_info	line;
 } t_dda;
 
@@ -89,9 +89,7 @@ bool	err_handler(const char *msg, t_game_state *state);
 
 void	free_game_state(t_game_state *state);
 
-
 void	 key_hook(void *param);
-
 
 void	run_game(t_game_state *state);
 

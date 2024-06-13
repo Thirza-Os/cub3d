@@ -6,11 +6,12 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/08 18:06:51 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/12 18:39:36 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/06/13 19:10:24 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/engine.h"
+#include "libft.h"
 
 static	bool	init_mlx(t_game_state *state)
 {
@@ -51,6 +52,8 @@ static	void	set_player_pos(t_game_state *state)
 			if (ft_strchr("NSEW", state->map[row][col]) != NULL)
 			{
 				state->player->faceing = state->map[row][col];
+				state->dda->pos.row = row;
+				state->dda->pos.col = col;
 				state->player->pos.row = row;
 				state->player->pos.col = col;
 				return ;
@@ -78,6 +81,9 @@ bool	init_state(t_game_state *state)
 	state->mlx = ft_calloc(1, sizeof(*state->mlx));
 	if (state->mlx == NULL)
 		return (err_handler("MLX", state));
+	state->dda = ft_calloc(1, sizeof(*state->dda));
+	if (state->dda == NULL)
+		return (err_handler("dda", state));
 	set_player_pos(state);
 	if (init_mlx(state) != true)
 	{
