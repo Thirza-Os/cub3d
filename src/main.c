@@ -30,8 +30,8 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 	state->map = map;
-	state->map_size[0] = 6;
-	state->map_size[1] = 6;
+	state->map_size.row = 6;
+	state->map_size.col = 6;
 	if (init_state(state) != true)
 		return (EXIT_FAILURE);
 	printf("player_x: %f, player_y: %f\n", state->player->pos.row, state->player->pos.col);

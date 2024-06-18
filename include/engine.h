@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/29 22:00:03 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/13 18:49:19 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/06/18 14:51:42 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ typedef struct s_vector
 	double	row;
 	double	col;
 } t_vector;
+
+typedef struct s_map_size
+{
+	size_t	row;
+	size_t	col;
+}	t_map_size;
 
 typedef struct s_draw_info
 {
@@ -81,7 +87,7 @@ typedef struct s_game_state
 	t_mlx_state	*mlx;
 	t_dda		*dda;
 	char		**map;
-	size_t		map_size[2];
+	t_map_size	map_size;
 }	t_game_state;
 
 bool	init_state(t_game_state *state);
