@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/08 18:06:51 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/13 19:10:24 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/06/19 21:53:50 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static	void	set_player_pos(t_game_state *state)
 	size_t	col;
 
 	row = 0;
-	while (row < state->map_size[0])
+	while (row < state->map_size.row)
 	{
 		col = 0;
-		while (col < state->map_size[1])
+		while (col < state->map_size.col)
 		{
 			if (ft_strchr("NSEW", state->map[row][col]) != NULL)
 			{
