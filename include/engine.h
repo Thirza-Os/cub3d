@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/29 22:00:03 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/18 14:51:42 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/06/19 21:59:27 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdbool.h>
 # include <stdlib.h>
+# include <math.h>
 
 # include "../libft/include/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
