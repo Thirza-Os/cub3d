@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/29 22:00:03 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/19 21:59:27 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/06/20 01:05:15 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,9 @@ typedef struct s_vector
 	double	col;
 } t_vector;
 
-typedef struct s_map_size
-{
-	size_t	row;
-	size_t	col;
-}	t_map_size;
-
 typedef struct s_draw_info
 {
-	int		h;
+	int		heigth;
 	int		start;
 	int		end;
 }	t_draw_info;
@@ -59,20 +53,12 @@ typedef	struct	s_dda
 	t_draw_info	line;
 } t_dda;
 
-typedef struct s_pos
-{
-	float row;
-	float col;
-} t_pos;
-
 typedef struct s_player
 {
-	t_pos	pos;
-	float	angle;
-	float	dx;
-	float	dy;
-	t_dda	*dda;
-	char	faceing;
+	t_vector	pos;
+	t_vector	d_pos;
+	float		angle;
+	char		faceing;
 }	t_player;
 
 typedef struct s_mlx_state
@@ -82,13 +68,19 @@ typedef struct s_mlx_state
 	mlx_image_t	*mini_map;
 }	t_mlx_state;
 
+typedef struct s_map
+{
+	char	**map;
+	size_t	max_row;
+	size_t	max_col;
+}	t_map;
+
 typedef struct s_game_state
 {
 	t_player	*player;
 	t_mlx_state	*mlx;
 	t_dda		*dda;
-	char		**map;
-	t_map_size	map_size;
+	t_map		*map;
 }	t_game_state;
 
 bool	init_state(t_game_state *state);
@@ -100,4 +92,6 @@ void	 key_hook(void *param);
 
 void	run_game(t_game_state *state);
 
+void	print_player(t_player *player);
+void	print_dda(t_dda *dda);
 #endif

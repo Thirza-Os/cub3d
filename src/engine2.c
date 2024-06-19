@@ -6,36 +6,36 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/08 18:06:51 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/19 22:59:51 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/06/20 01:12:14 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/engine.h"
 
-// static	bool	init_mlx(t_game_state *state)
-// {
-// 	state->mlx->mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT, "MLX42", true);
-// 	if (!state->mlx->mlx)
-// 	{
-// 		ft_putstr_fd(mlx_strerror(mlx_errno), 2);
-// 		return (false);
-// 	}
-// 	state->mlx->image = mlx_new_image(
-// 			state->mlx->mlx, SCREENWIDTH, SCREENHEIGHT);
-// 	if (!state->mlx->image)
-// 	{
-// 		mlx_close_window(state->mlx->mlx);
-// 		ft_putstr_fd(mlx_strerror(mlx_errno), 2);
-// 		return (false);
-// 	}
-// 	if (mlx_image_to_window(state->mlx->mlx, state->mlx->image, 0, 0) == -1)
-// 	{
-// 		mlx_close_window(state->mlx->mlx);
-// 		ft_putstr_fd(mlx_strerror(mlx_errno), 2);
-// 		return (false);
-// 	}
-// 	return (true);
-// }
+static	bool	init_mlx(t_game_state *state)
+{
+	state->mlx->mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT, "MLX42", true);
+	if (!state->mlx->mlx)
+	{
+		ft_putstr_fd(mlx_strerror(mlx_errno), 2);
+		return (false);
+	}
+	state->mlx->image = mlx_new_image(
+			state->mlx->mlx, SCREENWIDTH, SCREENHEIGHT);
+	if (!state->mlx->image)
+	{
+		mlx_close_window(state->mlx->mlx);
+		ft_putstr_fd(mlx_strerror(mlx_errno), 2);
+		return (false);
+	}
+	if (mlx_image_to_window(state->mlx->mlx, state->mlx->image, 0, 0) == -1)
+	{
+		mlx_close_window(state->mlx->mlx);
+		ft_putstr_fd(mlx_strerror(mlx_errno), 2);
+		return (false);
+	}
+	return (true);
+}
 
 static	void	set_player_pos(t_game_state *state)
 {
@@ -43,14 +43,14 @@ static	void	set_player_pos(t_game_state *state)
 	size_t	col;
 
 	row = 0;
-	while (row < state->map_size.row)
+	while (row < state->map->max_row)
 	{
 		col = 0;
-		while (col < state->map_size.col)
+		while (col < state->map->max_col)
 		{
-			if (ft_strchr("NSEW", state->map[row][col]) != NULL)
+			if (ft_strchr("NSEW", state->map->map[row][col]) != NULL)
 			{
-				state->player->faceing = state->map[row][col];
+				state->player->faceing = state->map->map[row][col];
 				state->dda->pos.row = row;
 				state->dda->pos.col = col;
 				state->player->pos.row = row;
@@ -84,10 +84,10 @@ bool	init_state(t_game_state *state)
 	if (state->dda == NULL)
 		return (err_handler("dda", state));
 	set_player_pos(state);
-	// if (init_mlx(state) != true)
-	// {
-	// 	free_game_state(state);
-	// 	return (NULL);
-	// }
+	if (init_mlx(state) != true)
+	{
+		free_game_state(state);
+		return (NULL);
+	}
 	return (true);
 }

@@ -13,6 +13,7 @@ SRCS 	:= 	$(SRC_DIR)/main.c 	 \
 			$(SRC_DIR)/engine2.c \
 			$(SRC_DIR)/free_me.c \
 			$(SRC_DIR)/hooks.c   \
+			$(SRC_DIR)/debugger.c   \
 			$(SRC_DIR)/run_game.c
 
 OBJECTS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
