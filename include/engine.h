@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/29 22:00:03 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/20 01:05:15 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/06/25 21:23:39 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,45 @@
 # define SCREENHEIGHT 512
 # define CELLSIZE 64
 
+// typedef struct s_vector
+// {
+// 	double	row;
+// 	double	col;
+// } t_vector;
+//
+// typedef struct s_draw_info
+// {
+// 	int		heigth;
+// 	int		start;
+// 	int		end;
+// }	t_draw_info;
+//
+// typedef	struct	s_dda
+// {
+// 	t_vector	plane;
+// 	double		camera_col;
+// 	t_vector	ray_dir;
+// 	t_vector	delta_dist;
+// 	t_vector	stepper;
+// 	t_vector	side_dist;
+// 	t_vector	pos;
+// 	t_vector	dir;
+// 	double		prep_wall;
+// 	int			side;
+// 	t_draw_info	line;
+// } t_dda;
+
 typedef struct s_vector
 {
-	double	row;
 	double	col;
-} t_vector;
+	double	row;
+}	t_vector;
+
+typedef struct s_coors_int
+{
+	int	x;
+	int	y;
+}	t_coors_int;
 
 typedef struct s_draw_info
 {
@@ -39,19 +73,26 @@ typedef struct s_draw_info
 	int		end;
 }	t_draw_info;
 
-typedef	struct	s_dda
+typedef struct s_dda
 {
-	t_vector	plane;
-	double		camera_col;
+	double		plane_x;
+	double		plane_y;
+	t_vector	player_pos;
+	t_vector	player_dir;
+	double		camera_x;
 	t_vector	ray_dir;
-	t_vector	delta_dist;
-	t_vector	stepper;
-	t_vector	side_dist;
-	t_vector	pos;
-	double		prep_wall;
-	int			side;
+	t_coors_int	map_pos;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	int			step_map_x;
+	int			step_map_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	int			current_side;
+	double		prep_wall_dist;
 	t_draw_info	line;
-} t_dda;
+}	t_dda;
+
 
 typedef struct s_player
 {
@@ -88,10 +129,16 @@ bool	err_handler(const char *msg, t_game_state *state);
 
 void	free_game_state(t_game_state *state);
 
-void	 key_hook(void *param);
+void	key_hook(void *param);
 
 void	run_game(t_game_state *state);
 
 void	print_player(t_player *player);
 void	print_dda(t_dda *dda);
+
+void	dda_loop(void *param);
+void	draw_info_calc(t_game_state *state);
+void	dda_per_x(t_game_state *game, int x);
+bool	dda_init(t_game_state *state);
+
 #endif
