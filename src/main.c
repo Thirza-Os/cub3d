@@ -40,6 +40,7 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	printf("player_x: %f, player_y: %f\n", state->player->pos.row, state->player->pos.col);
 	printf("player facing: %c\n", state->player->faceing);
-	// run_game(state);
-	dda_loop((void *)state);
+	run_game(state);
+ //    dda_init(state);
+	// dda_loop((void *)state);
 }

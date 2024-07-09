@@ -78,14 +78,14 @@ void	draw_info_calc(t_game_state *state)
 
 	dda = state->dda;
 	if (dda->current_side == 1)
-		dda->perp_wall_dist = dda->side_dist_x - dda->delta_dist_x;
+		dda->prep_wall_dist = dda->side_dist_x - dda->delta_dist_x;
 	else
-		dda->perp_wall_dist = dda->side_dist_y - dda->delta_dist_y;
-	perp_wall_dist_inverse = 1 / dda->perp_wall_dist;
+		dda->prep_wall_dist = dda->side_dist_y - dda->delta_dist_y;
+	perp_wall_dist_inverse = 1 / dda->prep_wall_dist;
 	if (perp_wall_dist_inverse == INFINITY)
-		dda->line.h = SCREENHEIGHT;
+		dda->line.heigth = SCREENHEIGHT;
 	else
-		dda->line.h = (int)(perp_wall_dist_inverse * SCREENHEIGHT);
-	dda->line.start = (SCREENHEIGHT / 2) - (dda->line.h / 2);
-	dda->line.end = (SCREENHEIGHT / 2) + (dda->line.h / 2);
+		dda->line.heigth = (int)(perp_wall_dist_inverse * SCREENHEIGHT);
+	dda->line.start = (SCREENHEIGHT / 2) - (dda->line.heigth / 2);
+	dda->line.end = (SCREENHEIGHT / 2) + (dda->line.heigth / 2);
 }

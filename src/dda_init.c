@@ -22,6 +22,7 @@ void	pre_dda_values_init(t_game_state *state)
 		}
 		i++;
 	}
+    state->dda = dda;
 }
 
 bool	dda_init(t_game_state *state)
@@ -36,7 +37,15 @@ bool	dda_init(t_game_state *state)
 	}
 	dda->player_pos.col = state->player->pos.col + 0.5;
 	dda->player_pos.row = state->player->pos.row + 0.5;
-	pre_dda_values_init(state);
+	const double	values[4][4] = {{0, -1, 0.66, 0}, {1, 0, 0, 0.66}, \
+									{0, 1, -0.66, 0}, {-1, 0, 0, -0.66}};
+    dda->player_dir.col = values[0][0];
+    dda->player_dir.row = values[0][1];
+    dda->plane_x = values[0][2];
+    dda->plane_y = values[0][3];
+    state->dda = dda;
+    printf("waarom??? %f,%f\n", state->dda->plane_y, state->dda->plane_x);
+	// pre_dda_values_init(state);
 	// if (set_texture_struct(dda))
 	// {
 	// 	print_error("texture fail\n");

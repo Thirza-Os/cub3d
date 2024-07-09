@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/08 18:06:51 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/20 01:12:14 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/07/09 16:45:51 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static	void	set_player_pos(t_game_state *state)
 			if (ft_strchr("NSEW", state->map->map[row][col]) != NULL)
 			{
 				state->player->faceing = state->map->map[row][col];
-				state->dda->pos.row = row;
-				state->dda->pos.col = col;
+				state->dda->player_pos.row = row;
+				state->dda->player_pos.col = col;
 				state->player->pos.row = row;
 				state->player->pos.col = col;
 				return ;
