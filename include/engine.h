@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/29 22:00:03 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/25 21:23:39 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/07/25 21:04:41 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 // voor nu hardcoded zo dat ik mijn tracer kan checken
 // komt later van de parser af
-# define SCREENWIDTH 1024
-# define SCREENHEIGHT 512
+# define SCREENWIDTH 640
+# define SCREENHEIGHT 480
 # define CELLSIZE 64
 
 // typedef struct s_vector
@@ -56,8 +56,8 @@
 
 typedef struct s_vector
 {
-	double	col;
-	double	row;
+	double	x;
+	double	y;
 }	t_vector;
 
 typedef struct s_coors_int

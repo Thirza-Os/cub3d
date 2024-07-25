@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/08 18:06:51 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/07/09 16:45:51 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/07/25 21:08:23 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,31 +37,31 @@ static	bool	init_mlx(t_game_state *state)
 	return (true);
 }
 
-static	void	set_player_pos(t_game_state *state)
-{
-	size_t	row;
-	size_t	col;
-
-	row = 0;
-	while (row < state->map->max_row)
-	{
-		col = 0;
-		while (col < state->map->max_col)
-		{
-			if (ft_strchr("NSEW", state->map->map[row][col]) != NULL)
-			{
-				state->player->faceing = state->map->map[row][col];
-				state->dda->player_pos.row = row;
-				state->dda->player_pos.col = col;
-				state->player->pos.row = row;
-				state->player->pos.col = col;
-				return ;
-			}
-			col++;
-		}
-		row++;
-	}
-}
+// static	void	set_player_pos(t_game_state *state)
+// {
+// 	size_t	row;
+// 	size_t	col;
+//
+// 	row = 0;
+// 	while (row < state->map->max_row)
+// 	{
+// 		col = 0;
+// 		while (col < state->map->max_col)
+// 		{
+// 			if (ft_strchr("NSEW", state->map->map[row][col]) != NULL)
+// 			{
+// 				state->player->faceing = state->map->map[row][col];
+// 				state->dda->player_pos.y = row;
+// 				state->dda->player_pos.x = col;
+// 				state->player->pos.y = row;
+// 				state->player->pos.x = col;
+// 				return ;
+// 			}
+// 			col++;
+// 		}
+// 		row++;
+// 	}
+// }
 
 bool	err_handler(const char *msg, t_game_state *state)
 {
@@ -83,7 +83,13 @@ bool	init_state(t_game_state *state)
 	state->dda = ft_calloc(1, sizeof(*state->dda));
 	if (state->dda == NULL)
 		return (err_handler("dda", state));
-	set_player_pos(state);
+	// set_player_pos(state);
+	state->player->faceing = 'N';
+	state->dda->player_pos.y = 12;
+	state->dda->player_pos.x = 22;
+	state->player->pos.y = 12;
+	state->player->pos.x = 22;
+
 	if (init_mlx(state) != true)
 	{
 		free_game_state(state);
