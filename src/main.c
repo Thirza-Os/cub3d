@@ -12,7 +12,7 @@
 // 	"111111"
 // };
 
-// char *map = "111111\n100001\n100001\n1000N1\n100001\n111111\n";
+// char *map = "111111\n100101\n101001\n1100N1\n100011\n11111\n";
 char *map = "\
 111111111111111111111111\n\
 100000000000000000000001\n\
@@ -39,7 +39,6 @@ char *map = "\
 111111111000000000000001\n\
 111111111111111111111111\n";
 
-
 int	main(int argc, char *argv[])
 {
 	t_game_state	*state;
@@ -50,6 +49,7 @@ int	main(int argc, char *argv[])
 	// // parse_input(argc, argv);
 	// // draw_game()
 	// return (0);
+
 
 	state = ft_calloc(1, sizeof(*state));
 	if (state == NULL)
@@ -64,7 +64,6 @@ int	main(int argc, char *argv[])
 
 	if (init_state(state) != true)
 		return (EXIT_FAILURE);
-
 	printf("player_x: %f, player_y: %f\n", state->player->pos.y, state->player->pos.x);
 	printf("player facing: %c\n", state->player->faceing);
 	run_game(state);

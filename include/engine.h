@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/29 22:00:03 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/07/25 21:04:41 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/07/27 21:15:53 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 // voor nu hardcoded zo dat ik mijn tracer kan checken
 // komt later van de parser af
-# define SCREENWIDTH 640
-# define SCREENHEIGHT 480
+# define SCREENWIDTH 1024
+# define SCREENHEIGHT 512
 # define CELLSIZE 64
 
 // typedef struct s_vector
@@ -136,9 +136,6 @@ void	run_game(t_game_state *state);
 void	print_player(t_player *player);
 void	print_dda(t_dda *dda);
 
-void	dda_loop(void *param);
-void	draw_info_calc(t_game_state *state);
-void	dda_per_x(t_game_state *game, int x);
-bool	dda_init(t_game_state *state);
+void	dda(t_game_state *state);
 
 #endif

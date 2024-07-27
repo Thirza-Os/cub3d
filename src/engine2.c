@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/08 18:06:51 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/07/25 21:08:23 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/07/27 20:27:41 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,10 @@ bool	init_state(t_game_state *state)
 	if (state->dda == NULL)
 		return (err_handler("dda", state));
 	// set_player_pos(state);
-	state->player->faceing = 'N';
-	state->dda->player_pos.y = 12;
 	state->dda->player_pos.x = 22;
-	state->player->pos.y = 12;
+	state->dda->player_pos.y = 12;
 	state->player->pos.x = 22;
-
+	state->player->pos.y = 12;
 	if (init_mlx(state) != true)
 	{
 		free_game_state(state);
