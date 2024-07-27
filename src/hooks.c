@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/27 21:28:19 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/07/27 21:29:08 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/07/27 21:57:52 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	key_hook(void *param)
 	if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_UP))
 	{
 		state->dda->player_pos.y -= 1;
+		dda(state);
 	}
 	if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_DOWN))
 	{
@@ -30,10 +31,18 @@ void	key_hook(void *param)
 	}
 	if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_LEFT))
 	{
-		state->mlx->image->instances[0].x -= 1;
+		if (state->dda->map_pos.x - 1 != 1) {
+			state->dda->player_pos.x -= 1;
+			state->dda->map_pos.x -= 1;
+			dda(state);
+		}
 	}
 	if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_RIGHT))
 	{
-		state->mlx->image->instances[0].x += 1;
+		if (state->dda->map_pos.x + 1 != 1) {
+			state->dda->player_pos.x += 1;
+			state->dda->map_pos.x += 1;
+			dda(state);
+		}
 	}
 }
