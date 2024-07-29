@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/19 22:03:10 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/07/27 21:13:21 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/07/29 22:21:22 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,14 @@ void get_draw_info(t_game_state *state)
     if (dda->current_side == 1)
         dda->prep_wall_dist = (dda->map_pos.x - dda->player_pos.x + (1 - dda->step_map_x) / 2) / dda->ray_dir.x;
     else
+	{
         dda->prep_wall_dist = (dda->map_pos.y - dda->player_pos.y + (1 - dda->step_map_y) / 2) / dda->ray_dir.y;
+	}
 
+	if (dda->prep_wall_dist <= 0.0001) {
+		printf("Error: Invalid prep_wall_dist value: %.6f\n", dda->prep_wall_dist);
+		dda->prep_wall_dist = 0.0001;  // Assign a small non-zero value to avoid division by zero
+	}
     dda->line.heigth = (int)(SCREENHEIGHT / dda->prep_wall_dist);
     dda->line.start = -dda->line.heigth / 2 + SCREENHEIGHT / 2;
     if (dda->line.start < 0) {
@@ -90,26 +96,22 @@ void set_dda(t_game_state *state, int col)
 void set_steps(t_game_state *state)
 {
     t_dda *dda = state->dda;
+    dda->step_map_x = 1;
+    dda->step_map_y = 1;
     if (dda->ray_dir.x < 0)
     {
         dda->step_map_x = -1;
         dda->side_dist_x = (dda->player_pos.x - dda->map_pos.x) * dda->delta_dist_x;
     }
     else
-    {
-        dda->step_map_x = 1;
         dda->side_dist_x = (dda->map_pos.x + 1.0 - dda->player_pos.x) * dda->delta_dist_x;
-    }
     if (dda->ray_dir.y < 0)
     {
         dda->step_map_y = -1;
         dda->side_dist_y = (dda->player_pos.y - dda->map_pos.y) * dda->delta_dist_y;
     }
     else
-    {
-        dda->step_map_y = 1;
         dda->side_dist_y = (dda->map_pos.y + 1.0 - dda->player_pos.y) * dda->delta_dist_y;
-    }
 }
 // static	void	set_steps(t_game_state *state)
 // {
@@ -179,6 +181,7 @@ void	dda(t_game_state *state)
 
 		row = 0;
 		printf("row: %d, line: %d, screen: %d\n", row, state->dda->line.start, SCREENHEIGHT);
+		printf("Player position: x = %f, y = %f\n", state->dda->player_pos.x, state->dda->player_pos.y); // Debug print
 		// line < 0
 		while (row < state->dda->line.start && row < SCREENHEIGHT)
 		{
@@ -190,7 +193,7 @@ void	dda(t_game_state *state)
 		printf("row: %d, line: %d, screen: %d\n", row, state->dda->line.end, SCREENHEIGHT);
 		row = state->dda->line.end;  // + 1 misschien
 		// line is meer dan screenheight
-		while (row < SCREENHEIGHT)
+		while (row < SCREENHEIGHT && row >= 0)
 		{
 			mlx_put_pixel(state->mlx->image, col_index, row, ft_pixel(255, 0, 0, 255));
 			// mlx_put_pixel(state->mlx->image, row, col_index, ft_pixel(255, 0, 0, 255));
@@ -211,6 +214,16 @@ void	run_game(t_game_state *state)
 	state->dda->plane_x = values[0][2];
 	state->dda->plane_y = values[0][3];
 
+	int x, y;
+	y = 0;
+	while (y < SCREENHEIGHT) {
+		x = 0;
+		while (x < SCREENWIDTH) {
+			mlx_put_pixel(state->mlx->image, x, y, ft_pixel(0, 255, 0, 255));
+			x++;
+		}
+		y++;
+	}
 	dda(state);
 	mlx_loop_hook(state->mlx->mlx, key_hook, (void *)state);
 	mlx_loop(state->mlx->mlx);

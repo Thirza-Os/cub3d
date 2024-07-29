@@ -29,5 +29,7 @@ void	print_dda(t_dda *dda) {
 	printf("draw heigth   : %i\n", dda->line.heigth);
 	printf("draw start    : %i\n", dda->line.start);
 	printf("draw end      : %i\n", dda->line.end);
+	printf("player_x: %f, player_y: %f\n", dda->player_pos.x, dda->player_pos.y);
+	printf("map_x: %d, map_y: %d\n", dda->map_pos.x, dda->map_pos.y);
 	printf("\n");
 }
