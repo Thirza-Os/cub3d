@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/27 21:28:19 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/07/29 18:05:15 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/07/31 21:57:11 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void key_hook(void *param)
             state->dda->player_pos.y -= 1;
             printf("Moved up to: player_pos.y = %f\n", state->dda->player_pos.y); // Debug print
             dda(state);
-            printf("Hello up\n");
         }
     }
     if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_DOWN))

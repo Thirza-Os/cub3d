@@ -6,11 +6,14 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/19 22:03:10 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/07/29 22:21:22 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/07/31 21:53:49 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/engine.h"
+#include "libft.h"
+#include <stdint.h>
+#include <string.h>
 
 // void	get_draw_info(t_game_state *state)
 // {
@@ -170,6 +173,7 @@ void	dda(t_game_state *state)
 	size_t	col_index;
 
 	col_index = 0;
+	ft_memset(state->mlx->image->pixels, 255, SCREENWIDTH * SCREENHEIGHT * sizeof(uint32_t));
 	while (col_index < SCREENWIDTH)
 	{
 		set_dda(state, col_index);
@@ -214,16 +218,6 @@ void	run_game(t_game_state *state)
 	state->dda->plane_x = values[0][2];
 	state->dda->plane_y = values[0][3];
 
-	int x, y;
-	y = 0;
-	while (y < SCREENHEIGHT) {
-		x = 0;
-		while (x < SCREENWIDTH) {
-			mlx_put_pixel(state->mlx->image, x, y, ft_pixel(0, 255, 0, 255));
-			x++;
-		}
-		y++;
-	}
 	dda(state);
 	mlx_loop_hook(state->mlx->mlx, key_hook, (void *)state);
 	mlx_loop(state->mlx->mlx);

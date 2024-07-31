@@ -67,4 +67,5 @@ int	main(int argc, char *argv[])
 	printf("player_x: %f, player_y: %f\n", state->player->pos.y, state->player->pos.x);
 	printf("player facing: %c\n", state->player->faceing);
 	run_game(state);
+	printf("Hello\n");
 }
