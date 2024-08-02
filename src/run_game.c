@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/19 22:03:10 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/07/31 21:53:49 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/02 22:28:50 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void get_draw_info(t_game_state *state)
         dda->prep_wall_dist = (dda->map_pos.y - dda->player_pos.y + (1 - dda->step_map_y) / 2) / dda->ray_dir.y;
 	}
 
-	if (dda->prep_wall_dist <= 0.0001) {
-		printf("Error: Invalid prep_wall_dist value: %.6f\n", dda->prep_wall_dist);
-		dda->prep_wall_dist = 0.0001;  // Assign a small non-zero value to avoid division by zero
-	}
+	// if (dda->prep_wall_dist <= 0.0001) {
+	// 	printf("Error: Invalid prep_wall_dist value: %.6f\n", dda->prep_wall_dist);
+	// 	dda->prep_wall_dist = 0.0001;  // Assign a small non-zero value to avoid division by zero
+	// }
     dda->line.heigth = (int)(SCREENHEIGHT / dda->prep_wall_dist);
     dda->line.start = -dda->line.heigth / 2 + SCREENHEIGHT / 2;
     if (dda->line.start < 0) {
@@ -158,6 +158,24 @@ static	void	check_collision(t_game_state *state)
 			dda->map_pos.y += dda->step_map_y;
 			dda->current_side = 2;
 		}
+
+		if (dda->map_pos.x < 0) {
+			printf("Map_x is less then 0...\n");
+			break;
+		}
+
+		if (dda->map_pos.y < 0) {
+			printf("Map_y is less then 0...\n");
+			break;
+		}
+
+		if ((unsigned int)dda->map_pos.x >= state->map->max_col || (unsigned int)dda->map_pos.y >= state->map->max_row) {
+			printf("Out of bound\n");
+			break;
+		}
+
+
+
 		if (state->map->map[(int)dda->map_pos.y][(int)dda->map_pos.x] == '1')
 			break ;
 	}
@@ -185,8 +203,7 @@ void	dda(t_game_state *state)
 
 		row = 0;
 		printf("row: %d, line: %d, screen: %d\n", row, state->dda->line.start, SCREENHEIGHT);
-		printf("Player position: x = %f, y = %f\n", state->dda->player_pos.x, state->dda->player_pos.y); // Debug print
-		// line < 0
+		// vloer
 		while (row < state->dda->line.start && row < SCREENHEIGHT)
 		{
 			mlx_put_pixel(state->mlx->image, col_index, row, ft_pixel(0, 0, 255, 255));
@@ -197,6 +214,7 @@ void	dda(t_game_state *state)
 		printf("row: %d, line: %d, screen: %d\n", row, state->dda->line.end, SCREENHEIGHT);
 		row = state->dda->line.end;  // + 1 misschien
 		// line is meer dan screenheight
+		// plafon
 		while (row < SCREENHEIGHT && row >= 0)
 		{
 			mlx_put_pixel(state->mlx->image, col_index, row, ft_pixel(255, 0, 0, 255));

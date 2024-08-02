@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/29 22:00:03 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/07/27 21:15:53 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/02 21:14:56 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ typedef struct s_game_state
 	t_dda		*dda;
 	t_map		*map;
 }	t_game_state;
+
+
 
 bool	init_state(t_game_state *state);
 bool	err_handler(const char *msg, t_game_state *state);

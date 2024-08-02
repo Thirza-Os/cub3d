@@ -1,5 +1,7 @@
 #include "../include/engine.h"
 
+const bool DEBUG = true;
+
 void	print_player(t_player *player) {
 	if (player == NULL) {
 		printf("Geen player!");
@@ -13,6 +15,9 @@ void	print_player(t_player *player) {
 }
 
 void	print_dda(t_dda *dda) {
+	if (DEBUG != true) {
+		return;
+	}
 	if (dda == NULL) {
 		printf("Geen dda\n");
 	}

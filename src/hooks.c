@@ -6,13 +6,17 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/27 21:28:19 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/02 20:53:03 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/02 22:05:57 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/engine.h"
 #include <math.h>
 
+
+const float ROTSPEED = 0.08;
+const float MOVESPEED = 0.12;
+const int FORWARD = 1;
 void key_hook(void *param)
 {
     t_game_state *state;
@@ -22,14 +26,14 @@ void key_hook(void *param)
         mlx_close_window(state->mlx->mlx);
     if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_W))
     {
-        if (state->map->map[(int)state->dda->player_pos.y + 1][(int)state->dda->player_pos.x] == '0') {
-			// double	current_pos_x;
-			double	dx;
-			double	dy;
-			// double	spacing;
+		// double	current_pos_x;
+		double	dx;
+		double	dy;
+		// double	spacing;
 
-			// current_pos_x = state->dda->player_pos.x;
-			dx = state->dda->player_dir.x * MOVESPEED * 1;
+		// current_pos_x = state->dda->player_pos.x;
+		dx = state->dda->player_dir.x * MOVESPEED * 1;
+        if (state->map->map[(int)state->dda->player_pos.y + 1][(int)state->dda->player_pos.x] == '0') {
 			// if (dx > 0)
 			// 	spacing = 0.32;
 			// else
@@ -145,15 +149,11 @@ void key_hook(void *param)
 
 
 		old_dir.x = state->dda->player_dir.x;
-		state->dda->player_dir.x = state->dda->player_dir.x * cos(ROTSPEED * dir) - \
-			state->dda->player_dir.y * sin(ROTSPEED * dir);
-		state->dda->player_dir.y = old_dir.x * sin(ROTSPEED * dir) + \
-			state->dda->player_dir.y * cos(ROTSPEED * dir);
+		state->dda->player_dir.x = state->dda->player_dir.x * cos(ROTSPEED * dir) - state->dda->player_dir.y * sin(ROTSPEED * dir);
+		state->dda->player_dir.y = old_dir.x * sin(ROTSPEED * dir) + state->dda->player_dir.y * cos(ROTSPEED * dir);
 		old_plane_x = state->dda->plane_x;
-		state->dda->plane_x = state->dda->plane_x * cos(ROTSPEED * dir) - \
-			state->dda->plane_y * sin(ROTSPEED * dir);
-		state->dda->plane_y = old_plane_x * sin(ROTSPEED * dir) + \
-			state->dda->plane_y * cos(ROTSPEED * dir);
+		state->dda->plane_x = state->dda->plane_x * cos(ROTSPEED * dir) - state->dda->plane_y * sin(ROTSPEED * dir);
+		state->dda->plane_y = old_plane_x * sin(ROTSPEED * dir) + state->dda->plane_y * cos(ROTSPEED * dir);
 
 		dda(state);
 	}
