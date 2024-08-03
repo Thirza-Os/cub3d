@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/27 21:28:19 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/02 22:05:57 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/03 18:39:00 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@
 const float ROTSPEED = 0.08;
 const float MOVESPEED = 0.12;
 const int FORWARD = 1;
+
+static bool	hitting_wall(t_game_state *state, int x, int y)
+{
+	if (state->map->map[y][x] != '0')
+		return (true);
+	return (false);
+}
+
 void key_hook(void *param)
 {
     t_game_state *state;
@@ -24,108 +32,111 @@ void key_hook(void *param)
     state = param;
     if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_ESCAPE))
         mlx_close_window(state->mlx->mlx);
+
     if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_W))
     {
-		// double	current_pos_x;
+		double	current_pos_x;
 		double	dx;
 		double	dy;
-		// double	spacing;
+		double	spacing;
 
-		// current_pos_x = state->dda->player_pos.x;
+		current_pos_x = state->dda->player_pos.x;
 		dx = state->dda->player_dir.x * MOVESPEED * 1;
-        if (state->map->map[(int)state->dda->player_pos.y + 1][(int)state->dda->player_pos.x] == '0') {
-			// if (dx > 0)
-			// 	spacing = 0.32;
-			// else
-			// 	spacing = -0.32;
+		if (dx > 0)
+			spacing = 0.32;
+		else
+			spacing = -0.32;
+		if (!hitting_wall(state, state->dda->player_pos.x + dx + spacing, state->dda->player_pos.y))
 			state->dda->player_pos.x += dx;
-			dy = state->dda->player_dir.y * MOVESPEED * 1;
-			// if (dy > 0)
-			// 	spacing = 0.32;
-			// else
-			// 	spacing = -0.32;
-			state->dda->player_pos.y += dy;
-			dda(state);
-        }
-    }
-    if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_S))
-    {
-        if (state->map->map[(int)state->dda->player_pos.y + 1][(int)state->dda->player_pos.x] == '0') {
-			// double	current_pos_x;
-			double	dx;
-			double	dy;
-			// double	spacing;
 
-			// current_pos_x = state->dda->player_pos.x;
-			dx = state->dda->player_dir.x * MOVESPEED * 1;
-			// if (dx > 0)
-			// 	spacing = 0.32;
-			// else
-			// 	spacing = -0.32;
-			state->dda->player_pos.x -= dx;
-			dy = state->dda->player_dir.y * MOVESPEED * 1;
-			// if (dy > 0)
-			// 	spacing = 0.32;
-			// else
-			// 	spacing = -0.32;
-			state->dda->player_pos.y -= dy;
-			dda(state);
-        }
+		dy = state->dda->player_dir.y * MOVESPEED * 1;
+		if (dy > 0)
+			spacing = 0.32;
+		else
+			spacing = -0.32;
+		if (!hitting_wall(state, current_pos_x, state->dda->player_pos.y + dy + spacing))
+			state->dda->player_pos.y += dy;
+
+		dda(state);
     }
+    if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_S)) {
+		double	current_pos_x;
+		double	dx;
+		double	dy;
+		double	spacing;
+
+		current_pos_x = state->dda->player_pos.x;
+		dx = state->dda->player_dir.x * MOVESPEED * -1;
+		if (dx > 0)
+			spacing = 0.32;
+		else
+			spacing = -0.32;
+		if (!hitting_wall(state, state->dda->player_pos.x + dx + spacing, state->dda->player_pos.y))
+			state->dda->player_pos.x += dx;
+
+		dy = state->dda->player_dir.y * MOVESPEED * -1;
+		if (dy > 0)
+			spacing = 0.32;
+		else
+			spacing = -0.32;
+		if (!hitting_wall(state, current_pos_x, state->dda->player_pos.y + dy + spacing))
+			state->dda->player_pos.y += dy;
+
+		dda(state);
+	}
+
     if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_A))
     {
-        if (state->map->map[(int)state->dda->player_pos.y][(int)state->dda->player_pos.x - 1] == '0') {
-			// double	current_pos_x;
-			double	dx;
-			double	dy;
-			// double	spacing;
+		double	current_pos_x;
+		double	dx;
+		double	dy;
+		double	spacing;
 
-			// current_pos_x = dda->player_pos.x;
-			dx = -(state->dda->player_dir.y * MOVESPEED * 1);
-			// if (dx > 0)
-			// 	spacing = 0.32;
-			// else
-			// 	spacing = -0.32;
-			state->dda->player_pos.x -= dx;
-			dy = state->dda->player_dir.x * MOVESPEED * 1;
-			// if (dy > 0)
-			// 	spacing = 0.32;
-			// else
-			// 	spacing = -0.32;
-			state->dda->player_pos.y -= dy;
-
-            dda(state);
-        }
-    }
-    if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_D))
-    {
-        if (state->map->map[(int)state->dda->player_pos.y][(int)state->dda->player_pos.x + 1] == '0') {
-			// double	current_pos_x;
-			double	dx;
-			double	dy;
-			// double	spacing;
-
-			// current_pos_x = dda->player_pos.x;
-			dx = -(state->dda->player_dir.y * MOVESPEED * 1);
-			// if (dx > 0)
-			// 	spacing = 0.32;
-			// else
-			// 	spacing = -0.32;
+		current_pos_x = state->dda->player_pos.x;
+		dx = -(state->dda->player_dir.y * MOVESPEED * -1);
+		if (dx > 0)
+			spacing = 0.32;
+		else
+			spacing = -0.32;
+		if (!hitting_wall(state, state->dda->player_pos.x + dx + spacing, state->dda->player_pos.y))
 			state->dda->player_pos.x += dx;
-			dy = state->dda->player_dir.x * MOVESPEED * 1;
-			// if (dy > 0)
-			// 	spacing = 0.32;
-			// else
-			// 	spacing = -0.32;
+		dy = state->dda->player_dir.x * MOVESPEED * -1;
+		if (dy > 0)
+			spacing = 0.32;
+		else
+			spacing = -0.32;
+		if (!hitting_wall(state, current_pos_x, state->dda->player_pos.y + dy + spacing))
 			state->dda->player_pos.y += dy;
+		dda(state);
 
-            dda(state);
-            // state->dda->player_pos.x += 1;
-            // printf("Moved right to: player_pos.x = %f\n", state->dda->player_pos.x); // Debug print
-            // dda(state);
-        }
-    }
-	if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_LEFT)) {
+	}
+
+    if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_D))
+    {	double	current_pos_x;
+		double	dx;
+		double	dy;
+		double	spacing;
+
+		current_pos_x = state->dda->player_pos.x;
+		dx = -(state->dda->player_dir.y * MOVESPEED * 1);
+		if (dx > 0)
+			spacing = 0.32;
+		else
+			spacing = -0.32;
+		if (!hitting_wall(state, state->dda->player_pos.x + dx + spacing, state->dda->player_pos.y))
+			state->dda->player_pos.x += dx;
+		dy = state->dda->player_dir.x * MOVESPEED * 1;
+		if (dy > 0)
+			spacing = 0.32;
+		else
+			spacing = -0.32;
+		if (!hitting_wall(state, current_pos_x, state->dda->player_pos.y + dy + spacing))
+			state->dda->player_pos.y += dy;
+		dda(state);
+
+	}
+
+    if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_LEFT)) {
 		printf("Draai links\n");
 		t_vector old_dir;
 		double	 old_plane_x;
@@ -141,6 +152,7 @@ void key_hook(void *param)
 
 		dda(state);
 	}
+
 	if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_RIGHT)) {
 		printf("Draai rechts\n");
 		t_vector old_dir;
