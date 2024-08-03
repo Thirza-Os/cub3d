@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/29 22:00:03 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/02 21:14:56 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/03 22:10:23 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <math.h>
+#include <stdint.h>
+#include <string.h>
+#include <math.h>
 
 # include "../libft/include/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
@@ -25,6 +28,9 @@
 # define SCREENWIDTH 1024
 # define SCREENHEIGHT 512
 # define CELLSIZE 64
+# define ROTSPEED 0.08
+# define MOVESPEED 0.08
+# define FORWARD 1
 
 // typedef struct s_vector
 // {
@@ -139,5 +145,6 @@ void	print_player(t_player *player);
 void	print_dda(t_dda *dda);
 
 void	dda(t_game_state *state);
+int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 #endif

@@ -6,17 +6,11 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/27 21:28:19 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/03 18:39:00 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/03 22:10:54 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/engine.h"
-#include <math.h>
-
-
-const float ROTSPEED = 0.08;
-const float MOVESPEED = 0.12;
-const int FORWARD = 1;
 
 static bool	hitting_wall(t_game_state *state, int x, int y)
 {
@@ -137,11 +131,9 @@ void key_hook(void *param)
 	}
 
     if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_LEFT)) {
-		printf("Draai links\n");
 		t_vector old_dir;
 		double	 old_plane_x;
 		int dir = -1;
-
 
 		old_dir.x = state->dda->player_dir.x;
 		state->dda->player_dir.x = state->dda->player_dir.x * cos(ROTSPEED * dir) - state->dda->player_dir.y * sin(ROTSPEED * dir);
@@ -154,11 +146,9 @@ void key_hook(void *param)
 	}
 
 	if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_RIGHT)) {
-		printf("Draai rechts\n");
 		t_vector old_dir;
 		double	 old_plane_x;
 		int dir = 1;
-
 
 		old_dir.x = state->dda->player_dir.x;
 		state->dda->player_dir.x = state->dda->player_dir.x * cos(ROTSPEED * dir) - state->dda->player_dir.y * sin(ROTSPEED * dir);
