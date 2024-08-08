@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 18:13:19 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/05/04 23:17:21 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/07/07 16:40:39 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	int		src_len;
+	size_t	src_len;
 	size_t	index;
 
 	src_len = ft_strlen(src);

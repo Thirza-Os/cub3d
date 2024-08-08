@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/27 17:50:33 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/05/04 23:16:58 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/07/07 16:27:34 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,11 @@
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	void	*mem;
-	size_t	index;
+	void	*ptr;
 
-	mem = malloc(count * size);
-	if (!mem)
+	ptr = malloc(count * size);
+	if (!ptr)
 		return (NULL);
-	index = 0;
-	while (index < (count * size))
-	{
-		((char *)mem)[index] = 0;
-		index++;
-	}
-	return (mem);
+	ft_bzero(ptr, count * size);
+	return (ptr);
 }

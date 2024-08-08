@@ -6,21 +6,21 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/01 20:51:22 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/05/04 23:15:37 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/07/07 16:07:57 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void	ft_lstadd_front(t_list **lst, t_list *node)
 {
-	if (!new)
+	if (!node)
 		return ;
 	if (*lst == NULL)
-		*lst = new;
+		*lst = node;
 	else
 	{
-		new->next = *lst;
-		*lst = new;
+		node->next = *lst;
+		*lst = node;
 	}
 }

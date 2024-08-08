@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 14:33:47 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/05/04 23:17:21 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/07/07 16:40:39 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 size_t	ft_strlen(const char *s)
 {
-	size_t	i;
+	size_t	index;
 
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
+	index = 0;
+	if (s == NULL)
+		return (index);
+	while (s[index] != '\0')
+		index++;
+	return (index);
 }

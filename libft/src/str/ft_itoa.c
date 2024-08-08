@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/25 17:19:26 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/05/04 23:17:17 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/07/07 16:33:38 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ char	*ft_itoa(int n)
 	int		l;
 	char	*str;
 
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
+	if (n == INT_MIN)
+		return (ft_strdup((char *)INT_MIN));
 	l = get_len(n);
 	str = ft_calloc(l + 1, sizeof(char));
 	if (!str)

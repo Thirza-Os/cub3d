@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/12 17:51:54 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/06/08 19:23:08 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/07/07 17:26:21 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,64 @@
 # include <stdarg.h>
 # include <unistd.h>
 
-// src/ft_formatter.c
+/**
+* @brief Print A number to stdout
+*
+* @param size  Number to be printed                 (unsigned llong int)
+* @param upper Is it uppercase or lowercase for hex (size_t)
+* @param base  The base you want to use             (size_t)
+*
+* @return int >=0 | -1
+*/
 int	to_hex(unsigned long int size, size_t upper, size_t base);
+
+/**
+* @brief Print a interger to stdout
+*
+* @param size  Interger to be printed               (int)
+* @param upper Is it uppercase or lowercase for hex (size_t)
+* @param base  The base you want to use             (size_t)
+*
+* @return int >=0 | -1
+*/
 int	format_int(int size, size_t upper, size_t base);
+
+/**
+* @brief Print addres of pointer to stdout
+*
+* @param ptr   Pointer that wil be printed          (void*)
+* @param upper Is it uppercase or lowercase for hex (size_t)
+* @param base  The base you want to use             (size_t)
+*
+* @return int >=0 | -1
+*/
 int	format_ptr(void *ptr, size_t upper, size_t base);
 
-// src/ft_printf.c
+/**
+* @brief A simple print function that takes arguments
+*
+* @param s   String that must be printed          (char*)
+* @param ... Arguments to the print in the string
+*
+* @return int >=0 | -1
+*/
 int	ft_printf(const char *s, ...);
 
-// src/ft_writers.c
+/**
+* @brief Write ascii to stdout
+*
+* @param c Char to print (int)
+*
+* @return int 1 | -1
+*/
 int	write_ascii(int c);
+
+/**
+* @brief Write a string to stdout
+*
+* @param s String to print (char*)
+*
+* @return int >=0 | -1
+*/
 int	write_str(const char *s);
 #endif
