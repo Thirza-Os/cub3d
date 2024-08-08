@@ -1,4 +1,4 @@
-NAME 	= 	cub3d
+NAME := cub3d
 
 CC				= cc
 CFLAGS 			= -Wall -Wextra -Werror -Wshadow -Wpedantic -g3
@@ -6,16 +6,18 @@ CFLAGS 			= -Wall -Wextra -Werror -Wshadow -Wpedantic -g3
 SRC_DIR = ./src
 OBJ_DIR = ./obj
 
-PARSER_DIR := $(SRC_DIR)/parser
-ENGINE_DIR := $(SRC_DIR)/engine
-
-SRCS 	:= 	$(SRC_DIR)/main.c 	 \
-			$(SRC_DIR)/engine2.c \
-			$(SRC_DIR)/free_me.c \
-			$(SRC_DIR)/hooks.c   \
-			$(SRC_DIR)/debugger.c   \
-			$(SRC_DIR)/run_game.c \
-			$(SRC_DIR)/dda.c
+SRCS	:=	$(SRC_DIR)/buffer.c\
+			$(SRC_DIR)/cub_utils.c\
+			$(SRC_DIR)/dda_calc.c\
+			$(SRC_DIR)/dda_init.c\
+			$(SRC_DIR)/dda_main.c\
+			$(SRC_DIR)/init_mlx.c\
+			$(SRC_DIR)/key_inputs.c\
+			$(SRC_DIR)/main.c\
+			$(SRC_DIR)/textures.c\
+			$(SRC_DIR)/cub_free.c\
+			$(SRC_DIR)/debug.c\
+			$(SRC_DIR)/hooks.c
 
 OBJECTS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 LIB				= ./libft/libft.a

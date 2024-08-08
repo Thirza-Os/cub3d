@@ -1,162 +1,93 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   hooks.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/07/27 21:28:19 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/03 22:10:54 by lvan-gef      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+#include "../include/dda.h"
 
-#include "../include/engine.h"
-
-static bool	hitting_wall(t_game_state *state, int x, int y)
+static	void	move_up_and_down(t_program *program, int dir)
 {
-	if (state->map->map[y][x] != '0')
-		return (true);
-	return (false);
+	double	cur_pos_col;
+	double	dx;
+	double	dy;
+	double	spacing;
+
+	cur_pos_col = program->dda->player_pos.col;
+	dx = program->dda->player_dir.col * MOVESPEED * dir;
+	if (dx > 0)
+		spacing = 0.32;
+	else
+		spacing = -0.32;
+	if (!hitting_wall(program->dda, program->dda->player_pos.col + dx + spacing, program->dda->player_pos.row))
+		program->dda->player_pos.col += dx;
+	dy = program->dda->player_dir.row * MOVESPEED * dir;
+	if (dy > 0)
+		spacing = 0.32;
+	else
+		spacing = -0.32;
+	if (!hitting_wall(program->dda, program->dda->player_pos.row + dy + spacing, cur_pos_col))
+		program->dda->player_pos.row += dy;
+	dda(program);
 }
 
-void key_hook(void *param)
+static	void	move_left_rigth(t_program *program, int dir)
 {
-    t_game_state *state;
+	double	current_pos_x;
+	double	dx;
+	double	dy;
+	double	spacing;
 
-    state = param;
-    if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_ESCAPE))
-        mlx_close_window(state->mlx->mlx);
+	current_pos_x = program->dda->player_pos.col;
+	dx = -(program->dda->player_dir.row * MOVESPEED * dir);
+	if (dx > 0)
+		spacing = 0.32;
+	else
+		spacing = -0.32;
+	if (!hitting_wall(program->dda, program->dda->player_pos.col + dx + spacing, program->dda->player_pos.row))
+		program->dda->player_pos.col += dx;
+	dy = program->dda->player_dir.col * MOVESPEED * dir;
+	if (dy > 0)
+		spacing = 0.32;
+	else
+		spacing = -0.32;
+	if (!hitting_wall(program->dda, current_pos_x, program->dda->player_pos.row + dy + spacing))
+		program->dda->player_pos.row += dy;
+	dda(program);
+}
 
-    if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_W))
-    {
-		double	current_pos_x;
-		double	dx;
-		double	dy;
-		double	spacing;
 
-		current_pos_x = state->dda->player_pos.x;
-		dx = state->dda->player_dir.x * MOVESPEED * 1;
-		if (dx > 0)
-			spacing = 0.32;
-		else
-			spacing = -0.32;
-		if (!hitting_wall(state, state->dda->player_pos.x + dx + spacing, state->dda->player_pos.y))
-			state->dda->player_pos.x += dx;
+static	void	turn_around(t_program *program, int dir)
+{
+	t_vector	old_dir;
+	double		old_plane_x;
 
-		dy = state->dda->player_dir.y * MOVESPEED * 1;
-		if (dy > 0)
-			spacing = 0.32;
-		else
-			spacing = -0.32;
-		if (!hitting_wall(state, current_pos_x, state->dda->player_pos.y + dy + spacing))
-			state->dda->player_pos.y += dy;
+	old_dir.col = program->dda->player_dir.col;
+	program->dda->player_dir.col = program->dda->player_dir.col * cos(ROTSPEED * dir) - \
+							program->dda->player_dir.row * sin(ROTSPEED * dir);
+	program->dda->player_dir.row = old_dir.col * sin(ROTSPEED * dir) + \
+							program->dda->player_dir.row * cos(ROTSPEED * dir);
+	old_plane_x = program->dda->plane.col;
+	program->dda->plane.col = program->dda->plane.col * cos(ROTSPEED * dir) - \
+							program->dda->plane.row * sin(ROTSPEED * dir);
+	program->dda->plane.row = old_plane_x * sin(ROTSPEED * dir) + \
+							program->dda->plane.row * cos(ROTSPEED * dir);
+	dda(program);
+}
 
-		dda(state);
-    }
-    if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_S)) {
-		double	current_pos_x;
-		double	dx;
-		double	dy;
-		double	spacing;
+void	hooks(void *param)
+{
+	t_program	*program;
+	t_mlx_state	*mlx_state;
 
-		current_pos_x = state->dda->player_pos.x;
-		dx = state->dda->player_dir.x * MOVESPEED * -1;
-		if (dx > 0)
-			spacing = 0.32;
-		else
-			spacing = -0.32;
-		if (!hitting_wall(state, state->dda->player_pos.x + dx + spacing, state->dda->player_pos.y))
-			state->dda->player_pos.x += dx;
-
-		dy = state->dda->player_dir.y * MOVESPEED * -1;
-		if (dy > 0)
-			spacing = 0.32;
-		else
-			spacing = -0.32;
-		if (!hitting_wall(state, current_pos_x, state->dda->player_pos.y + dy + spacing))
-			state->dda->player_pos.y += dy;
-
-		dda(state);
-	}
-
-    if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_A))
-    {
-		double	current_pos_x;
-		double	dx;
-		double	dy;
-		double	spacing;
-
-		current_pos_x = state->dda->player_pos.x;
-		dx = -(state->dda->player_dir.y * MOVESPEED * -1);
-		if (dx > 0)
-			spacing = 0.32;
-		else
-			spacing = -0.32;
-		if (!hitting_wall(state, state->dda->player_pos.x + dx + spacing, state->dda->player_pos.y))
-			state->dda->player_pos.x += dx;
-		dy = state->dda->player_dir.x * MOVESPEED * -1;
-		if (dy > 0)
-			spacing = 0.32;
-		else
-			spacing = -0.32;
-		if (!hitting_wall(state, current_pos_x, state->dda->player_pos.y + dy + spacing))
-			state->dda->player_pos.y += dy;
-		dda(state);
-
-	}
-
-    if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_D))
-    {	double	current_pos_x;
-		double	dx;
-		double	dy;
-		double	spacing;
-
-		current_pos_x = state->dda->player_pos.x;
-		dx = -(state->dda->player_dir.y * MOVESPEED * 1);
-		if (dx > 0)
-			spacing = 0.32;
-		else
-			spacing = -0.32;
-		if (!hitting_wall(state, state->dda->player_pos.x + dx + spacing, state->dda->player_pos.y))
-			state->dda->player_pos.x += dx;
-		dy = state->dda->player_dir.x * MOVESPEED * 1;
-		if (dy > 0)
-			spacing = 0.32;
-		else
-			spacing = -0.32;
-		if (!hitting_wall(state, current_pos_x, state->dda->player_pos.y + dy + spacing))
-			state->dda->player_pos.y += dy;
-		dda(state);
-
-	}
-
-    if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_LEFT)) {
-		t_vector old_dir;
-		double	 old_plane_x;
-		int dir = -1;
-
-		old_dir.x = state->dda->player_dir.x;
-		state->dda->player_dir.x = state->dda->player_dir.x * cos(ROTSPEED * dir) - state->dda->player_dir.y * sin(ROTSPEED * dir);
-		state->dda->player_dir.y = old_dir.x * sin(ROTSPEED * dir) + state->dda->player_dir.y * cos(ROTSPEED * dir);
-		old_plane_x = state->dda->plane_x;
-		state->dda->plane_x = state->dda->plane_x * cos(ROTSPEED * dir) - state->dda->plane_y * sin(ROTSPEED * dir);
-		state->dda->plane_y = old_plane_x * sin(ROTSPEED * dir) + state->dda->plane_y * cos(ROTSPEED * dir);
-
-		dda(state);
-	}
-
-	if (mlx_is_key_down(state->mlx->mlx, MLX_KEY_RIGHT)) {
-		t_vector old_dir;
-		double	 old_plane_x;
-		int dir = 1;
-
-		old_dir.x = state->dda->player_dir.x;
-		state->dda->player_dir.x = state->dda->player_dir.x * cos(ROTSPEED * dir) - state->dda->player_dir.y * sin(ROTSPEED * dir);
-		state->dda->player_dir.y = old_dir.x * sin(ROTSPEED * dir) + state->dda->player_dir.y * cos(ROTSPEED * dir);
-		old_plane_x = state->dda->plane_x;
-		state->dda->plane_x = state->dda->plane_x * cos(ROTSPEED * dir) - state->dda->plane_y * sin(ROTSPEED * dir);
-		state->dda->plane_y = old_plane_x * sin(ROTSPEED * dir) + state->dda->plane_y * cos(ROTSPEED * dir);
-
-		dda(state);
-	}
+	program = param;
+	mlx_state = program->mlx_state;
+	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(mlx_state->mlx);
+	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_W))
+		move_up_and_down(program, FORWARD);
+	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_S))
+		move_up_and_down(program, BACKWARD);
+	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_A))
+		move_left_rigth(program, LEFTWARD);
+	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_D))
+		move_left_rigth(program, RIGHTWARD);
+	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_LEFT))
+		turn_around(program, TURNLEFT);
+	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_RIGHT))
+		turn_around(program, TURNRIGHT);
 }

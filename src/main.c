@@ -1,18 +1,6 @@
-#include "../include/cub3d.h"
-#include "../include/engine.h"
-#include "libft.h"
+#include "../include/cub3D.h"
+#include "../include/dda.h"
 
-
-// char	*map[] = {
-// 	"111111",
-// 	"100101",
-// 	"101001",
-// 	"1100N1",
-// 	"100011",
-// 	"111111"
-// };
-
-// char *map = "111111\n100101\n101001\n1100N1\n100011\n11111\n";
 char *map = "\
 111111111111111111111111\n\
 100000000000000000000001\n\
@@ -27,7 +15,7 @@ char *map = "\
 100000000000000000000001\n\
 100000000000000000000001\n\
 100000000000000000000001\n\
-100000000000000000000001\n\
+100000000000N00000000001\n\
 100000000000000000000001\n\
 100000000000000000000001\n\
 111111111000000000000001\n\
@@ -39,33 +27,90 @@ char *map = "\
 111111111000000000000001\n\
 111111111111111111111111\n";
 
-int	main(int argc, char *argv[])
+t_player	*parser(t_program *program, char *Gamemap)
 {
-	t_game_state	*state;
+	t_player	*player;
+	size_t		row = 0;
+	size_t		col = 0;
+
+	player = ft_calloc(1, sizeof(*player));
+	if (player == NULL)
+	{
+		perror("player");
+		return (NULL);
+	}
+	player->map = ft_split(Gamemap, '\n');
+
+	while (player->map[row] != NULL)
+	{
+		col = 0;
+		while (player->map[row][col] != '\0')
+		{
+			if (player->map[row][col] == 'N' || player->map[row][col] == 'S' || player->map[row][col] == 'W' || player->map[row][col] == 'E')
+			{
+				player->player_pos.row = row;
+				player->player_pos.col = col;
+				player->starting_dir = player->map[row][col];
+				player->map[row][col] = '0';
+			}
+			col++;
+		}
+		row++;
+	}
+
+	player->col_size = col;
+	player->row_size = row;
+	program->paths[0] = "tex/NO.png";
+	program->paths[1] = "tex/EA.png";
+	program->paths[2] = "tex/SO.png";
+	program->paths[3] = "tex/WE.png";
+	player->floor_color = 255;
+	player->ceiling_color = 125;
+	return (player);
+}
+
+int	main(int argc, char **argv)
+{
 	(void)argc;
 	(void)argv;
-	// if (argc != 2)
-	// 	print_error("Invalid argument(s)");
-	// // parse_input(argc, argv);
-	// // draw_game()
-	// return (0);
+	t_program	*program;
+	t_player	*player;
 
-
-	state = ft_calloc(1, sizeof(*state));
-	if (state == NULL)
+	program = ft_calloc(1, sizeof(*program));
+	if (program == NULL)
 	{
-		err_handler("state", state);
-		return (EXIT_FAILURE);
+		perror("init program");
+		return (1);
 	}
-	state->map = ft_calloc(1, sizeof(*state->map));
-	state->map->map = ft_split(map, '\n');
-	state->map->max_row = 24;
-	state->map->max_col = 24;
 
-	if (init_state(state) != true)
-		return (EXIT_FAILURE);
-	printf("player_x: %f, player_y: %f\n", state->player->pos.y, state->player->pos.x);
-	printf("player facing: %c\n", state->player->faceing);
-	run_game(state);
-	printf("Hello\n");
+    // tmp init player;
+	player = parser(program, map);
+	if (player == NULL)
+	{
+		clean_cub(program, player);
+		return (2);
+	}
+
+	// init mlx
+	if (init_mlx(program) != true)
+	{
+		clean_cub(program, player);
+		return (3);
+	}
+
+	// dda
+	program->dda = init_dda(player);
+	if (program->dda == NULL)
+	{
+		clean_cub(program, player);
+		return (4);
+	}
+
+	// run game
+	dda(program);
+	mlx_loop_hook(program->mlx_state->mlx, hooks, program);
+	mlx_loop(program->mlx_state->mlx);
+	printf("Succes zover\n");
+	clean_cub(program, player);
+	return (0);
 }
