@@ -6,12 +6,15 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 03:50:36 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 03:50:38 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/09 04:34:45 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_STRUCTS_H
 # define CUB_STRUCTS_H
+
+# include <stdint.h>
+# include <stdlib.h>
 
 # include "../MLX42/include/MLX42/MLX42.h"
 

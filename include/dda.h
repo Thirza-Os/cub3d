@@ -6,19 +6,18 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 03:51:06 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 04:24:26 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/09 04:38:23 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DDA_H
 # define DDA_H
 
-# include <stdint.h>
-# include <stdlib.h>
 # include <math.h>
 # include <stdbool.h>
-# include <math.h>
+# include <stdint.h>
 # include <stdio.h>
+# include <stdlib.h>
 
 # include "./cub_structs.h"
 # include "../libft/include/libft.h"
