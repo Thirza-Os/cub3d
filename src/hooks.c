@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 01:47:28 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 02:50:04 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/09 02:56:30 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,13 @@ static	void	move_left_rigth(t_program *program, int dir)
 	_dda = program->dda;
 	cord = _dda->player_pos;
 	dc.col = -(program->dda->player_dir.row * MOVESPEED * dir);
-	if (dc.col > 0)
-		spacing = 0.32;
-	else
+	if (dc.col < 0)
 		spacing = -0.32;
 	if (hitting_wall(_dda, cord.row, cord.col + dc.col + spacing) != true)
 		program->dda->player_pos.col += dc.col;
+	spacing = 0.32;
 	dc.row = program->dda->player_dir.col * MOVESPEED * dir;
-	if (dc.row > 0)
-		spacing = 0.32;
-	else
+	if (dc.row < 0)
 		spacing = -0.32;
 	if (hitting_wall(_dda, cord.row + dc.col + spacing, cord.col) != true)
 		program->dda->player_pos.row += dc.row;
