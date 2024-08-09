@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 01:47:28 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 03:33:26 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/09 03:45:57 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static	void	move_up_and_down(t_program *program, int dir)
 {
-	double			spacing;
-	t_cords_double	dc;
-	t_cords_double	cord;
-	t_dda			*dda;
+	double		spacing;
+	t_dvector	dc;
+	t_dvector	cord;
+	t_dda		*dda;
 
 	spacing = 0.32;
 	dda = program->dda;
@@ -38,10 +38,10 @@ static	void	move_up_and_down(t_program *program, int dir)
 
 static	void	move_left_rigth(t_program *program, int dir)
 {
-	double			spacing;
-	t_cords_double	dc;
-	t_cords_double	cord;
-	t_dda			*dda;
+	double		spacing;
+	t_dvector	dc;
+	t_dvector	cord;
+	t_dda		*dda;
 
 	spacing = 0.32;
 	dda = program->dda;
@@ -62,7 +62,7 @@ static	void	move_left_rigth(t_program *program, int dir)
 
 static	void	turn_around(t_program *program, int dir)
 {
-	t_vector	o_dir;
+	t_dvector	o_dir;
 	double		plane;
 	t_dda		*dda;
 
