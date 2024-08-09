@@ -6,11 +6,12 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 01:47:28 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 04:25:33 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/09 22:18:17 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/dda.h"
+#include "cub3D.h"
 
 static	void	_move_up_and_down(t_program *program, int dir)
 {
@@ -88,7 +89,7 @@ void	hooks(void *param)
 	program = param;
 	mlx_state = program->mlx_state;
 	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx_state->mlx);
+		clean_cub(program);
 	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_W))
 		_move_up_and_down(program, FORWARD);
 	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_S))

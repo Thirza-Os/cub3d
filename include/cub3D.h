@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 03:48:59 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 04:36:26 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/09 21:11:35 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 
 bool	init_mlx(t_program *program);
-void	clean_cub(t_program *program, t_player *player);
+void	clean_cub(void *data);
+void	_clean_player(t_player *player);
 
 #endif

@@ -82,35 +82,17 @@ int	main(int argc, char **argv)
 		perror("init program");
 		return (1);
 	}
-
-    // tmp init player;
 	player = parser(program, map);
 	if (player == NULL)
-	{
-		clean_cub(program, player);
-		return (2);
-	}
-
-	// init mlx
-	if (init_mlx(program) != true)
-	{
-		clean_cub(program, player);
-		return (3);
-	}
-
-	// dda
+		clean_cub(program);
 	program->dda = init_dda(player);
 	if (program->dda == NULL)
-	{
-		clean_cub(program, player);
-		return (4);
-	}
-
-	// run game
+		clean_cub(program);
+	if (init_mlx(program) != true)
+		clean_cub(program);
 	render(program);
 	mlx_loop_hook(program->mlx_state->mlx, hooks, program);
+	mlx_close_hook(program->mlx_state->mlx, clean_cub, program);
 	mlx_loop(program->mlx_state->mlx);
-	printf("Succes zover\n");
-	clean_cub(program, player);
 	return (0);
 }

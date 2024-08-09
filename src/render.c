@@ -6,10 +6,11 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 04:20:09 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 04:22:33 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/09 21:12:36 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/cub3D.h"
 #include "../include/dda.h"
 
 // infer things we should handle the case
@@ -79,6 +80,7 @@ t_dda	*init_dda(t_player *player)
 	dda = ft_calloc(1, sizeof(*dda));
 	if (dda == NULL)
 	{
+		_clean_player(player);
 		perror("dda");
 		return (NULL);
 	}
