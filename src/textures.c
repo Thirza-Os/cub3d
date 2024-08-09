@@ -6,14 +6,14 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 03:13:16 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 03:36:51 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/09 03:44:26 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/dda.h"
 
 static uint32_t	get_pixel_value(t_mlx_state *mlx_state, \
-								t_cords_int tc, \
+								t_ivector tc, \
 								int ti)
 {
 	const uint8_t	*pixels;
@@ -32,12 +32,12 @@ static uint32_t	get_pixel_value(t_mlx_state *mlx_state, \
 
 // infer things we should handle the case when tex is Uninitialized
 // and also cppcheck
-static t_cords_int	get_tex_cords(t_mlx_state *mlx_state, \
+static t_ivector	get_tex_cords(t_mlx_state *mlx_state, \
 								t_dda *dda, \
 								int ti)
 {
 	double		wall_x;
-	t_cords_int	tex;
+	t_ivector	tex;
 
 	if (dda->current_side == X_SIDE)
 		wall_x = dda->player_pos.row + dda->perp_wall_dist * dda->ray_dir.row;
@@ -55,7 +55,7 @@ static void	fill_buffer_texture(t_mlx_state *mlx_state, \
 								int col, \
 								int ti)
 {
-	t_cords_int	tc;
+	t_ivector	tc;
 	double		step;
 	double		tex_pos;
 	int			row;
