@@ -1,71 +1,85 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   hooks.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/08/09 01:47:28 by lvan-gef      #+#    #+#                 */
+/*   Updated: 2024/08/09 02:50:04 by lvan-gef      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/dda.h"
 
 static	void	move_up_and_down(t_program *program, int dir)
 {
-	double	cur_pos_col;
-	double	dx;
-	double	dy;
-	double	spacing;
+	double			spacing;
+	t_cords_double	dc;
+	t_cords_double	cord;
+	t_dda			*_dda;
 
-	cur_pos_col = program->dda->player_pos.col;
-	dx = program->dda->player_dir.col * MOVESPEED * dir;
-	if (dx > 0)
-		spacing = 0.32;
-	else
+	spacing = 0.32;
+	_dda = program->dda;
+	cord = _dda->player_pos;
+	dc.col = _dda->player_dir.col * MOVESPEED * dir;
+	if (dc.col < 0)
 		spacing = -0.32;
-	if (!hitting_wall(program->dda, program->dda->player_pos.col + dx + spacing, program->dda->player_pos.row))
-		program->dda->player_pos.col += dx;
-	dy = program->dda->player_dir.row * MOVESPEED * dir;
-	if (dy > 0)
-		spacing = 0.32;
-	else
+	if (hitting_wall(_dda, cord.row, cord.col + dc.col + spacing) != true)
+		program->dda->player_pos.col += dc.col;
+	spacing = 0.32;
+	dc.row = program->dda->player_dir.row * MOVESPEED * dir;
+	if (dc.row < 0)
 		spacing = -0.32;
-	if (!hitting_wall(program->dda, program->dda->player_pos.row + dy + spacing, cur_pos_col))
-		program->dda->player_pos.row += dy;
+	if (hitting_wall(_dda, cord.row + dc.row + spacing, cord.col) != true)
+		_dda->player_pos.row += dc.row;
 	dda(program);
 }
 
 static	void	move_left_rigth(t_program *program, int dir)
 {
-	double	current_pos_x;
-	double	dx;
-	double	dy;
-	double	spacing;
+	double			spacing;
+	t_cords_double	dc;
+	t_cords_double	cord;
+	t_dda			*_dda;
 
-	current_pos_x = program->dda->player_pos.col;
-	dx = -(program->dda->player_dir.row * MOVESPEED * dir);
-	if (dx > 0)
+	spacing = 0.32;
+	_dda = program->dda;
+	cord = _dda->player_pos;
+	dc.col = -(program->dda->player_dir.row * MOVESPEED * dir);
+	if (dc.col > 0)
 		spacing = 0.32;
 	else
 		spacing = -0.32;
-	if (!hitting_wall(program->dda, program->dda->player_pos.col + dx + spacing, program->dda->player_pos.row))
-		program->dda->player_pos.col += dx;
-	dy = program->dda->player_dir.col * MOVESPEED * dir;
-	if (dy > 0)
+	if (hitting_wall(_dda, cord.row, cord.col + dc.col + spacing) != true)
+		program->dda->player_pos.col += dc.col;
+	dc.row = program->dda->player_dir.col * MOVESPEED * dir;
+	if (dc.row > 0)
 		spacing = 0.32;
 	else
 		spacing = -0.32;
-	if (!hitting_wall(program->dda, current_pos_x, program->dda->player_pos.row + dy + spacing))
-		program->dda->player_pos.row += dy;
+	if (hitting_wall(_dda, cord.row + dc.col + spacing, cord.col) != true)
+		program->dda->player_pos.row += dc.row;
 	dda(program);
 }
 
-
 static	void	turn_around(t_program *program, int dir)
 {
-	t_vector	old_dir;
-	double		old_plane_x;
+	t_vector	o_dir;
+	double		plane;
+	t_dda		*_dda;
 
-	old_dir.col = program->dda->player_dir.col;
-	program->dda->player_dir.col = program->dda->player_dir.col * cos(ROTSPEED * dir) - \
-							program->dda->player_dir.row * sin(ROTSPEED * dir);
-	program->dda->player_dir.row = old_dir.col * sin(ROTSPEED * dir) + \
-							program->dda->player_dir.row * cos(ROTSPEED * dir);
-	old_plane_x = program->dda->plane.col;
-	program->dda->plane.col = program->dda->plane.col * cos(ROTSPEED * dir) - \
-							program->dda->plane.row * sin(ROTSPEED * dir);
-	program->dda->plane.row = old_plane_x * sin(ROTSPEED * dir) + \
-							program->dda->plane.row * cos(ROTSPEED * dir);
+	_dda = program->dda;
+	o_dir.col = _dda->player_dir.col;
+	_dda->player_dir.col = _dda->player_dir.col * cos(ROTSPEED * dir) - \
+							_dda->player_dir.row * sin(ROTSPEED * dir);
+	_dda->player_dir.row = o_dir.col * sin(ROTSPEED * dir) + \
+							_dda->player_dir.row * cos(ROTSPEED * dir);
+	plane = _dda->plane.col;
+	_dda->plane.col = _dda->plane.col * cos(ROTSPEED * dir) - \
+							_dda->plane.row * sin(ROTSPEED * dir);
+	_dda->plane.row = plane * sin(ROTSPEED * dir) + \
+							_dda->plane.row * cos(ROTSPEED * dir);
 	dda(program);
 }
 
