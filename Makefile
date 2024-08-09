@@ -9,10 +9,8 @@ OBJ_DIR = ./obj
 SRCS	:=	$(SRC_DIR)/buffer.c\
 			$(SRC_DIR)/cub_utils.c\
 			$(SRC_DIR)/dda_calc.c\
-			$(SRC_DIR)/dda_init.c\
 			$(SRC_DIR)/dda_main.c\
 			$(SRC_DIR)/init_mlx.c\
-			$(SRC_DIR)/key_inputs.c\
 			$(SRC_DIR)/main.c\
 			$(SRC_DIR)/textures.c\
 			$(SRC_DIR)/cub_free.c\
