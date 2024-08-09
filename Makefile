@@ -7,7 +7,6 @@ SRC_DIR = ./src
 OBJ_DIR = ./obj
 
 SRCS	:=	$(SRC_DIR)/buffer.c\
-			$(SRC_DIR)/cub_utils.c\
 			$(SRC_DIR)/dda_calc.c\
 			$(SRC_DIR)/dda_main.c\
 			$(SRC_DIR)/init_mlx.c\

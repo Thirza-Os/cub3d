@@ -6,12 +6,13 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 01:41:15 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 01:41:41 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/09 03:32:30 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/dda.h"
 
+// infer things we should handle the case
 static	void	pre_dda_values_init(t_dda *dda)
 {
 	int				index;
@@ -52,7 +53,7 @@ static void	pixels_to_image(uint32_t **img_buffer, mlx_image_t *img)
 	}
 }
 
-void	dda(t_program *program)
+void	dda_calc(t_program *program)
 {
 	t_mlx_state	*mlx_state;
 	t_dda		*dda;

@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 03:13:16 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 03:19:39 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/09 03:36:51 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static uint32_t	get_pixel_value(t_mlx_state *mlx_state, \
 								t_cords_int tc, \
 								int ti)
 {
-	uint8_t	*pixels;
+	const uint8_t	*pixels;
 	uint8_t	r;
 	uint8_t	g;
 	uint8_t	b;
@@ -31,6 +31,7 @@ static uint32_t	get_pixel_value(t_mlx_state *mlx_state, \
 }
 
 // infer things we should handle the case when tex is Uninitialized
+// and also cppcheck
 static t_cords_int	get_tex_cords(t_mlx_state *mlx_state, \
 								t_dda *dda, \
 								int ti)
@@ -77,7 +78,7 @@ static void	fill_buffer_texture(t_mlx_state *mlx_state, \
 	}
 }
 
-static int	get_tex_index(t_dda *dda)
+static int	get_tex_index(const t_dda *dda)
 {
 	if (dda->current_side == X_SIDE && dda->ray_dir.col < 0)
 		return (W_INDEX);

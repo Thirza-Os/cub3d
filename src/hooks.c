@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 01:47:28 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 02:56:30 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/09 03:33:26 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,23 @@ static	void	move_up_and_down(t_program *program, int dir)
 	double			spacing;
 	t_cords_double	dc;
 	t_cords_double	cord;
-	t_dda			*_dda;
+	t_dda			*dda;
 
 	spacing = 0.32;
-	_dda = program->dda;
-	cord = _dda->player_pos;
-	dc.col = _dda->player_dir.col * MOVESPEED * dir;
+	dda = program->dda;
+	cord = dda->player_pos;
+	dc.col = dda->player_dir.col * MOVESPEED * dir;
 	if (dc.col < 0)
 		spacing = -0.32;
-	if (hitting_wall(_dda, cord.row, cord.col + dc.col + spacing) != true)
+	if (hitting_wall(dda, cord.row, cord.col + dc.col + spacing) != true)
 		program->dda->player_pos.col += dc.col;
 	spacing = 0.32;
 	dc.row = program->dda->player_dir.row * MOVESPEED * dir;
 	if (dc.row < 0)
 		spacing = -0.32;
-	if (hitting_wall(_dda, cord.row + dc.row + spacing, cord.col) != true)
-		_dda->player_pos.row += dc.row;
-	dda(program);
+	if (hitting_wall(dda, cord.row + dc.row + spacing, cord.col) != true)
+		dda->player_pos.row += dc.row;
+	dda_calc(program);
 }
 
 static	void	move_left_rigth(t_program *program, int dir)
@@ -41,43 +41,43 @@ static	void	move_left_rigth(t_program *program, int dir)
 	double			spacing;
 	t_cords_double	dc;
 	t_cords_double	cord;
-	t_dda			*_dda;
+	t_dda			*dda;
 
 	spacing = 0.32;
-	_dda = program->dda;
-	cord = _dda->player_pos;
+	dda = program->dda;
+	cord = dda->player_pos;
 	dc.col = -(program->dda->player_dir.row * MOVESPEED * dir);
 	if (dc.col < 0)
 		spacing = -0.32;
-	if (hitting_wall(_dda, cord.row, cord.col + dc.col + spacing) != true)
+	if (hitting_wall(dda, cord.row, cord.col + dc.col + spacing) != true)
 		program->dda->player_pos.col += dc.col;
 	spacing = 0.32;
 	dc.row = program->dda->player_dir.col * MOVESPEED * dir;
 	if (dc.row < 0)
 		spacing = -0.32;
-	if (hitting_wall(_dda, cord.row + dc.col + spacing, cord.col) != true)
+	if (hitting_wall(dda, cord.row + dc.col + spacing, cord.col) != true)
 		program->dda->player_pos.row += dc.row;
-	dda(program);
+	dda_calc(program);
 }
 
 static	void	turn_around(t_program *program, int dir)
 {
 	t_vector	o_dir;
 	double		plane;
-	t_dda		*_dda;
+	t_dda		*dda;
 
-	_dda = program->dda;
-	o_dir.col = _dda->player_dir.col;
-	_dda->player_dir.col = _dda->player_dir.col * cos(ROTSPEED * dir) - \
-							_dda->player_dir.row * sin(ROTSPEED * dir);
-	_dda->player_dir.row = o_dir.col * sin(ROTSPEED * dir) + \
-							_dda->player_dir.row * cos(ROTSPEED * dir);
-	plane = _dda->plane.col;
-	_dda->plane.col = _dda->plane.col * cos(ROTSPEED * dir) - \
-							_dda->plane.row * sin(ROTSPEED * dir);
-	_dda->plane.row = plane * sin(ROTSPEED * dir) + \
-							_dda->plane.row * cos(ROTSPEED * dir);
-	dda(program);
+	dda = program->dda;
+	o_dir.col = dda->player_dir.col;
+	dda->player_dir.col = dda->player_dir.col * cos(ROTSPEED * dir) - \
+							dda->player_dir.row * sin(ROTSPEED * dir);
+	dda->player_dir.row = o_dir.col * sin(ROTSPEED * dir) + \
+							dda->player_dir.row * cos(ROTSPEED * dir);
+	plane = dda->plane.col;
+	dda->plane.col = dda->plane.col * cos(ROTSPEED * dir) - \
+							dda->plane.row * sin(ROTSPEED * dir);
+	dda->plane.row = plane * sin(ROTSPEED * dir) + \
+							dda->plane.row * cos(ROTSPEED * dir);
+	dda_calc(program);
 }
 
 void	hooks(void *param)

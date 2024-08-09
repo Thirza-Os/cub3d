@@ -6,13 +6,13 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 01:42:12 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 01:43:12 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/09 03:34:13 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/dda.h"
 
-void	print_dda(t_dda *dda)
+void	print_dda(const t_dda *dda)
 {
 	printf("plane row: %f, plane col: %f\n", dda->plane.row, dda->plane.col);
 	printf("player_pos row: %f, player_pos col: %f\n", dda->player_pos.row, \

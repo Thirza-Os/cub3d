@@ -27,7 +27,7 @@ char *map = "\
 111111111000000000000001\n\
 111111111111111111111111\n";
 
-t_player	*parser(t_program *program, char *Gamemap)
+t_player	*parser(t_program *program, const char *Gamemap)
 {
 	t_player	*player;
 	size_t		row = 0;
@@ -107,7 +107,7 @@ int	main(int argc, char **argv)
 	}
 
 	// run game
-	dda(program);
+	dda_calc(program);
 	mlx_loop_hook(program->mlx_state->mlx, hooks, program);
 	mlx_loop(program->mlx_state->mlx);
 	printf("Succes zover\n");
