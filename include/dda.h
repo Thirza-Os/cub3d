@@ -1,16 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   dda.h                                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/08/09 03:51:06 by lvan-gef      #+#    #+#                 */
+/*   Updated: 2024/08/09 03:51:08 by lvan-gef      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef DDA_H
 # define DDA_H
 
-#include <stdint.h>
+# include <stdint.h>
 # include <stdlib.h>
 # include <math.h>
 # include <stdbool.h>
-#include <math.h>
-#include <stdio.h>
+# include <math.h>
+# include <stdio.h>
 
-#include "./cub_structs.h"
-#include "../libft/include/libft.h"
-
+# include "./cub_structs.h"
+# include "../libft/include/libft.h"
 
 t_dda	*init_dda(t_player *player);
 void	dda_calc(t_program *program);
