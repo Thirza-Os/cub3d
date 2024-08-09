@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 03:51:06 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 03:51:08 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/09 04:24:26 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,12 @@
 # include "../libft/include/libft.h"
 
 t_dda	*init_dda(t_player *player);
-void	dda_calc(t_program *program);
-void	dda_col(t_dda *dda, int col);
-void	draw_info_calc(t_dda *dda);
+void	render(t_program *program);
+void	dda_info(t_dda *dda, int col);
 void	fill_buffer(t_mlx_state *mlx_state, t_dda *dda, int col);
 void	textures(t_mlx_state *mlx_state, t_dda *dda, int col);
 void	hooks(void *param);
-bool	hitting_wall(const t_dda *dda, int row, int col);
+bool	hit_wall(const t_dda *dda, int row, int col);
 
 void	print_dda(const t_dda *dda);
 #endif
