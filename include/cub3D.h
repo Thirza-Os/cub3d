@@ -5,12 +5,13 @@
 /*                                                     +:+                    */
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/09 03:48:59 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 21:11:35 by lvan-gef      ########   odam.nl         */
+/*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
+/*   Updated: 2024/08/09 22:22:25 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
+
 # define CUB3D_H
 
 # include <math.h>
