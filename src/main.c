@@ -107,7 +107,7 @@ int	main(int argc, char **argv)
 	}
 
 	// run game
-	dda_calc(program);
+	render(program);
 	mlx_loop_hook(program->mlx_state->mlx, hooks, program);
 	mlx_loop(program->mlx_state->mlx);
 	printf("Succes zover\n");

@@ -6,13 +6,13 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 01:47:28 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 03:45:57 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/09 04:25:33 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/dda.h"
 
-static	void	move_up_and_down(t_program *program, int dir)
+static	void	_move_up_and_down(t_program *program, int dir)
 {
 	double		spacing;
 	t_dvector	dc;
@@ -25,18 +25,18 @@ static	void	move_up_and_down(t_program *program, int dir)
 	dc.col = dda->player_dir.col * MOVESPEED * dir;
 	if (dc.col < 0)
 		spacing = -0.32;
-	if (hitting_wall(dda, cord.row, cord.col + dc.col + spacing) != true)
+	if (hit_wall(dda, cord.row, cord.col + dc.col + spacing) != true)
 		program->dda->player_pos.col += dc.col;
 	spacing = 0.32;
 	dc.row = program->dda->player_dir.row * MOVESPEED * dir;
 	if (dc.row < 0)
 		spacing = -0.32;
-	if (hitting_wall(dda, cord.row + dc.row + spacing, cord.col) != true)
+	if (hit_wall(dda, cord.row + dc.row + spacing, cord.col) != true)
 		dda->player_pos.row += dc.row;
-	dda_calc(program);
+	render(program);
 }
 
-static	void	move_left_rigth(t_program *program, int dir)
+static	void	_move_left_rigth(t_program *program, int dir)
 {
 	double		spacing;
 	t_dvector	dc;
@@ -49,18 +49,18 @@ static	void	move_left_rigth(t_program *program, int dir)
 	dc.col = -(program->dda->player_dir.row * MOVESPEED * dir);
 	if (dc.col < 0)
 		spacing = -0.32;
-	if (hitting_wall(dda, cord.row, cord.col + dc.col + spacing) != true)
+	if (hit_wall(dda, cord.row, cord.col + dc.col + spacing) != true)
 		program->dda->player_pos.col += dc.col;
 	spacing = 0.32;
 	dc.row = program->dda->player_dir.col * MOVESPEED * dir;
 	if (dc.row < 0)
 		spacing = -0.32;
-	if (hitting_wall(dda, cord.row + dc.col + spacing, cord.col) != true)
+	if (hit_wall(dda, cord.row + dc.col + spacing, cord.col) != true)
 		program->dda->player_pos.row += dc.row;
-	dda_calc(program);
+	render(program);
 }
 
-static	void	turn_around(t_program *program, int dir)
+static	void	_turn_around(t_program *program, int dir)
 {
 	t_dvector	o_dir;
 	double		plane;
@@ -77,7 +77,7 @@ static	void	turn_around(t_program *program, int dir)
 							dda->plane.row * sin(ROTSPEED * dir);
 	dda->plane.row = plane * sin(ROTSPEED * dir) + \
 							dda->plane.row * cos(ROTSPEED * dir);
-	dda_calc(program);
+	render(program);
 }
 
 void	hooks(void *param)
@@ -90,15 +90,15 @@ void	hooks(void *param)
 	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx_state->mlx);
 	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_W))
-		move_up_and_down(program, FORWARD);
+		_move_up_and_down(program, FORWARD);
 	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_S))
-		move_up_and_down(program, BACKWARD);
+		_move_up_and_down(program, BACKWARD);
 	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_A))
-		move_left_rigth(program, LEFTWARD);
+		_move_left_rigth(program, LEFTWARD);
 	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_D))
-		move_left_rigth(program, RIGHTWARD);
+		_move_left_rigth(program, RIGHTWARD);
 	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_LEFT))
-		turn_around(program, TURNLEFT);
+		_turn_around(program, TURNLEFT);
 	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_RIGHT))
-		turn_around(program, TURNRIGHT);
+		_turn_around(program, TURNRIGHT);
 }

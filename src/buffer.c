@@ -6,13 +6,13 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 01:10:57 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 01:10:59 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/09 04:24:26 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/dda.h"
 
-static void	fill_floor_ceiling(uint32_t **buffer, t_dda *dda, int col)
+static void	_set_floor_ceiling(uint32_t **buffer, t_dda *dda, int col)
 {
 	int	row;
 
@@ -32,6 +32,6 @@ static void	fill_floor_ceiling(uint32_t **buffer, t_dda *dda, int col)
 
 void	fill_buffer(t_mlx_state *mlx_state, t_dda *dda, int col)
 {
-	fill_floor_ceiling(mlx_state->img_buffer, dda, col);
+	_set_floor_ceiling(mlx_state->img_buffer, dda, col);
 	textures(mlx_state, dda, col);
 }

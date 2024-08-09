@@ -6,13 +6,13 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 03:13:16 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 03:44:26 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/09 04:26:35 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/dda.h"
 
-static uint32_t	get_pixel_value(t_mlx_state *mlx_state, \
+static uint32_t	_get_pixel_value(t_mlx_state *mlx_state, \
 								t_ivector tc, \
 								int ti)
 {
@@ -32,7 +32,7 @@ static uint32_t	get_pixel_value(t_mlx_state *mlx_state, \
 
 // infer things we should handle the case when tex is Uninitialized
 // and also cppcheck
-static t_ivector	get_tex_cords(t_mlx_state *mlx_state, \
+static t_ivector	_get_tex_cords(t_mlx_state *mlx_state, \
 								t_dda *dda, \
 								int ti)
 {
@@ -50,7 +50,7 @@ static t_ivector	get_tex_cords(t_mlx_state *mlx_state, \
 	return (tex);
 }
 
-static void	fill_buffer_texture(t_mlx_state *mlx_state, \
+static void	_fill_buffer_texture(t_mlx_state *mlx_state, \
 								t_dda *dda, \
 								int col, \
 								int ti)
@@ -60,7 +60,7 @@ static void	fill_buffer_texture(t_mlx_state *mlx_state, \
 	double		tex_pos;
 	int			row;
 
-	tc = get_tex_cords(mlx_state, dda, ti);
+	tc = _get_tex_cords(mlx_state, dda, ti);
 	step = 1.0 * (mlx_state->textures[ti]->height) / dda->line.heigth;
 	tex_pos = 0;
 	row = dda->line.start;
@@ -73,12 +73,12 @@ static void	fill_buffer_texture(t_mlx_state *mlx_state, \
 	{
 		tc.row = ((int)tex_pos) & ((mlx_state->textures[ti]->height) - 1);
 		tex_pos += step;
-		mlx_state->img_buffer[row][col] = get_pixel_value(mlx_state, tc, ti);
+		mlx_state->img_buffer[row][col] = _get_pixel_value(mlx_state, tc, ti);
 		row++;
 	}
 }
 
-static int	get_tex_index(const t_dda *dda)
+static int	_get_tex_index(const t_dda *dda)
 {
 	if (dda->current_side == X_SIDE && dda->ray_dir.col < 0)
 		return (W_INDEX);
@@ -94,6 +94,6 @@ void	textures(t_mlx_state *mlx_state, t_dda *dda, int col)
 {
 	int		tex_index;
 
-	tex_index = get_tex_index(dda);
-	fill_buffer_texture(mlx_state, dda, col, tex_index);
+	tex_index = _get_tex_index(dda);
+	_fill_buffer_texture(mlx_state, dda, col, tex_index);
 }
