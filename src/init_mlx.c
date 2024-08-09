@@ -5,11 +5,23 @@
 /*                                                     +:+                    */
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 22:22:13 by lvan-gef      ########   odam.nl         */
+/*   Created: 2024/08/09 22:23:54 by lvan-gef      #+#    #+#                 */
+/*   Updated: 2024/08/09 22:24:02 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/cub3D.h"
+
+static	bool	_init_buffer(t_mlx_state *mlx_state)
+{
+	int	row;
+
+	mlx_state->img_buffer = ft_calloc(SCR_HEIGHT + 1, sizeof(uint32_t *));
+	if (mlx_state->img_buffer == NULL)
+	{
+		perror("img_buffer rows");
+		return (false);
+	}
 	row = 0;
 	while (row < SCR_HEIGHT)
 	{
