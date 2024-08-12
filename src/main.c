@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:23:20 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/12 17:25:48 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/12 21:46:38 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char *map = "\
 100000100010000000000001\n\
 100000100010000100010001\n\
 100000100010000000000001\n\
-100000110110000101010001\n\
+100000111110000101010001\n\
 100000000000000000000001\n\
 100000000000000000000001\n\
 100000000000000000000001\n\
@@ -32,9 +32,9 @@ char *map = "\
 100000000000000000000001\n\
 111111111000000000000001\n\
 110100001000000000000001\n\
-110000101000000000000001\n\
-110100001000000000000001\n\
-110111111000000000000001\n\
+110000101000000010000001\n\
+110100001000000101000001\n\
+110111111000000010000001\n\
 110000000000000000000001\n\
 111111111000000000000001\n\
 111111111111111111111111\n";
@@ -102,8 +102,9 @@ int	main(int argc, char **argv)
 		clean_cub(program);
 	if (init_mlx(program) != true)
 		clean_cub(program);
-	render(program);
+	// render(program);
 	mlx_loop_hook(program->mlx_state->mlx, hooks, program);
+    mlx_loop_hook(program->mlx_state->mlx, &render, (void *)program);
 	mlx_close_hook(program->mlx_state->mlx, clean_cub, program);
 	mlx_loop(program->mlx_state->mlx);
 	return (0);
