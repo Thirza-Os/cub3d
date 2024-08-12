@@ -6,14 +6,13 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 22:22:13 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/12 17:15:52 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 #include "../include/dda.h"
 
-// infer things we should handle the case
 static	void	_init_dda(t_dda *dda)
 {
 	int				index;

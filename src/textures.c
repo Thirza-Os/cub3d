@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/11 17:23:21 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/12 17:26:45 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static uint32_t	_get_pixel_value(t_mlx_state *mlx_state, \
 								int ti)
 {
 	const uint8_t	*pixels;
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-	uint8_t	a;
+	uint8_t			r;
+	uint8_t			g;
+	uint8_t			b;
+	uint8_t			a;
 
 	pixels = mlx_state->textures[ti]->pixels;
 	r = pixels[(tc.row * mlx_state->textures[ti]->width + tc.col) * 4];
@@ -37,8 +37,8 @@ static t_ivector	_get_tex_cords(t_mlx_state *mlx_state, \
 	double		wall_x;
 	t_ivector	tex;
 
-    tex.col = 0;
-    tex.row = 0;
+	tex.col = 0;
+	tex.row = 0;
 	if (dda->current_side == X_SIDE)
 		wall_x = dda->player_pos.row + dda->perp_wall_dist * dda->ray_dir.row;
 	else

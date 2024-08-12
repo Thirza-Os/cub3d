@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:23:20 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 22:23:21 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/12 17:25:48 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ t_player	*parser(t_program *program, const char *Gamemap)
 
 int	main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
 	t_program	*program;
 	t_player	*player;
 
+	(void)argc;
+	(void)argv;
 	program = ft_calloc(1, sizeof(*program));
 	if (program == NULL)
 	{

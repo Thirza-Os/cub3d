@@ -6,11 +6,12 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:23:54 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 22:24:02 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/12 17:24:08 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
+#include "cub_structs.h"
 
 static	bool	_init_buffer(t_mlx_state *mlx_state)
 {
@@ -33,7 +34,7 @@ static	bool	_init_buffer(t_mlx_state *mlx_state)
 		}
 		row++;
 	}
-	return true;
+	return (true);
 }
 
 static	bool	_init_texture(t_mlx_state *mlx_state, char **paths)
@@ -47,38 +48,45 @@ static	bool	_init_texture(t_mlx_state *mlx_state, char **paths)
 		if (mlx_state->textures[index] == NULL)
 		{
 			perror(mlx_strerror(mlx_errno));
-			return false;
+			return (false);
 		}
 		index++;
 	}
 	return (true);
 }
 
-bool	init_mlx(t_program *program)
+static	bool	_init_mlx(t_program *p)
 {
-	program->mlx_state = ft_calloc(1, sizeof(*program->mlx_state));
-	if (program->mlx_state == NULL)
+	p->mlx_state = ft_calloc(1, sizeof(*p->mlx_state));
+	if (p->mlx_state == NULL)
 	{
 		perror("init mlx_state");
 		return (false);
 	}
-	program->mlx_state->mlx = mlx_init(SCR_WIDTH, SCR_HEIGHT, "test", true);
-	if (!program->mlx_state->mlx)
+	p->mlx_state->mlx = mlx_init(SCR_WIDTH, SCR_HEIGHT, "test", true);
+	if (!p->mlx_state->mlx)
 	{
 		perror(mlx_strerror(mlx_errno));
 		return (false);
 	}
-	program->mlx_state->img = mlx_new_image(program->mlx_state->mlx, SCR_WIDTH, SCR_HEIGHT);
-	if (!program->mlx_state->img)
+	p->mlx_state->img = mlx_new_image(p->mlx_state->mlx, SCR_WIDTH, SCR_HEIGHT);
+	if (!p->mlx_state->img)
 	{
 		perror(mlx_strerror(mlx_errno));
 		return (false);
 	}
-	if (mlx_image_to_window(program->mlx_state->mlx, program->mlx_state->img, 0, 0) == -1)
+	if (mlx_image_to_window(p->mlx_state->mlx, p->mlx_state->img, 0, 0) == -1)
 	{
 		perror(mlx_strerror(mlx_errno));
 		return (false);
 	}
+	return (true);
+}
+
+bool	init_mlx(t_program *program)
+{
+	if (_init_mlx(program) != true)
+		return (false);
 	if (_init_buffer(program->mlx_state) != true)
 		return (false);
 	if (_init_texture(program->mlx_state, program->paths) != true)
