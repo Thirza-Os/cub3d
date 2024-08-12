@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 22:22:13 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/11 17:23:21 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ static uint32_t	_get_pixel_value(t_mlx_state *mlx_state, \
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-// infer things we should handle the case when tex is Uninitialized
-// and also cppcheck
 static t_ivector	_get_tex_cords(t_mlx_state *mlx_state, \
 								t_dda *dda, \
 								int ti)
@@ -39,6 +37,8 @@ static t_ivector	_get_tex_cords(t_mlx_state *mlx_state, \
 	double		wall_x;
 	t_ivector	tex;
 
+    tex.col = 0;
+    tex.row = 0;
 	if (dda->current_side == X_SIDE)
 		wall_x = dda->player_pos.row + dda->perp_wall_dist * dda->ray_dir.row;
 	else
@@ -50,7 +50,7 @@ static t_ivector	_get_tex_cords(t_mlx_state *mlx_state, \
 	return (tex);
 }
 
-static void	_fill_buffer_texture(t_mlx_state *mlx_state, \
+static void	_set_textures(t_mlx_state *mlx_state, \
 								t_dda *dda, \
 								int col, \
 								int ti)
@@ -95,5 +95,5 @@ void	textures(t_mlx_state *mlx_state, t_dda *dda, int col)
 	int		tex_index;
 
 	tex_index = _get_tex_index(dda);
-	_fill_buffer_texture(mlx_state, dda, col, tex_index);
+	_set_textures(mlx_state, dda, col, tex_index);
 }
