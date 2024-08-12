@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 22:22:25 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/10 22:19:17 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # define X_SIDE 1
 # define Y_SIDE 2
 
-# define MOVESPEED 0.12
-# define ROTSPEED 0.08
+# define MOVESPEED 0.10
+# define ROTSPEED 0.05
 
 # define FORWARD 1
 # define BACKWARD -1
@@ -45,8 +45,6 @@
 # define S_INDEX 1
 # define E_INDEX 2
 # define W_INDEX 3
-# define F_INDEX 4
-# define C_INDEX 5
 
 # define MAX_IMGS 4
 
