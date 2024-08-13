@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 22:22:13 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/13 03:11:35 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static	void	_clean_mlx(t_mlx_state *mlx_state)
 	mlx_terminate(mlx_state->mlx);
 	free(mlx_state);
 }
-
 
 static	void	_clean_dda(t_dda *dda)
 {

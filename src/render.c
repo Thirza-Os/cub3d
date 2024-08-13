@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/13 02:39:35 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/13 03:13:17 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	render(void *data)
 	t_mlx_state	*mlx_state;
 	t_dda		*dda;
 	size_t		col;
-    t_program   *program;
+	t_program	*program;
 
-    program = data;
+	program = data;
 	mlx_state = program->mlx_state;
 	dda = program->dda;
 	ft_memset(mlx_state->img->pixels, 0, SCR_WIDTH * SCR_HEIGHT);

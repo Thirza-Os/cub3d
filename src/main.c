@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:23:20 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/13 01:46:26 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/13 03:13:38 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	main(int argc, char **argv)
 	if (init_mlx(program) != true)
 		clean_cub(program);
 	mlx_loop_hook(program->mlx_state->mlx, hooks, program);
-    mlx_loop_hook(program->mlx_state->mlx, &render, (void *)program);
+	mlx_loop_hook(program->mlx_state->mlx, &render, (void *)program);
 	mlx_close_hook(program->mlx_state->mlx, clean_cub, program);
 	mlx_loop(program->mlx_state->mlx);
 	return (0);
