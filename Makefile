@@ -1,25 +1,25 @@
 NAME := cub3d
 
-CC				= cc
-CFLAGS 			= -Wall -Wextra -Werror -Wshadow -Wpedantic -g3
+CC              = cc
+CFLAGS          = -Wall -Wextra -Werror -Wshadow -Wpedantic -g3
 
 SRC_DIR = ./src
 OBJ_DIR = ./obj
 
-SRCS	:=	$(SRC_DIR)/buffer.c\
-			$(SRC_DIR)/dda_calc.c\
-			$(SRC_DIR)/render.c\
-			$(SRC_DIR)/init_mlx.c\
-			$(SRC_DIR)/main.c\
-			$(SRC_DIR)/textures.c\
-			$(SRC_DIR)/cub_free.c\
-			$(SRC_DIR)/debug.c\
-			$(SRC_DIR)/hooks.c
+SRCS    :=  $(SRC_DIR)/buffer.c\
+            $(SRC_DIR)/dda_calc.c\
+            $(SRC_DIR)/render.c\
+            $(SRC_DIR)/init_mlx.c\
+            $(SRC_DIR)/main.c\
+            $(SRC_DIR)/textures.c\
+            $(SRC_DIR)/cub_free.c\
+            $(SRC_DIR)/debug.c\
+            $(SRC_DIR)/hooks.c
 
-OBJECTS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
-LIB				= ./libft/libft.a
-LIBFT_LOC		= libft
-LIBFT_LIB		= libft/libft.a
+OBJECTS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+LIB             = ./libft/libft.a
+LIBFT_LOC       = libft
+LIBFT_LIB       = libft/libft.a
 LIBMLX = MLX42
 
 UNAME_S := $(shell uname -s)
@@ -28,21 +28,23 @@ ifeq ($(UNAME_S), Darwin)
     MLX_FLAGS = -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
 else ifeq ($(UNAME_S), Linux)
     MLX_FLAGS = -ldl -lglfw -pthread -lm
+else
+	$(error "Unsupported operating system: $(UNAME_S). Only macOS and Linux are supported.")
 endif
 
-HEADERS = -I include -I $(LIBFT_LOC)/include -I $(MLX_LOC)/include
+HEADERS = -I include -I $(LIBFT_LOC)/include -I $(LIBMLX)/include
 
-all: mlx $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJECTS)
+$(NAME): $(OBJECTS) $(LIBMLX)/build/libmlx42.a
 	@$(MAKE) -C $(LIBFT_LOC)
 	@$(CC) $(CFLAGS) $(MLX_FLAGS) $(OBJECTS) $(LIBMLX)/build/libmlx42.a $(LIB) -o $(NAME)
 
-$(OBJ_DIR)/%.o : %.c
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | $(LIBMLX)/build/libmlx42.a
 	@mkdir -p $(@D)
 	$(CC) $(HEADERS) -c $(CFLAGS) -o $@ $<
 
-mlx:
+$(LIBMLX)/build/libmlx42.a:
 	@if [ ! -d "$(LIBMLX)" ]; then \
 		git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX) && cd $(LIBMLX) && git checkout v2.3.3 && cmake -B build && cmake --build build -j4; \
 	fi
@@ -58,4 +60,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re mlx
+.PHONY: all clean fclean re
