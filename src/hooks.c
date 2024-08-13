@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/12 21:52:44 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/13 01:36:17 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,96 +26,38 @@ bool	_hit_wall(const t_dda *dda, double row, double col)
 
 static	void	_move_up_and_down(t_program *program, int dir)
 {
-	double		spacing;
-	t_dvector	dc;
-	t_dvector	cord;
-	t_dda		*dda;
+    t_dda *dda = program->dda;
+    t_dvector new_pos;
 
-	spacing = 0.32;
-	dda = program->dda;
-	printf("cool dda: %f, %f\n", dda->player_pos.row, dda->player_pos.col);
-	cord = dda->player_pos;
-	printf("cool cord: %f, %f\n", cord.row, cord.col);
-	dc.col = dda->player_dir.col * MOVESPEED * dir;
-	if (dc.col < 0)
-		spacing = -0.32;
-	double kev_row = cord.row + dc.row + spacing;
-	double kev_col = cord.col + dc.col + spacing;
-	int ikr = (int)kev_row;
-	int ikc = (int)kev_col;
-	char walltype = dda->player->map[ikr][ikc];
-	printf("walltype: %c\n", walltype);
-    if (walltype != '1')
-		program->dda->player_pos.col += dc.col;
-	// if (_hit_wall(dda, cord.row, cord.col + dc.col + spacing) != true)
-	// 	program->dda->player_pos.col += dc.col;
-	spacing = 0.32;
-	dc.row = program->dda->player_dir.row * MOVESPEED * dir;
-	if (dc.row < 0)
-		spacing = -0.32;
-	kev_row = cord.row + dc.row + spacing;
-	kev_col = cord.col + dc.col + spacing;
-	ikr = (int)kev_row;
-	ikc = (int)kev_col;
-	walltype = dda->player->map[ikr][ikc];
-	printf("walltype: %c\n", walltype);
-    if (walltype != '1')
-		dda->player_pos.row += dc.row;
-	   //  render(program);
-	// if (_hit_wall(dda, cord.row + dc.row + spacing, cord.col) != true)
-	// 	dda->player_pos.row += dc.row;
-	// // print_dda(program->dda);
-	printf("ik sta hier: %f, %f, ik ga naar: %f, %f\n", dda->player_pos.row, dda->player_pos.col, cord.row + dc.row + spacing, cord.col + dc.col + spacing);
+    // Calculate potential new positions based on direction
+    new_pos.col = dda->player_pos.col + dda->player_dir.col * MOVESPEED * dir;
+    new_pos.row = dda->player_pos.row + dda->player_dir.row * MOVESPEED * dir;
 
-	// double kev_row = cord.row + dc.row + spacing;
-	// double kev_col = cord.col + dc.col + spacing;
-	//
-	// int ikr = (int)kev_row;
-	// int ikc = (int)kev_col;
-	//
-	// printf("kev: %f,%f,%d,%d\n",kev_row,kev_col,ikr,ikc);
-	// char walltype = dda->player->map[ikr][ikc];
-	// printf("walltype: %c\n", walltype);
-    // if (walltype != '1')
-	   //  render(program);
+    // Check if the new position would collide with a wall (including small buffer)
+    if (!hit_wall(dda, (int)new_pos.row, (int)(dda->player_pos.col))) {
+        dda->player_pos.row = new_pos.row;
+    }
+    if (!hit_wall(dda, (int)(dda->player_pos.row), (int)new_pos.col)) {
+        dda->player_pos.col = new_pos.col;
+    }
 }
 
 static	void	_move_left_rigth(t_program *program, int dir)
 {
-	double		spacing;
-	t_dvector	dc;
-	t_dvector	cord;
-	t_dda		*dda;
+    t_dda *dda = program->dda;
+    t_dvector new_pos;
 
-	spacing = 0.32;
-	dda = program->dda;
-	cord = dda->player_pos;
-	dc.col = -(program->dda->player_dir.row * MOVESPEED * dir);
-	if (dc.col < 0)
-		spacing = -0.32;
-	// if (hit_wall(dda, cord.row, cord.col + dc.col + spacing) != true)
-	double kev_row = cord.row + dc.row + spacing;
-	double kev_col = cord.col + dc.col + spacing;
-	int ikr = (int)kev_row;
-	int ikc = (int)kev_col;
-	char walltype = dda->player->map[ikr][ikc];
-	printf("walltype: %c\n", walltype);
-    if (walltype != '1')
-		program->dda->player_pos.col += dc.col;
-	spacing = 0.32;
-	dc.row = program->dda->player_dir.col * MOVESPEED * dir;
-	if (dc.row < 0)
-		spacing = -0.32;
-	// if (hit_wall(dda, cord.row + dc.col + spacing, cord.col) != true)
-	kev_row = cord.row + dc.row + spacing;
-	kev_col = cord.col + dc.col + spacing;
-	ikr = (int)kev_row;
-	ikc = (int)kev_col;
-	walltype = dda->player->map[ikr][ikc];
-	printf("walltype: %c\n", walltype);
-    if (walltype != '1')
-		program->dda->player_pos.row += dc.row;
-	// render(program);
+    // Calculate potential new positions based on strafing direction
+    new_pos.col = dda->player_pos.col - dda->player_dir.row * MOVESPEED * dir;
+    new_pos.row = dda->player_pos.row + dda->player_dir.col * MOVESPEED * dir;
+
+    // Check if the new position would collide with a wall (including small buffer)
+    if (!hit_wall(dda, (int)new_pos.row, (int)(dda->player_pos.col))) {
+        dda->player_pos.row = new_pos.row;
+    }
+    if (!hit_wall(dda, (int)(dda->player_pos.row), (int)new_pos.col)) {
+        dda->player_pos.col = new_pos.col;
+    }
 }
 
 static	void	_turn_around(t_program *program, int dir)
