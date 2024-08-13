@@ -6,12 +6,12 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/13 01:36:17 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/13 02:20:00 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/dda.h"
-#include "cub3D.h"
+#include "../include/cub3D.h"
 
 bool	_hit_wall(const t_dda *dda, double row, double col)
 {
@@ -29,11 +29,8 @@ static	void	_move_up_and_down(t_program *program, int dir)
     t_dda *dda = program->dda;
     t_dvector new_pos;
 
-    // Calculate potential new positions based on direction
     new_pos.col = dda->player_pos.col + dda->player_dir.col * MOVESPEED * dir;
     new_pos.row = dda->player_pos.row + dda->player_dir.row * MOVESPEED * dir;
-
-    // Check if the new position would collide with a wall (including small buffer)
     if (!hit_wall(dda, (int)new_pos.row, (int)(dda->player_pos.col))) {
         dda->player_pos.row = new_pos.row;
     }
@@ -47,11 +44,8 @@ static	void	_move_left_rigth(t_program *program, int dir)
     t_dda *dda = program->dda;
     t_dvector new_pos;
 
-    // Calculate potential new positions based on strafing direction
     new_pos.col = dda->player_pos.col - dda->player_dir.row * MOVESPEED * dir;
     new_pos.row = dda->player_pos.row + dda->player_dir.col * MOVESPEED * dir;
-
-    // Check if the new position would collide with a wall (including small buffer)
     if (!hit_wall(dda, (int)new_pos.row, (int)(dda->player_pos.col))) {
         dda->player_pos.row = new_pos.row;
     }
@@ -77,7 +71,6 @@ static	void	_turn_around(t_program *program, int dir)
 							dda->plane.row * sin(ROTSPEED * dir);
 	dda->plane.row = plane * sin(ROTSPEED * dir) + \
 							dda->plane.row * cos(ROTSPEED * dir);
-	// render(program);
 }
 
 void	hooks(void *param)
