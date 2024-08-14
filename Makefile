@@ -4,17 +4,22 @@ CC              = cc
 CFLAGS          = -Wall -Wextra -Werror -Wshadow -Wpedantic -g3
 
 SRC_DIR = ./src
+ENG_DIR = $(SRC_DIR)/engine
+PAR_DIR = $(SRC_DIR)/parser
 OBJ_DIR = ./obj
 
-SRCS    :=  $(SRC_DIR)/buffer.c\
-            $(SRC_DIR)/dda_calc.c\
-            $(SRC_DIR)/render.c\
-            $(SRC_DIR)/init_mlx.c\
-            $(SRC_DIR)/main.c\
-            $(SRC_DIR)/textures.c\
+SRCS    :=  $(SRC_DIR)/main.c\
             $(SRC_DIR)/cub_free.c\
-            $(SRC_DIR)/debug.c\
-            $(SRC_DIR)/hooks.c
+			$(ENG_DIR)/buffer.c\
+            $(ENG_DIR)/dda_calc.c\
+            $(ENG_DIR)/render.c\
+            $(ENG_DIR)/init_mlx.c\
+            $(ENG_DIR)/textures.c\
+            $(ENG_DIR)/debug.c\
+            $(ENG_DIR)/hooks.c\
+			$(PAR_DIR)/parser.c\
+			$(PAR_DIR)/parse_utils.c\
+			$(PAR_DIR)/tokenize_input.c
 
 OBJECTS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 LIB             = ./libft/libft.a

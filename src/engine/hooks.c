@@ -6,11 +6,11 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/13 03:11:09 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/15 00:34:36 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/dda.h"
+#include "../../include/dda.h"
 #include "../include/cub3D.h"
 
 bool	_hit_wall(const t_dda *dda, int row, int col)
@@ -75,7 +75,7 @@ void	hooks(void *param)
 	program = param;
 	mlx_state = program->mlx_state;
 	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_ESCAPE))
-		clean_cub(program);
+		clean_cub(program, 0);
 	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_W))
 		_move_up_and_down(program, FORWARD);
 	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_S))

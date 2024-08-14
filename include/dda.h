@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/12 21:46:38 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/14 23:58:11 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include "../libft/include/libft.h"
 
 t_dda	*init_dda(t_player *player);
-// void	render(t_program *program);
 void	render(void *data);
 void	dda_info(t_dda *dda, int col);
 void	fill_buffer(t_mlx_state *mlx_state, t_dda *dda, int col);

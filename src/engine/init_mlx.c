@@ -6,11 +6,11 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:23:54 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/12 17:24:08 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/14 23:49:10 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
+#include "../../include/dda.h"
 #include "cub_structs.h"
 
 static	bool	_init_buffer(t_mlx_state *mlx_state)

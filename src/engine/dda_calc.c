@@ -6,11 +6,11 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/12 21:09:38 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/14 23:49:02 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/dda.h"
+#include "../../include/dda.h"
 
 static	void	_set_dir(t_dda *dda)
 {

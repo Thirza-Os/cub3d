@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/13 01:49:49 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/15 01:43:59 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,20 @@
 # define W_INDEX 3
 
 # define MAX_IMGS 4
+
+# define WHITESPACE "\10\11\12\13\14\15\40"
+# define G_LABELS {"NO", "SO", "WE", "EA", "F", "C"};
+
+typedef enum e_tokens
+{
+	NO,
+	SO,
+	WE,
+	EA,
+	F,
+	C,
+	SIZE
+}	t_tokens;
 
 typedef struct s_dvector
 {

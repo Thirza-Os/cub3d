@@ -6,12 +6,12 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/13 03:13:17 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/14 23:51:33 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
-#include "../include/dda.h"
+#include "../../include/dda.h"
+#include "../../include/cub3D.h"
 
 static	void	_init_dda(t_dda *dda)
 {

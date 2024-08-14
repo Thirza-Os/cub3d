@@ -6,11 +6,11 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:01 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/09 22:22:06 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/14 23:48:41 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/dda.h"
+#include "../../include/dda.h"
 
 static void	_set_floor_ceiling(uint32_t **buffer, t_dda *dda, int col)
 {
