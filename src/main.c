@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:23:20 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/15 01:45:15 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/15 22:41:05 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,13 @@ int	main(int argc, char **argv)
 		perror("Failed to create player");
 		return (3);
 	}
-	if (parser(argv[1]) != true)
+	if (parser(argv[1], program) != true)
+	{
+		_clean_player(player);
 		clean_cub(program, errno);
+	}
+	clean_cub(program, 0);
+	_clean_player(player);
 	// program->dda = init_dda(player);
 	// if (program->dda == NULL)
 	// 	clean_cub(program);

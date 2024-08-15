@@ -23,7 +23,7 @@ bool	check_png(char *arg)
 		ft_putstr_fd("Not a .png file!\n", 2);
 		return (false);
 	}
-	return (1);
+	return (true);
 }
 
 int	ft_atorgb(const char *str)

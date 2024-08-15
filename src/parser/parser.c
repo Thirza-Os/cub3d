@@ -1,21 +1,38 @@
 #include "../../include/cub_parser.h"
+#include "cub_structs.h"
 
-bool	parser(char *arg)
+// void printer(char **elements) {
+// 	size_t index = 0;
+//
+// 	while (index < SIZE + 1)
+// 	{
+// 		printf("index: %zu, str: %s\n", index, elements[index]);
+// 		index++;
+// 	}
+// }
+
+bool	parser(char *arg, t_program *program)
 {
 	char		**elements;
 
 	if (check_cub(arg) != true)
 		return false;
-	printf("parser\n");
 	elements = tokenize_input(arg);
 	if (errno != 0)
 	{
 		printf("Free elements\n");
 		return (false);
 	}
-	printf("%s\n", elements[0]);
-	// validate_nr_of_identifiers(elements);
-	// validate_structure_paths(elements, &program);
+	if (validate_nr_of_identifiers(elements) != true)
+	{
+		printf("Free elements\n");
+		return (false);
+	}
+	if (validate_structure_paths(elements, program) != true)
+	{
+		printf("Free elements\n");
+		return (false);
+	}
 	// validate_rgb_input(elements, &program);
 	// validate_map(elements[SIZE], &program);
 
