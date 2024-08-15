@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/15 01:43:59 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/15 02:02:54 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_dvector
 	double	row;
 }	t_dvector;
 
-typedef struct s_i_vector
+typedef struct s_ivector
 {
 	int	col;
 	int	row;
