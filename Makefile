@@ -20,7 +20,9 @@ SRCS    :=  $(SRC_DIR)/main.c\
 			$(PAR_DIR)/parser.c\
 			$(PAR_DIR)/parse_utils.c\
 			$(PAR_DIR)/tokenize_input.c\
-			$(PAR_DIR)/validate_identifiers.c
+			$(PAR_DIR)/validate_identifiers.c\
+			$(PAR_DIR)/validate_map.c\
+			$(PAR_DIR)/validate_map_surrounded.c
 
 OBJECTS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 LIB             = ./libft/libft.a

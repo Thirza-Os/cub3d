@@ -1,15 +1,15 @@
 #include "../../include/cub_parser.h"
 #include "cub_structs.h"
 
-// void printer(char **elements) {
-// 	size_t index = 0;
-//
-// 	while (index < SIZE + 1)
-// 	{
-// 		printf("index: %zu, str: %s\n", index, elements[index]);
-// 		index++;
-// 	}
-// }
+void printer(char **elements) {
+	size_t index = 0;
+
+	while (index < SIZE + 1)
+	{
+		printf("index: %zu, str: %s\n", index, elements[index]);
+		index++;
+	}
+}
 
 bool	parser(char *arg, t_program *program)
 {
@@ -33,8 +33,16 @@ bool	parser(char *arg, t_program *program)
 		printf("Free elements\n");
 		return (false);
 	}
-	// validate_rgb_input(elements, &program);
-	// validate_map(elements[SIZE], &program);
-
+	if (validate_rgb_input(elements, program) != true)
+	{
+		printf("Free elements\n");
+		return (false);
+	}
+	printer(elements);
+	if (validate_map(elements[SIZE], program) != true)
+	{
+		printf("Free elements\n");
+		return (false);
+	}
 	return (true);
 }

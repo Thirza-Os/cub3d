@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/15 02:02:54 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/16 22:45:14 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@
 # define W_INDEX 3
 
 # define MAX_IMGS 4
-
+# define PLAYER_POS "NSEW"
+# define VALID_MAP_CHARS "10\n "
 # define WHITESPACE "\10\11\12\13\14\15\40"
 # define G_LABELS {"NO", "SO", "WE", "EA", "F", "C"};
+# define G_POSITIONS {"N", "S", "W", "E"};
 
 typedef enum e_tokens
 {
@@ -85,8 +87,7 @@ typedef struct s_player
 {
 	uint32_t	floor_color;
 	uint32_t	ceiling_color;
-	size_t		row_size;
-	size_t		col_size;
+	t_ivector	max_map;
 	t_dvector	player_pos;
 	char		starting_dir;
 	char		**map;
@@ -106,22 +107,23 @@ typedef struct s_dda
 	double		perp_wall_dist;
 	int			current_side;
 	t_draw_info	line;
-	t_player	*player;
+	// t_player	*player;
 }	t_dda;
 
 typedef struct s_mlx_state
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
-	mlx_texture_t	*textures[4];
+	mlx_texture_t	*textures[MAX_IMGS];
 	uint32_t		**img_buffer;
 }	t_mlx_state;
 
 typedef struct s_program
 {
 	t_mlx_state	*mlx_state;
+	t_player	*player;
 	t_dda		*dda;
-	char		*paths[4];
+	char		*paths[MAX_IMGS];
 }	t_program;
 
 #endif

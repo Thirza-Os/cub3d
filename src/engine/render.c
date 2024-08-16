@@ -6,14 +6,14 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/14 23:51:33 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/16 03:37:29 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/dda.h"
 #include "../../include/cub3D.h"
 
-static	void	_init_dda(t_dda *dda)
+static	void	_init_dda(t_dda *dda, t_player *player)
 {
 	int				index;
 	const char		dirs[4] = "NESW";
@@ -23,7 +23,7 @@ static	void	_init_dda(t_dda *dda)
 	index = 0;
 	while (index < 4)
 	{
-		if (dirs[index] == dda->player->starting_dir)
+		if (dirs[index] == player->starting_dir)
 		{
 			dda->player_dir.col = values[index][0];
 			dda->player_dir.row = values[index][1];
@@ -67,8 +67,8 @@ void	render(void *data)
 	col = 0;
 	while (col < SCR_WIDTH)
 	{
-		dda_info(dda, col);
-		fill_buffer(mlx_state, dda, col);
+		dda_info(dda, program->player, col);
+		fill_buffer(mlx_state, dda, program->player, col);
 		col++;
 	}
 	_display(mlx_state->img_buffer, mlx_state->img);
@@ -85,9 +85,9 @@ t_dda	*init_dda(t_player *player)
 		perror("dda");
 		return (NULL);
 	}
-	dda->player = player;
-	dda->player_pos.col = dda->player->player_pos.col;
-	dda->player_pos.row = dda->player->player_pos.row;
-	_init_dda(dda);
+	// dda->player = player;
+	// dda->player_pos.col = dda->player->player_pos.col;
+	// dda->player_pos.row = dda->player->player_pos.row;
+	_init_dda(dda, player);
 	return (dda);
 }

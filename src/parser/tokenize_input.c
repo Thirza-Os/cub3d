@@ -92,12 +92,14 @@ static void	get_elements(int fd, char **elements)
 		if (trimmed_line[0] && flag == true)
 			flag = is_identifier(trimmed_line, elements);
 		if (errno != 0)
+			break ;
 		if (flag == true)
 		{
 			if (trimmed_line[0] == '1')
 				elements[SIZE] = ft_strjoin_cub3d(elements[SIZE], line);
 			else
 			{
+				errno = EINVAL;
 				printf("%s", trimmed_line);
 				ft_putstr_fd("Invalid input: Invalid map\n", 2);
 				break ;

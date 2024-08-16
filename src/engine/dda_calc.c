@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/14 23:49:02 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/16 03:36:29 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static	void	_set_dir(t_dda *dda)
 	}
 }
 
-static	void	_find_wall(t_dda *dda)
+static	void	_find_wall(t_dda *dda, t_player *player)
 {
 	while (1)
 	{
@@ -56,7 +56,7 @@ static	void	_find_wall(t_dda *dda)
 			dda->map_pos.row += dda->step_map.row;
 			dda->current_side = Y_SIDE;
 		}
-		if (hit_wall(dda, dda->map_pos.row, dda->map_pos.col))
+		if (hit_wall(player->map, dda->map_pos.row, dda->map_pos.col))
 			break ;
 	}
 }
@@ -77,14 +77,14 @@ void	_set_lines(t_dda *dda)
 	dda->line.end = (SCR_HEIGHT / 2) + (dda->line.heigth / 2);
 }
 
-bool	hit_wall(const t_dda *dda, int row, int col)
+bool	hit_wall(char **map, int row, int col)
 {
-	if (dda->player->map[row][col] == '1')
+	if (map[row][col] == '1')
 		return (true);
 	return (false);
 }
 
-void	dda_info(t_dda *dda, int col)
+void	dda_info(t_dda *dda, t_player *player, int col)
 {
 	dda->camera_x = 2 * (col / (double)SCR_WIDTH) - 1;
 	dda->ray_dir.col = dda->player_dir.col + (dda->plane.col * dda->camera_x);
@@ -100,6 +100,6 @@ void	dda_info(t_dda *dda, int col)
 	else
 		dda->delta_dist.row = fabs(1 / dda->ray_dir.row);
 	_set_dir(dda);
-	_find_wall(dda);
+	_find_wall(dda, player);
 	_set_lines(dda);
 }

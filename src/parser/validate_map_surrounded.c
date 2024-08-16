@@ -1,54 +1,60 @@
-#include "cub3d.h"
+#include "../../include/cub_parser.h"
 
 // Offsets used to calculate the index of the neighboring cells.
 // Add offset to x/y count = get the indices x/y neighbor.
-static void	check_surrounding_pos(int y_count, int x_count, t_program *program)
+static	bool	check_surrounding_pos(int row, int col, t_program *program)
 {
-	int	y_offset;
-	int	x_offset;
-	int	y_neighbor;
-	int	x_neighbor;
+	int	row_offset;
+	int	col_offset;
+	int	row_neighbor;
+	int	col_neighbor;
 
-	y_offset = -1;
-	while (y_offset <= 1)
+	row_offset = -1;
+	while (row_offset <= 1)
 	{
-		x_offset = -1;
-		while (x_offset <= 1)
+		col_offset = -1;
+		while (col_offset <= 1)
 		{
-			y_neighbor = y_count + y_offset;
-			x_neighbor = x_count + x_offset;
-			if (y_neighbor < 0 || y_neighbor >= program->max_xy.y \
-				|| x_neighbor < 0 || x_neighbor >= program->max_xy.x \
-					|| program->map[y_neighbor][x_neighbor] == ' ')
+			row_neighbor = row + row_offset;
+			col_neighbor = col + col_offset;
+			if (row_neighbor < 0 || row_neighbor > program->player->max_map.row \
+				|| col_neighbor < 0 || col_neighbor > program->player->max_map.col \
+					|| program->player->map[row_neighbor][col_neighbor] == ' ')
 			{
-				print_error("Map is not surrounded");
+				ft_putstr_fd("Map is not surrounded\n", 2);
+				return (false);
 			}
-			x_offset++;
+			col_offset++;
 		}
-		y_offset++;
+		row_offset++;
 	}
+	return (true);
 }
 
 // Player & 0: can not be surrounded by any blank spaces
 // Check only cells with 'N' or '0'
 // Check if the surrounding point is out of bounds or empty
-void	check_surrounded_walls(t_program *program)
+bool	check_surrounded_walls(t_program *program)
 {
-	int	y_count;
-	int	x_count;
+	int	row;
+	int	col;
 
-	y_count = 0;
-	x_count = 0;
-	while (y_count < program->max_xy.y)
+	row = 0;
+	col = 0;
+	while (row < program->player->max_map.row)
 	{
-		x_count = 0;
-		while (x_count < program->max_xy.x)
+		col = 0;
+		if (program->player->map[row] == NULL)
+			break;
+		while (col < program->player->max_map.col)
 		{
-			if (ft_strchr(PLAYER_POS, program->map[y_count][x_count]) != NULL \
-				|| program->map[y_count][x_count] == '0')
-				check_surrounding_pos(y_count, x_count, program);
-			x_count++;
+			if (ft_strchr(PLAYER_POS, program->player->map[row][col]) != NULL \
+				|| program->player->map[row][col] == '0')
+				if (check_surrounding_pos(row, col, program) != true)
+					return (false);
+			col++;
 		}
-		y_count++;
+		row++;
 	}
+	return (true);
 }

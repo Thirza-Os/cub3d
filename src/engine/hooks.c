@@ -6,19 +6,12 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/15 00:34:36 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/16 03:39:08 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/dda.h"
 #include "../include/cub3D.h"
-
-bool	_hit_wall(const t_dda *dda, int row, int col)
-{
-	if (dda->player->map[row][col] == '1')
-		return (true);
-	return (false);
-}
 
 static	void	_move_up_and_down(t_program *program, int dir)
 {
@@ -28,9 +21,9 @@ static	void	_move_up_and_down(t_program *program, int dir)
 	dda = program->dda;
 	new_pos.col = dda->player_pos.col + dda->player_dir.col * MOVESPEED * dir;
 	new_pos.row = dda->player_pos.row + dda->player_dir.row * MOVESPEED * dir;
-	if (!hit_wall(dda, new_pos.row, dda->player_pos.col))
+	if (!hit_wall(program->player->map, new_pos.row, dda->player_pos.col))
 		dda->player_pos.row = new_pos.row;
-	if (!hit_wall(dda, dda->player_pos.row, new_pos.col))
+	if (!hit_wall(program->player->map, dda->player_pos.row, new_pos.col))
 		dda->player_pos.col = new_pos.col;
 }
 
@@ -42,9 +35,9 @@ static	void	_move_left_rigth(t_program *program, int dir)
 	dda = program->dda;
 	new_pos.col = dda->player_pos.col - dda->player_dir.row * MOVESPEED * dir;
 	new_pos.row = dda->player_pos.row + dda->player_dir.col * MOVESPEED * dir;
-	if (!hit_wall(dda, new_pos.row, dda->player_pos.col))
+	if (!hit_wall(program->player->map, new_pos.row, dda->player_pos.col))
 		dda->player_pos.row = new_pos.row;
-	if (!hit_wall(dda, dda->player_pos.row, new_pos.col))
+	if (!hit_wall(program->player->map, dda->player_pos.row, new_pos.col))
 		dda->player_pos.col = new_pos.col;
 }
 

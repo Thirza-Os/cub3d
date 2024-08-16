@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/15 18:39:02 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/16 22:57:17 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,20 @@ static	void	_clean_dda(t_dda *dda)
 
 void	_clean_player(t_player *player)
 {
-	size_t	row;
+	// size_t	row;
 
 	// if (player == NULL)
 	// 	return ;
-	if (player->map != NULL)
-	{
-		row = 0;
-		while (row < player->row_size)
-		{
-			free(player->map[row]);
-			row++;
-		}
-		free(player->map);
-	}
+	// if (player->map != NULL)
+	// {
+	// 	row = 0;
+	// 	while (row < player->row_size)
+	// 	{
+	// 		free(player->map[row]);
+	// 		row++;
+	// 	}
+	// 	free(player->map);
+	// }
 	free(player);
 }
 

@@ -16,5 +16,9 @@ char	**tokenize_input(char *argv);
 bool	validate_nr_of_identifiers(char **elements);
 bool	validate_structure_paths(char **elements, t_program *program);
 bool	check_png(char *arg);
+int		ft_atorgb(const char *str);
+bool	validate_rgb_input(char **elements, t_program *program);
+bool	validate_map(char *map, t_program *program);
+bool	check_surrounded_walls(t_program *program);
 
 #endif

@@ -28,7 +28,7 @@ bool	check_png(char *arg)
 
 int	ft_atorgb(const char *str)
 {
-	long	i;
+	int	i;
 
 	i = 0;
 	while (*str)
@@ -38,7 +38,7 @@ int	ft_atorgb(const char *str)
 		i = (i * 10 + *str - '0');
 		str++;
 	}
-	if (i > 255)
+	if (i < 0 || i > 255)
 		return (-1);
 	return (i);
 }

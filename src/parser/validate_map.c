@@ -1,45 +1,48 @@
-#include "cub3d.h"
+#include "../../include/cub_parser.h"
+#include "libft.h"
 
-int	check_characters(char *map)
-{
-	int		i;
-	char	flag_player;
+static	int	check_characters(char *map, t_player *player) {
+	static	const	char	*g_positions[] = G_POSITIONS;
+	int						index;
+	char					start_dir;
 
-	i = 0;
-	flag_player = '\0';
-	while (map[i])
+	index = 0;
+	start_dir = player->starting_dir;
+	while (map[index])
 	{
-		if ((ft_strchr(PLAYER_POS, map[i]) != NULL) && flag_player == '\0')
+		if ((ft_strchr(PLAYER_POS, map[index]) != NULL) && start_dir == '\0')
 		{
-			flag_player = map[i];
-			i++;
+			start_dir = map[index];
+			index++;
 		}
-		if (ft_strchr(VALID_MAP_CHARS, map[i]) != NULL)
-			i++;
+		if (ft_strchr(VALID_MAP_CHARS, map[index]) != NULL)
+			index++;
 		else
-			print_error("Invalid map: wrong character input");
+			return (-1);
+			// print_error("Invalid map: wrong character input");
 	}
-	if (!flag_player)
-		print_error("Invalid map: No player input");
-	i = 0;
-	while (g_positions[i])
+	if (!start_dir)
+		return (-1);
+		// print_error("Invalid map: No player input");
+	index = 0;
+	while (g_positions[index])
 	{
-		if (*g_positions[i] == flag_player)
+		if (*g_positions[index] == start_dir)
 			break ;
-		i++;
+		index++;
 	}
-	return (i);
+	return (index);
 }
 
-void	find_max_xy(char *map, t_program *program)
+static	bool	set_map_size(char *map, t_program *program)
 {
 	int	counter;
-	int	max_y;
-	int	max_x;
+	int	max_row;
+	int	max_col;
 	int	max_x_counter;
 
-	max_y = 1;
-	max_x = 0;
+	max_row = 0;
+	max_col = 0;
 	max_x_counter = 0;
 	counter = 0;
 	while (map[counter])
@@ -48,74 +51,101 @@ void	find_max_xy(char *map, t_program *program)
 			max_x_counter++;
 		if (map[counter] == '\n')
 		{
-			max_y++;
-			if (max_x_counter > max_x)
-				max_x = max_x_counter;
+			max_row++;
+			if (max_x_counter > max_col)
+				max_col = max_x_counter;
 			max_x_counter = 0;
 		}
 		counter++;
 	}
-	if (max_x_counter > max_x)
-		max_x = max_x_counter;
-	if (max_y < 3)
-		print_error("Invalid map: Map not big enough");
-	program->max_xy.y = max_y;
-	program->max_xy.x = max_x;
+	if (max_x_counter > max_col)
+		max_col = max_x_counter;
+	if (max_row < 3)
+		return (false);
+		// print_error("Invalid map: Map not big enough");
+	program->player->max_map.row = max_row;
+	program->player->max_map.col = max_col;
+	return (true);
 }
 
-void	fill_map(char *map, t_program *program)
+static	bool	fill_map(char *map, t_program *program)
 {
 	char	**temp_map;
 	char	**dst_map;
-	int		y_counter;
+	int		row;
 
-	y_counter = 0;
 	temp_map = ft_split(map, '\n');
-	dst_map = ft_calloc(program->max_xy.y, sizeof(char *));
-	while (y_counter < program->max_xy.y)
+	if (temp_map == NULL)
 	{
-		dst_map[y_counter] = ft_calloc(program->max_xy.x + 1, sizeof(char));
-		ft_memset(dst_map[y_counter], ' ', program->max_xy.x);
-		ft_memcpy(dst_map[y_counter], temp_map[y_counter], \
-			ft_strlen(temp_map[y_counter]));
-		y_counter++;
+		ft_putstr_fd("Failed to split the map\n", 2);
+		return (false);
 	}
-	ft_free(temp_map);
-	free(map);
-	program->map = dst_map;
-}
-
-void	fill_player(t_program *program)
-{
-	int	count_x;
-	int	count_y;
-
-	count_x = 0;
-	count_y = 0;
-
-	while (count_y < program->max_xy.y)
+	dst_map = ft_calloc(program->player->max_map.row + 1, sizeof(char *));
+	if (dst_map == NULL)
 	{
-		while (count_x < program->max_xy.x)
+		ft_putstr_fd("Failed to calloc rows", 2);
+		return (false);
+	}
+	row = 0;
+	while (row < program->player->max_map.row)
+	{
+		dst_map[row] = ft_calloc(program->player->max_map.col + 1, sizeof(char));
+		if (dst_map[row] == NULL)
 		{
-			if (ft_strchr(PLAYER_POS, program->map[count_y][count_x]) != NULL)
-			{
-				program->start_pos.x = count_x;
-				program->start_pos.y = count_y;
-				return ;
-			}
-			count_x++;
+			ft_putstr_fd("Failed to calloc cols", 2);
+			return (false);
 		}
-	count_x = 0;
-	count_y++;
+		ft_memset(dst_map[row], ' ', program->player->max_map.row);
+		ft_memcpy(dst_map[row], temp_map[row], ft_strlen(temp_map[row]));
+		row++;
 	}
+	// ft_free(temp_map);
+	// free(map);
+	program->player->map = dst_map;
+	return (true);
 }
 
-void	validate_map(char *map, t_program *program)
+static	bool	fill_player(t_program *program)
 {
-	program->spawning_pos = check_characters(map);
-	find_max_xy(map, program);
-	fill_map(map, program);
-	fill_player(program);
-	printf("x: %i\n y: %i", program->start_pos.x, program->start_pos.y);
-	check_surrounded_walls(program);
+	int	count_col;
+	int	count_row;
+
+	count_row = 0;
+	while (count_row < program->player->max_map.row)
+	{
+		count_col = 0;
+		while (count_col < program->player->max_map.col)
+		{
+			if (ft_strchr(PLAYER_POS, program->player->map[count_row][count_col]) != NULL)
+			{
+				program->player->player_pos.col = count_col;
+				program->player->player_pos.row = count_row;
+				return (true);
+			}
+			count_col++;
+		}
+		count_row++;
+	}
+	ft_putstr_fd("Failed to find player position\n", 2);
+	return (false);
+}
+
+bool	validate_map(char *map, t_program *program)
+{
+	int	pos;
+	static	const	char	*g_positions[] = G_POSITIONS;
+
+	pos = check_characters(map, program->player);
+	if (pos == -1)
+		return (false);
+	program->player->starting_dir = *g_positions[pos];
+	if (set_map_size(map, program) != true)
+		return (false);
+	if (fill_map(map, program) != true)
+		return (false);
+	if (fill_player(program) != true)
+		return (false);
+	if (check_surrounded_walls(program) != true)
+		return (false);
+	return (true);
 }
