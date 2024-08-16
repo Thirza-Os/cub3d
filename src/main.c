@@ -6,12 +6,13 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:23:20 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/16 03:43:20 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/17 00:00:54 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 #include "../include/cub_parser.h"
+#include "../include/dda.h"
 
 /* char *map = "\
 // 111111111111111111111111\n\
@@ -105,15 +106,14 @@ int	main(int argc, char **argv)
 	{
 		clean_cub(program, errno);
 	}
-	clean_cub(program, 0);
-	// program->dda = init_dda(player);
-	// if (program->dda == NULL)
-	// 	clean_cub(program);
-	// if (init_mlx(program) != true)
-	// 	clean_cub(program);
-	// mlx_loop_hook(program->mlx_state->mlx, hooks, program);
-	// mlx_loop_hook(program->mlx_state->mlx, &render, (void *)program);
+	program->dda = init_dda(program->player);
+	if (program->dda == NULL)
+		clean_cub(program, errno);
+	if (init_mlx(program) != true)
+		clean_cub(program, errno);
+	mlx_loop_hook(program->mlx_state->mlx, hooks, program);
+	mlx_loop_hook(program->mlx_state->mlx, &render, (void *)program);
 	// mlx_close_hook(program->mlx_state->mlx, clean_cub, program);
-	// mlx_loop(program->mlx_state->mlx);
+	mlx_loop(program->mlx_state->mlx);
 	return (0);
 }

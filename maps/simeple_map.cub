@@ -1,7 +1,7 @@
-NO ./test.png
-SO ./SO.png
-WE ./WE.png
-EA ./EA.png
+NO tex/NO.png
+SO tex/SO.png
+WE tex/WE.png
+EA tex/EA.png
 F 220,100,0
 C 225,30,0
 111111111

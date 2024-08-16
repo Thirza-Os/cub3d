@@ -7,9 +7,10 @@ bool	validate_structure_paths(char **elements, t_program *program)
 	index = 0;
 	while (index < 4)
 	{
-		if (check_png(elements[index]) != true || (ft_strncmp("./", elements[index], 2) != 0))
+		// if (check_png(elements[index]) != true || (ft_strncmp("./", elements[index], 2) != 0))
+		if (check_png(elements[index]) != true)
 			return (false);
-		program->paths[index] = ft_strdup(elements[index]);
+		program->paths[index] = elements[index];
 		if (program->paths[index] == NULL)
 		{
 			perror("path");
