@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/16 03:39:08 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/18 18:15:20 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static	void	_move_left_rigth(t_program *program, int dir)
 
 	dda = program->dda;
 	new_pos.col = dda->player_pos.col - dda->player_dir.row * MOVESPEED * dir;
+	if (new_pos.col <= 1.1)
+		return;
 	new_pos.row = dda->player_pos.row + dda->player_dir.col * MOVESPEED * dir;
 	if (!hit_wall(program->player->map, new_pos.row, dda->player_pos.col))
 		dda->player_pos.row = new_pos.row;

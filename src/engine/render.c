@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/16 03:37:29 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/18 17:21:12 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ t_dda	*init_dda(t_player *player)
 		return (NULL);
 	}
 	// dda->player = player;
-	// dda->player_pos.col = dda->player->player_pos.col;
-	// dda->player_pos.row = dda->player->player_pos.row;
+	dda->player_pos.col = player->player_pos.col;
+	dda->player_pos.row = player->player_pos.row;
 	_init_dda(dda, player);
 	return (dda);
 }
