@@ -5,15 +5,13 @@ bool	clean_parser(char **elements)
 	size_t	row;
 
 	row = 0;
-	if (elements != NULL)
+	while (row < SIZE)
 	{
-		while (elements[row] != NULL)
-		{
+		if (elements[row] != NULL)
 			free(elements[row]);
-			row++;
-		}
-		free(elements);
+		row++;
 	}
+	free(elements);
 	return (false);
 }
 
