@@ -16,21 +16,12 @@ static	void	_check_edge_case(int fd, char *trim, char *line)
 	}
 }
 
-static	bool	_ident_error(char *msg, int error)
-{
-	ft_putendl_fd(msg, 2);
-	if (error != 0)
-		errno = error;
-	return (false);
-}
-
 // Place the identifiers in the right order for parsing.
 // Pre check for double elements.
 static	bool	is_identifier(char *trimmed_line, char **elements)
 {
 	static const char	*g_labels[] = G_LABELS;
 	int					i;
-	char				*temp;
 
 	i = 0;
 	errno = 0;
@@ -38,21 +29,8 @@ static	bool	is_identifier(char *trimmed_line, char **elements)
 	{
 		if (!ft_strncmp(trimmed_line, g_labels[i], ft_strlen(g_labels[i])))
 		{
-			if (elements[i] != NULL)
-				return (_ident_error("Invalid object input", EINVAL));
-			if (i < 4)
-				elements[i] = ft_substr(trimmed_line, 2, \
-							(ft_strlen(trimmed_line) - 2));
-			else
-				elements[i] = ft_substr(trimmed_line, 1, \
-							(ft_strlen(trimmed_line) - 1));
-			if (elements[i] == NULL)
-				return (_ident_error("substring failed", 0));
-			temp = ft_strtrim(elements[i], WHITESPACE);
-			if (temp == NULL)
-				return (_ident_error("trim failed", 0));
 			free(elements[i]);
-			elements[i] = temp;
+			elements[i] = _parse_ident(elements, i, trimmed_line);
 			return (false);
 		}
 		i++;
@@ -71,6 +49,7 @@ static void	get_elements(int fd, char **elements)
 	char		*trimmed_line;
 	bool		flag;
 
+	trimmed_line = NULL;
 	while (1)
 	{
 		flag = true;
@@ -79,10 +58,7 @@ static void	get_elements(int fd, char **elements)
 			break ;
 		trimmed_line = ft_strtrim(line, WHITESPACE);
 		if (trimmed_line == NULL)
-		{
-			ft_putendl_fd("Failed to trim a line", 2);
 			break ;
-		}
 		if (trimmed_line[0] && flag == true)
 			flag = is_identifier(trimmed_line, elements);
 		if (errno != 0)
