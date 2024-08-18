@@ -60,8 +60,10 @@ static	bool	set_map_size(char *map, t_program *program)
 	if (max_x_counter > max_col)
 		max_col = max_x_counter;
 	if (max_row < 3)
+	{
+		printf("Invalid map: Map not big enough\n");
 		return (false);
-		// print_error("Invalid map: Map not big enough");
+	}
 	program->player->max_map.row = max_row;
 	program->player->max_map.col = max_col;
 	return (true);
