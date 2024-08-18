@@ -6,12 +6,11 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/16 22:57:17 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/18 18:56:26 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
-#include "cub_structs.h"
 
 static	void	_clean_mlx(t_mlx_state *mlx_state)
 {
@@ -80,3 +79,4 @@ void	clean_cub(void *data, int exit_code)
 	free(program);
 	exit(exit_code);
 }
+

@@ -20,5 +20,7 @@ int		ft_atorgb(const char *str);
 bool	validate_rgb_input(char **elements, t_program *program);
 bool	validate_map(char *map, t_program *program);
 bool	check_surrounded_walls(t_program *program);
+char	*ft_strjoin_cub3d(char const *s1, char const *s2);
+bool	_check_token(char *line, char **elements, bool flag);
 
 #endif

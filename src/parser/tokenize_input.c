@@ -1,34 +1,36 @@
 #include "../../include/cub_parser.h"
+#include "../../include/cub3D.h"
 
-static char	*ft_strjoin_cub3d(char const *s1, char const *s2)
+static	void	_check_edge_case(int fd, char *trim, char *line)
 {
-	char	*str;
-	size_t	s1_len;
-	size_t	b;
-
-	s1_len = ft_strlen(s1);
-	str = ft_calloc(s1_len + ft_strlen(s2) + 1, sizeof(*str));
-	if (str == NULL)
-		return (NULL);
-	b = 0;
-	ft_memcpy(str, s1, s1_len);
-	while (s2[b] != '\0')
+	_free_helper(&trim, &line);
+	if (errno != 0)
 	{
-		str[s1_len] = s2[b];
-		s1_len++;
-		b++;
+		while (1)
+		{
+			line = get_next_line(fd);
+			if (line == NULL)
+				break ;
+			_free_helper(NULL, &line);
+		}
 	}
-	str[s1_len] = '\0';
-	return (str);
+}
+
+static	bool	_ident_error(char *msg, int error)
+{
+	ft_putendl_fd(msg, 2);
+	if (error != 0)
+		errno = error;
+	return (false);
 }
 
 // Place the identifiers in the right order for parsing.
 // Pre check for double elements.
 static	bool	is_identifier(char *trimmed_line, char **elements)
 {
-	static const char *g_labels[] = G_LABELS;
-	int		i;
-	char	*temp;
+	static const char	*g_labels[] = G_LABELS;
+	int					i;
+	char				*temp;
 
 	i = 0;
 	errno = 0;
@@ -37,26 +39,18 @@ static	bool	is_identifier(char *trimmed_line, char **elements)
 		if (!ft_strncmp(trimmed_line, g_labels[i], ft_strlen(g_labels[i])))
 		{
 			if (elements[i] != NULL)
-			{
-				ft_putstr_fd("invalid object input\n", 2);
-				errno = EINVAL;
-				return (false);
-			}
+				return (_ident_error("Invalid object input", EINVAL));
 			if (i < 4)
-				elements[i] = ft_substr(trimmed_line, 2, (ft_strlen(trimmed_line) - 2));
+				elements[i] = ft_substr(trimmed_line, 2, \
+							(ft_strlen(trimmed_line) - 2));
 			else
-				elements[i] = ft_substr(trimmed_line, 1, (ft_strlen(trimmed_line) - 1));
+				elements[i] = ft_substr(trimmed_line, 1, \
+							(ft_strlen(trimmed_line) - 1));
 			if (elements[i] == NULL)
-			{
-				ft_putstr_fd("substring id failed", 2);
-				return (false);
-			}
+				return (_ident_error("substring failed", 0));
 			temp = ft_strtrim(elements[i], WHITESPACE);
 			if (temp == NULL)
-			{
-				printf("trim fail\n");
-				return (false);
-			}
+				return (_ident_error("trim failed", 0));
 			free(elements[i]);
 			elements[i] = temp;
 			return (false);
@@ -86,38 +80,18 @@ static void	get_elements(int fd, char **elements)
 		trimmed_line = ft_strtrim(line, WHITESPACE);
 		if (trimmed_line == NULL)
 		{
-			perror("trime fail");
+			ft_putendl_fd("Failed to trim a line", 2);
 			break ;
 		}
 		if (trimmed_line[0] && flag == true)
 			flag = is_identifier(trimmed_line, elements);
 		if (errno != 0)
 			break ;
-		if (flag == true)
-		{
-			if (trimmed_line[0] == '1')
-				elements[SIZE] = ft_strjoin_cub3d(elements[SIZE], line);
-			else
-			{
-				errno = EINVAL;
-				printf("%s", trimmed_line);
-				ft_putstr_fd("Invalid input: Invalid map\n", 2);
-				break ;
-			}
-		}
-		free(trimmed_line);
-		free(line);
-		trimmed_line = NULL;
-		line = NULL;
+		if (_check_token(trimmed_line, elements, flag) != true)
+			break ;
+		_free_helper(&trimmed_line, &line);
 	}
-	if (trimmed_line != NULL)
-		free(trimmed_line);
-	if (line != NULL)
-		free(line);
-	if (errno != 0)
-	{
-		printf("read zodat we geen leaks hebben\n");
-	}
+	_check_edge_case(fd, trimmed_line, line);
 }
 
 // allocate space for the elements & fill the char pointer with tokenized input.
@@ -127,11 +101,15 @@ char	**tokenize_input(char *argv)
 	char		**elements;
 
 	elements = ft_calloc(SIZE + 1, sizeof(char *));
+	if (elements == NULL)
+	{
+		ft_putendl_fd("failed to calloc elements", 2);
+		return (NULL);
+	}
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 	{
-		perror("Open map");
-		// clean elements
+		ft_putendl_fd("Failed to open the map", 2);
 		return (NULL);
 	}
 	get_elements(fd, elements);
