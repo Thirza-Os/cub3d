@@ -1,5 +1,4 @@
 #include "../../include/cub_parser.h"
-#include "libft.h"
 
 static	int	check_characters(char *map, t_player *player) {
 	static	const	char	*g_positions[] = G_POSITIONS;

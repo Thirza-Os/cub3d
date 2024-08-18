@@ -23,5 +23,6 @@ bool	check_surrounded_walls(t_program *program);
 char	*ft_strjoin_cub3d(char const *s1, char const *s2);
 bool	_check_token(char *line, char **elements, bool flag);
 char	*_parse_ident(char **elements, int index, char *line);
+bool	_check_rgb_input(char **elements);
 
 #endif

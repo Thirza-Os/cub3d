@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/18 18:56:26 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/18 22:23:43 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,18 @@ void	clean_cub(void *data, int exit_code)
 	_clean_mlx(program->mlx_state);
 	free(program);
 	exit(exit_code);
+}
+
+void	free_char_arr(char **arr)
+{
+	size_t	row;
+
+	row = 0;
+	while (arr[row] != NULL)
+	{
+		free(arr[row]);
+		row++;
+	}
+	free(arr);
 }
 

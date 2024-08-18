@@ -10,14 +10,13 @@ bool	parser(char *arg, t_program *program)
 	elements = tokenize_input(arg);
 	if (errno != 0)
 		return (clean_parser(elements));
-	(void)program;
-	// if (validate_nr_of_identifiers(elements) != true)
-	// 	return (clean_parser(elements));
-	// if (validate_structure_paths(elements, program) != true)
-	// 	return (clean_parser(elements));
-	// if (validate_rgb_input(elements, program) != true)
-	// 	return (clean_parser(elements));
-	// if (validate_map(elements[SIZE], program) != true)
-	// 	return (clean_parser(elements));
+	if (validate_nr_of_identifiers(elements) != true)
+		return (clean_parser(elements));
+	if (validate_structure_paths(elements, program) != true)
+		return (clean_parser(elements));
+	if (validate_rgb_input(elements, program) != true)
+		return (clean_parser(elements));
+	if (validate_map(elements[SIZE], program) != true)
+		return (clean_parser(elements));
 	return (true);
 }

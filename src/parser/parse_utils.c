@@ -15,12 +15,12 @@ bool	check_cub(char *arg)
 
 bool	check_png(char *arg)
 {
-	int	len;
+	size_t	len;
 
 	len = ft_strlen(arg);
-	if (len == 0 || ft_strncmp(&arg[len - 4], ".png", 4) != 0)
+	if (len == 0 || ft_strncmp(&arg[len - 4], ".png", 5) != 0)
 	{
-		ft_putstr_fd("Not a .png file!\n", 2);
+		ft_putendl_fd("Not a .png file!", 2);
 		return (false);
 	}
 	return (true);

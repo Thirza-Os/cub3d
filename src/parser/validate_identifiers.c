@@ -1,22 +1,21 @@
 #include "../../include/cub_parser.h"
+#include "../../include/cub3D.h"
 
 bool	validate_structure_paths(char **elements, t_program *program)
 {
 	int	index;
 
 	index = 0;
-	while (index < 4)
+	while (index < MAX_IMGS)
 	{
-		// if (check_png(elements[index]) != true || (ft_strncmp("./", elements[index], 2) != 0))
 		if (check_png(elements[index]) != true)
 			return (false);
 		program->paths[index] = elements[index];
 		if (program->paths[index] == NULL)
 		{
-			perror("path");
+			ft_putendl_fd("Path is NULL", 2);
 			return (false);
 		}
-		// free(elements[index]);
 		index++;
 	}
 	return (true);
@@ -38,52 +37,31 @@ bool	convert_digits(char **input, uint32_t *color)
 		}
 		i++;
 	}
-
 	*color = colors[0] << 24 | colors[1] << 16 | colors[2] << 8 | 255;
 	return (true);
 }
 
 bool	convert_rgb(char *input, uint32_t *color)
 {
-	char	**split_elements;
-	char	*temp;
-	int		i;
+	char		**elements;
 
-	i = 0;
-	split_elements = ft_split(input, ',');
-	if (split_elements == NULL)
+	elements = ft_split(input, ',');
+	if (elements == NULL)
 	{
-		ft_putstr_fd("Failed to split rgb\n", 2);
+		ft_putendl_fd("Failed to split rgb", 2);
 		return (false);
 	}
-	while (split_elements[i])
-		i++;
-	if (i != 3)
+	if (_check_rgb_input(elements) != true)
 	{
-		ft_putstr_fd("Incorrect RGB input\n", 2);
+		free_char_arr(elements);
 		return (false);
 	}
-	i = 0;
-	while (split_elements[i])
+	if (convert_digits(elements, color) != true)
 	{
-		temp = ft_strtrim(split_elements[i], WHITESPACE);
-		if (temp == NULL)
-		{
-			ft_putstr_fd("Faield to trim\n", 2);
-			printf("free elements\n");
-			return (false);
-		}
-		free(split_elements[i]);
-		split_elements[i] = temp;
-		i++;
-	}
-	if (convert_digits(split_elements, color) != true)
-	{
-		printf("free elements\n");
+		free_char_arr(elements);
 		return (false);
 	}
-	// ft_free(split_elements);
-	// free(input);
+	free_char_arr(elements);
 	return (true);
 }
 
@@ -106,7 +84,6 @@ bool	validate_nr_of_identifiers(char **elements)
 		if (elements[index] == NULL)
 		{
 			ft_putstr_fd("Missing object input\n", 2);
-			errno = EINVAL;
 			return (false);
 		}
 		index++;
