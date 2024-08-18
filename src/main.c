@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:23:20 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/17 00:00:54 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/19 00:45:30 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,16 +104,17 @@ int	main(int argc, char **argv)
 	}
 	if (parser(argv[1], program) != true)
 	{
-		clean_cub(program, errno);
+		printf("ja ja ja ja\n");
+		clean_cub(program, 4);
 	}
-	program->dda = init_dda(program->player);
-	if (program->dda == NULL)
-		clean_cub(program, errno);
-	if (init_mlx(program) != true)
-		clean_cub(program, errno);
-	mlx_loop_hook(program->mlx_state->mlx, hooks, program);
-	mlx_loop_hook(program->mlx_state->mlx, &render, (void *)program);
-	// mlx_close_hook(program->mlx_state->mlx, clean_cub, program);
-	mlx_loop(program->mlx_state->mlx);
+	// program->dda = init_dda(program->player);
+	// if (program->dda == NULL)
+	// 	clean_cub(program, errno);
+	// if (init_mlx(program) != true)
+	// 	clean_cub(program, errno);
+	// mlx_loop_hook(program->mlx_state->mlx, hooks, program);
+	// mlx_loop_hook(program->mlx_state->mlx, &render, (void *)program);
+	// // mlx_close_hook(program->mlx_state->mlx, clean_cub, program);
+	// mlx_loop(program->mlx_state->mlx);
 	return (0);
 }
