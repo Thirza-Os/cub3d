@@ -55,6 +55,8 @@ char	*ft_strjoin_cub3d(char const *s1, char const *s2)
 	size_t	s1_len;
 	size_t	index;
 
+	if (s1 == NULL && s2 == NULL)
+		return (NULL);
 	s1_len = ft_strlen(s1);
 	str = ft_calloc(s1_len + ft_strlen(s2) + 1, sizeof(*str));
 	if (str == NULL)
