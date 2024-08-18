@@ -6,12 +6,12 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/18 18:15:20 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/19 00:34:13 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/dda.h"
-#include "../include/cub3D.h"
+#include "../../include/cub3D.h"
 
 static	void	_move_up_and_down(t_program *program, int dir)
 {
