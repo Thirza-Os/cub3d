@@ -41,7 +41,7 @@ bool	convert_digits(char **input, uint32_t *color)
 	return (true);
 }
 
-bool	convert_rgb(char *input, uint32_t *color)
+bool	convert_rgb(const char *input, uint32_t *color)
 {
 	char		**elements;
 

@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/16 03:36:39 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/19 00:30:19 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 t_dda	*init_dda(t_player *player);
 void	render(void *data);
 void	dda_info(t_dda *dda, t_player *player, int col);
-void	fill_buffer(t_mlx_state *mlx_state, t_dda *dda, t_player *player, int col);
 void	textures(t_mlx_state *mlx_state, t_dda *dda, int col);
 void	hooks(void *param);
 bool	hit_wall(char **map, int row, int col);
+void	fill_buffer(t_mlx_state *mlx_state, t_dda *dda, const t_player *player, int col);
 
 void	print_dda(const t_dda *dda);
 #endif

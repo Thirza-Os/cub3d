@@ -18,7 +18,7 @@ static	void	_check_edge_case(int fd, char *trim, char *line)
 
 // Place the identifiers in the right order for parsing.
 // Pre check for double elements.
-static	bool	is_identifier(char *trimmed_line, char **elements)
+static	bool	is_identifier(const char *trimmed_line, char **elements)
 {
 	static const char	*g_labels[] = G_LABELS;
 	int					i;

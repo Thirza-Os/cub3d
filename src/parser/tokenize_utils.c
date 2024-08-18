@@ -1,7 +1,6 @@
 #include "../../include/cub_parser.h"
-#include "../../include/cub3D.h"
 
-static	char	*_ident_error(char *msg, int error)
+static	char	*_ident_error(const char *msg, int error)
 {
 	ft_putendl_fd(msg, 2);
 	if (error != 0)
@@ -9,7 +8,7 @@ static	char	*_ident_error(char *msg, int error)
 	return (NULL);
 }
 
-char	*_parse_ident(char **elements, int index, char *line)
+char	*_parse_ident(char **elements, int index, const char *line)
 {
 	char	*temp;
 
@@ -27,7 +26,7 @@ char	*_parse_ident(char **elements, int index, char *line)
 	return (temp);
 }
 
-bool	_check_token(char *line, char **elements, bool flag)
+bool	_check_token(const char *line, char **elements, bool flag)
 {
 	if (flag == true)
 	{

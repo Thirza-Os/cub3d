@@ -6,14 +6,14 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/18 17:21:12 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/19 00:27:05 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/dda.h"
 #include "../../include/cub3D.h"
 
-static	void	_init_dda(t_dda *dda, t_player *player)
+static	void	_init_dda(t_dda *dda, const t_player *player)
 {
 	int				index;
 	const char		dirs[4] = "NESW";
