@@ -37,7 +37,7 @@ LIB = ar rcs
 .PHONY: all clean fclean re
 
 $(NAME): $(LLOBJ) $(MEMOBJ) $(PRINTOBJ) $(STROBJ) $(GNLOBJ) $(PRINTFOBJ) $(INCLUDE)
-	$(LIB) $(NAME) $(LLOBJ) $(MEMOBJ) $(PRINTOBJ) $(STROBJ) $(GNLOBJ) $(PRINTFOBJ) -s
+	$(LIB) $(NAME) $(LLOBJ) $(MEMOBJ) $(PRINTOBJ) $(STROBJ) $(GNLOBJ) $(PRINTFOBJ)
 
 all: $(NAME)
 
