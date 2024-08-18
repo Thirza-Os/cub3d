@@ -11,7 +11,7 @@ static	void	_check_edge_case(int fd, char *trim, char *line)
 			line = get_next_line(fd);
 			if (line == NULL)
 				break ;
-			_free_helper(NULL, &line);
+			free(line);
 		}
 	}
 }
