@@ -56,7 +56,7 @@ static void	get_elements(int fd, char **elements)
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		trimmed_line = ft_strtrim(line, WHITESPACE);
+		trimmed_line = ft_strtrim(line, "\10\11\13\14\15\40");
 		if (trimmed_line == NULL)
 			break ;
 		if (trimmed_line[0] && flag == true)

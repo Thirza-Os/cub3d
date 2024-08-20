@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:01 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/19 00:30:02 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/20 15:16:14 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	_set_floor_ceiling(uint32_t **buffer, t_dda *dda, const t_player *pl
 		row++;
 	}
 	row = dda->line.end + 1;
-	while (row < SCR_HEIGHT)
+	while (row < SCR_HEIGHT && row >= 0)
 	{
 		buffer[row][col] = player->floor_color;
 		row++;
