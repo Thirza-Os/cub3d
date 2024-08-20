@@ -6,11 +6,12 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/18 22:23:43 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/20 20:32:29 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
+#include "cub_structs.h"
 
 static	void	_clean_mlx(t_mlx_state *mlx_state)
 {
@@ -50,32 +51,40 @@ static	void	_clean_dda(t_dda *dda)
 
 void	_clean_player(t_player *player)
 {
-	// size_t	row;
+	int	row;
 
-	// if (player == NULL)
-	// 	return ;
-	// if (player->map != NULL)
-	// {
-	// 	row = 0;
-	// 	while (row < player->row_size)
-	// 	{
-	// 		free(player->map[row]);
-	// 		row++;
-	// 	}
-	// 	free(player->map);
-	// }
+	if (player == NULL)
+		return ;
+	if (player->map != NULL)
+	{
+		row = 0;
+		while (row < player->max_map.row)
+		{
+			free(player->map[row]);
+			row++;
+		}
+		free(player->map);
+	}
 	free(player);
 }
 
 void	clean_cub(void *data, int exit_code)
 {
 	t_program	*program;
+	int			index;
 
 	program = data;
 	if (program == NULL)
 		return ;
 	_clean_dda(program->dda);
 	_clean_mlx(program->mlx_state);
+	_clean_player(program->player);
+	index = 0;
+	while (index < MAX_IMGS)
+	{
+		free(program->paths[index]);
+		index++;
+	}
 	free(program);
 	exit(exit_code);
 }

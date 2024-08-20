@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/18 22:23:43 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/20 19:55:29 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 
 bool	init_mlx(t_program *program);
 void	clean_cub(void *data, int exit_code);
-bool	clean_parser(char **elements);
 void	_clean_player(t_player *player);
 void	_free_helper(char **str, char **str1);
 void	free_char_arr(char **arr);
+bool	clean_parser(char **elements, bool state);
 
 #endif

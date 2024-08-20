@@ -1,5 +1,6 @@
 #include "../../include/cub_parser.h"
 #include "../../include/cub3D.h"
+#include "libft.h"
 
 bool	validate_structure_paths(char **elements, t_program *program)
 {
@@ -10,7 +11,7 @@ bool	validate_structure_paths(char **elements, t_program *program)
 	{
 		if (check_png(elements[index]) != true)
 			return (false);
-		program->paths[index] = elements[index];
+		program->paths[index] = ft_strdup(elements[index]);
 		if (program->paths[index] == NULL)
 		{
 			ft_putendl_fd("Path is NULL", 2);

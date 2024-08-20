@@ -23,6 +23,7 @@ char	*_parse_ident(char **elements, int index, const char *line)
 	temp = ft_strtrim(elements[index], WHITESPACE);
 	if (temp == NULL)
 		return (_ident_error("trim failed", 0));
+	free(elements[index]);
 	return (temp);
 }
 
@@ -39,6 +40,8 @@ bool	_check_token(const char *line, char **elements, bool flag)
 				return (false);
 			}
 		}
+		else if (line[0] == '\n')
+			return (true);
 		else
 		{
 			errno = EINVAL;
@@ -49,7 +52,7 @@ bool	_check_token(const char *line, char **elements, bool flag)
 	return (true);
 }
 
-char	*ft_strjoin_cub3d(char const *s1, char const *s2)
+char	*ft_strjoin_cub3d(char *s1, char const *s2)
 {
 	char	*str;
 	size_t	s1_len;
@@ -69,6 +72,6 @@ char	*ft_strjoin_cub3d(char const *s1, char const *s2)
 		s1_len++;
 		index++;
 	}
-	str[s1_len] = '\0';
+	free(s1);
 	return (str);
 }

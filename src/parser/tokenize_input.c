@@ -67,6 +67,7 @@ static void	get_elements(int fd, char **elements)
 			break ;
 		_free_helper(&trimmed_line, &line);
 	}
+	_free_helper(&trimmed_line, &line);
 	_check_edge_case(fd, trimmed_line, line);
 }
 

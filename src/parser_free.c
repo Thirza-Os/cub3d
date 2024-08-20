@@ -1,18 +1,18 @@
 #include "../include/cub3D.h"
 
-bool	clean_parser(char **elements)
+bool	clean_parser(char **elements, bool state)
 {
 	size_t	row;
 
 	row = 0;
-	while (row < SIZE)
+	while (row <= SIZE)
 	{
 		if (elements[row] != NULL)
 			free(elements[row]);
 		row++;
 	}
 	free(elements);
-	return (false);
+	return (state);
 }
 
 void	_free_helper(char **str, char **str1)
