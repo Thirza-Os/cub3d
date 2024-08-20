@@ -1,5 +1,16 @@
-#include "../../include/cub_parser.h"
-#include "../../include/cub3D.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   tokenize_input.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tosinga <tosinga@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
+/*   Updated: 2024/08/20 21:41:41 by lvan-gef      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/cub3d.h"
 
 static	void	_check_edge_case(int fd, char *trim, char *line)
 {
@@ -20,7 +31,7 @@ static	void	_check_edge_case(int fd, char *trim, char *line)
 // Pre check for double elements.
 static	bool	is_identifier(const char *trimmed_line, char **elements)
 {
-	static const char	*g_labels[] = G_LABELS;
+	static const char	*g_labels[] = {"NO", "SO", "WE", "EA", "F", "C"};
 	int					i;
 
 	i = 0;

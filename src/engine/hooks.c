@@ -6,12 +6,11 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/19 00:34:13 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/20 21:19:38 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/dda.h"
-#include "../../include/cub3D.h"
+#include "../include/cub3d.h"
 
 static	void	_move_up_and_down(t_program *program, int dir)
 {
@@ -35,7 +34,7 @@ static	void	_move_left_rigth(t_program *program, int dir)
 	dda = program->dda;
 	new_pos.col = dda->player_pos.col - dda->player_dir.row * MOVESPEED * dir;
 	if (new_pos.col <= 1.1)
-		return;
+		return ;
 	new_pos.row = dda->player_pos.row + dda->player_dir.col * MOVESPEED * dir;
 	if (!hit_wall(program->player->map, new_pos.row, dda->player_pos.col))
 		dda->player_pos.row = new_pos.row;
@@ -70,7 +69,7 @@ void	hooks(void *param)
 	program = param;
 	mlx_state = program->mlx_state;
 	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_ESCAPE))
-		clean_cub(program, 0);
+		free_cub(program, 0);
 	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_W))
 		_move_up_and_down(program, FORWARD);
 	if (mlx_is_key_down(mlx_state->mlx, MLX_KEY_S))

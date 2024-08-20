@@ -1,6 +1,16 @@
-#include "../../include/cub_parser.h"
-#include "../../include/cub3D.h"
-#include "libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   validate_identifiers.c                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tosinga <tosinga@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
+/*   Updated: 2024/08/20 21:23:37 by tosinga       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/cub3d.h"
 
 bool	validate_structure_paths(char **elements, t_program *program)
 {

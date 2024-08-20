@@ -1,22 +1,33 @@
-#include "../../include/cub_parser.h"
-#include "../../include/cub3D.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parser.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tosinga <tosinga@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
+/*   Updated: 2024/08/20 21:23:37 by tosinga       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/cub3d.h"
 
 bool	parser(char *arg, t_program *program)
 {
 	char		**elements;
 
 	if (check_cub(arg) != true)
-		return (clean_parser(NULL, false));
+		return (free_parser(NULL, false));
 	elements = tokenize_input(arg);
 	if (errno != 0)
-		return (clean_parser(elements, false));
+		return (free_parser(elements, false));
 	if (validate_nr_of_identifiers(elements) != true)
-		return (clean_parser(elements, false));
+		return (free_parser(elements, false));
 	if (validate_structure_paths(elements, program) != true)
-		return (clean_parser(elements, false));
+		return (free_parser(elements, false));
 	if (validate_rgb_input(elements, program) != true)
-		return (clean_parser(elements, false));
+		return (free_parser(elements, false));
 	if (validate_map(elements[SIZE], program) != true)
-		return (clean_parser(elements, false));
-	return (clean_parser(elements, true));
+		return (free_parser(elements, false));
+	return (free_parser(elements, true));
 }

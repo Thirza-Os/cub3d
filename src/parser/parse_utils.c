@@ -1,4 +1,29 @@
-#include "../../include/cub_parser.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parse_utils.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tosinga <tosinga@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/08/20 21:23:22 by tosinga       #+#    #+#                 */
+/*   Updated: 2024/08/20 21:27:28 by tosinga       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/cub3d.h"
+
+void	free_char_arr(char **arr)
+{
+	size_t	row;
+
+	row = 0;
+	while (arr[row] != NULL)
+	{
+		free(arr[row]);
+		row++;
+	}
+	free(arr);
+}
 
 bool	check_cub(char *arg)
 {

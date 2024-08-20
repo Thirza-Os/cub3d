@@ -6,11 +6,11 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/14 23:49:10 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/20 21:13:49 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/dda.h"
+#include "../../include/cub3d.h"
 
 static uint32_t	_get_pixel_value(t_mlx_state *mlx_state, \
 								t_ivector tc, \

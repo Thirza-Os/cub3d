@@ -1,9 +1,19 @@
-#include "../../include/cub_parser.h"
-#include "cub3D.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   validate_map.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tosinga <tosinga@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
+/*   Updated: 2024/08/20 21:44:20 by lvan-gef      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
-static	int	check_characters(char *map)
+#include "../../include/cub3d.h"
+
+static	int	check_characters(char *map, const char *g_positions[])
 {
-	static const char	*g_positions[] = G_POSITIONS;
 	int					index;
 	char				start_dir;
 
@@ -104,9 +114,9 @@ static	bool	fill_player(t_program *program)
 bool	validate_map(char *map, t_program *program)
 {
 	int					pos;
-	static const char	*g_positions[] = G_POSITIONS;
+	static const char	*g_positions[] = {"N", "S", "W", "E"};
 
-	pos = check_characters(map);
+	pos = check_characters(map, g_positions);
 	if (pos == -1)
 		return (false);
 	program->player->starting_dir = *g_positions[pos];

@@ -1,6 +1,18 @@
-#include "../include/cub3D.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parser_free.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/08/20 21:11:55 by lvan-gef      #+#    #+#                 */
+/*   Updated: 2024/08/20 21:12:00 by lvan-gef      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
-bool	clean_parser(char **elements, bool state)
+#include "../include/cub3d.h"
+
+bool	free_parser(char **elements, bool state)
 {
 	size_t	row;
 

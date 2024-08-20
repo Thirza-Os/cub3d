@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   cub_parser.h                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/08/20 21:32:48 by lvan-gef      #+#    #+#                 */
+/*   Updated: 2024/08/20 21:33:01 by lvan-gef      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB_PARSER_H
 # define CUB_PARSER_H
 
-#include <stdbool.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <errno.h>
+# include <stdbool.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <errno.h>
 
-#include "./cub_structs.h"
+# include "./cub_structs.h"
 
 # include "../libft/include/libft.h"
 

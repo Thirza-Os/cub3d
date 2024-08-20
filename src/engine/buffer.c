@@ -6,13 +6,14 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:01 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/20 15:16:14 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/20 21:19:10 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/dda.h"
+#include "../include/cub3d.h"
 
-static void	_set_floor_ceiling(uint32_t **buffer, t_dda *dda, const t_player *player, int col)
+static void	_set_floor_ceiling(uint32_t **buffer, t_dda *dda, \
+							const t_player *player, int col)
 {
 	int	row;
 
@@ -30,7 +31,8 @@ static void	_set_floor_ceiling(uint32_t **buffer, t_dda *dda, const t_player *pl
 	}
 }
 
-void	fill_buffer(t_mlx_state *mlx_state, t_dda *dda, const t_player *player, int col)
+void	fill_buffer(t_mlx_state *mlx_state, t_dda *dda, \
+					const t_player *player, int col)
 {
 	_set_floor_ceiling(mlx_state->img_buffer, dda, player, col);
 	textures(mlx_state, dda, col);
