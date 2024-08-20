@@ -16,7 +16,6 @@ SRCS    :=  $(SRC_DIR)/main.c\
             $(ENG_DIR)/render.c\
             $(ENG_DIR)/init_mlx.c\
             $(ENG_DIR)/textures.c\
-            $(ENG_DIR)/debug.c\
             $(ENG_DIR)/hooks.c\
 			$(PAR_DIR)/parser.c\
 			$(PAR_DIR)/parse_utils.c\
