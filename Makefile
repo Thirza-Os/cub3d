@@ -23,6 +23,7 @@ SRCS    :=  $(SRC_DIR)/main.c\
 			$(PAR_DIR)/validate_identifiers.c\
 			$(PAR_DIR)/validate_ident_utils.c\
 			$(PAR_DIR)/validate_map.c\
+			$(PAR_DIR)/validate_map_utils.c\
 			$(PAR_DIR)/validate_map_surrounded.c\
 			$(PAR_DIR)/tokenize_input.c\
 			$(PAR_DIR)/tokenize_utils.c\
