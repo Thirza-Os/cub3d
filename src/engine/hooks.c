@@ -6,11 +6,11 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/20 21:19:38 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/21 03:52:02 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 static	void	_move_up_and_down(t_program *program, int dir)
 {
@@ -42,7 +42,7 @@ static	void	_move_left_rigth(t_program *program, int dir)
 		dda->player_pos.col = new_pos.col;
 }
 
-static	void	_turn_around(t_program *program, int dir)
+static	void	_turn_around(t_program const *program, int dir)
 {
 	t_dvector	o_dir;
 	double		plane;
