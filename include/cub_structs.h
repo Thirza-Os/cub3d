@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/20 21:44:01 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/22 00:51:30 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_dda
 	t_ivector	step_map;
 	t_dvector	player_dir;
 	t_dvector	ray_dir;
+	t_ivector	max_map;
 	double		camera_x;
 	double		perp_wall_dist;
 	int			current_side;

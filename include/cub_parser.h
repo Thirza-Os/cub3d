@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:32:48 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/20 21:33:01 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/21 04:02:58 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ bool	validate_structure_paths(char **elements, t_program *program);
 bool	check_png(char *arg);
 int		ft_atorgb(const char *str);
 bool	validate_rgb_input(char **elements, t_program *program);
-bool	validate_map(char *map, t_program *program);
+bool	validate_map(char const *map, t_program *program);
 bool	check_surrounded_walls(t_program *program);
 char	*ft_strjoin_cub3d(char *s1, char const *s2);
 char	*_parse_ident(char **elements, int index, const char *line);
 bool	_check_rgb_input(char **elements);
 bool	_check_token(const char *line, char **elements, bool flag);
-bool	_check_chars(char *map, char *start_dir);
 bool	_create_map(t_program *program);
+bool	_check_chars(char const *map, char *start_dir);
 
 #endif
