@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/20 21:23:37 by tosinga       ########   odam.nl         */
+/*   Updated: 2024/08/22 01:00:28 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ char	*ft_strjoin_cub3d(char *s1, char const *s2)
 	ft_memcpy(str, s1, s1_len);
 	while (s2[index] != '\0')
 	{
-		str[s1_len] = s2[index];
+		if (s2[index] == ' ')
+			str[s1_len] = '1';
+		else
+			str[s1_len] = s2[index];
 		s1_len++;
 		index++;
 	}

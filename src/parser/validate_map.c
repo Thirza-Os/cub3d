@@ -6,13 +6,15 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/20 21:44:20 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/22 01:47:41 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "libft.h"
+#include <stdio.h>
 
-static	int	check_characters(char *map, const char *g_positions[])
+static	int	check_characters(char const *map, const char *g_positions[])
 {
 	int					index;
 	char				start_dir;
@@ -33,7 +35,7 @@ static	int	check_characters(char *map, const char *g_positions[])
 	return (index);
 }
 
-static	bool	set_map_size(char *map, t_program *program)
+static	bool	set_map_size(char const *map, t_program *program)
 {
 	size_t		counter;
 	size_t		col;
@@ -60,7 +62,7 @@ static	bool	set_map_size(char *map, t_program *program)
 	return (true);
 }
 
-static	bool	fill_map(char *map, t_program *program)
+static	bool	fill_map(char const *map, t_program *program)
 {
 	char		**temp_map;
 	int			row;
@@ -76,10 +78,18 @@ static	bool	fill_map(char *map, t_program *program)
 	if (_create_map(program) != true)
 		return (false);
 	row = 0;
-	while (row < program->player->max_map.row)
+	while (row < player->max_map.row)
 	{
-		ft_memset(player->map[row], ' ', player->max_map.row);
+		// ft_memset(player->map[row], ' ', player->max_map.row);
 		ft_memcpy(player->map[row], temp_map[row], ft_strlen(temp_map[row]));
+		player->map[row][ft_strlen(temp_map[row])] = '1';
+		int col = 0;
+		while (col < player->max_map.col)
+		{
+			if (player->map[row][col] == ' ' || player->map[row][col] == '\0')
+				player->map[row][col] = '1';
+			col++;
+		}
 		row++;
 	}
 	free_char_arr(temp_map);
@@ -111,7 +121,7 @@ static	bool	fill_player(t_program *program)
 	return (false);
 }
 
-bool	validate_map(char *map, t_program *program)
+bool	validate_map(char const *map, t_program *program)
 {
 	int					pos;
 	static const char	*g_positions[] = {"N", "S", "W", "E"};

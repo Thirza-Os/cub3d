@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:41 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/20 21:23:41 by tosinga       ########   odam.nl         */
+/*   Updated: 2024/08/21 04:00:55 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static	bool	_is_player(char map_pos)
 	return (false);
 }
 
-bool	_check_chars(char *map, char *start_dir)
+bool	_check_chars(char const *map, char *start_dir)
 {
 	int		index;
 

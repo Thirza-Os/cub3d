@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:41 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/20 21:23:41 by tosinga       ########   odam.nl         */
+/*   Updated: 2024/08/22 00:38:12 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,12 @@ bool	check_surrounded_walls(t_program *program)
 	int	col;
 
 	row = 0;
-	col = 0;
 	while (row < program->player->max_map.row)
 	{
 		col = 0;
 		if (program->player->map[row] == NULL)
 			break ;
-		while (col < program->player->max_map.col)
+		while (col < program->player->max_map.col && program->player->map[row][col] != '\0')
 		{
 			if (ft_strchr(PLAYER_POS, program->player->map[row][col]) != NULL \
 				|| program->player->map[row][col] == '0')
