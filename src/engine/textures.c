@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/20 21:13:49 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/22 02:45:43 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ static t_ivector	_get_tex_cords(t_mlx_state *mlx_state, \
 
 	tex.col = 0;
 	tex.row = 0;
-	if (dda->current_side == X_SIDE)
+	if (dda->current_side == COL_SIDE)
 		wall_x = dda->player_pos.row + dda->perp_wall_dist * dda->ray_dir.row;
 	else
 		wall_x = dda->player_pos.col + dda->perp_wall_dist * dda->ray_dir.col;
 	wall_x -= (floor(wall_x));
 	tex.col = (int)(wall_x * mlx_state->textures[ti]->width);
-	if (ti == S_INDEX || ti == W_INDEX)
+	if (ti == SO || ti == WE)
 		tex.col = mlx_state->textures[ti]->width - tex.col - 1;
 	return (tex);
 }
@@ -80,14 +80,14 @@ static void	_set_textures(t_mlx_state *mlx_state, \
 
 static int	_get_tex_index(const t_dda *dda)
 {
-	if (dda->current_side == X_SIDE && dda->ray_dir.col < 0)
-		return (W_INDEX);
-	else if (dda->current_side == X_SIDE && dda->ray_dir.col > 0)
-		return (E_INDEX);
-	else if (dda->current_side == Y_SIDE && dda->ray_dir.row < 0)
-		return (N_INDEX);
+	if (dda->current_side == COL_SIDE && dda->ray_dir.col < 0)
+		return (WE);
+	else if (dda->current_side == COL_SIDE && dda->ray_dir.col > 0)
+		return (EA);
+	else if (dda->current_side == ROW_SIDE && dda->ray_dir.row < 0)
+		return (NO);
 	else
-		return (S_INDEX);
+		return (SO);
 }
 
 void	textures(t_mlx_state *mlx_state, t_dda *dda, int col)

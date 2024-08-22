@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/22 00:51:30 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/22 02:45:20 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 # include "../MLX42/include/MLX42/MLX42.h"
 
-# define X_SIDE 1
-# define Y_SIDE 2
+# define COL_SIDE 1
+# define ROW_SIDE 2
 
 # define MOVESPEED 0.10
 # define ROTSPEED 0.03
@@ -33,18 +33,6 @@
 
 # define SCR_WIDTH 1600
 # define SCR_HEIGHT 1200
-
-# define NORTH "NO"
-# define EAST "EA"
-# define SOUTH "SO"
-# define WEST "WE"
-# define FLOOR "F"
-# define CEILING "C"
-
-# define N_INDEX 0
-# define S_INDEX 1
-# define E_INDEX 2
-# define W_INDEX 3
 
 # define MAX_IMGS 4
 # define PLAYER_POS "NSEW"

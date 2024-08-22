@@ -6,13 +6,11 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/22 01:47:41 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/22 01:57:22 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-#include "libft.h"
-#include <stdio.h>
 
 static	int	check_characters(char const *map, const char *g_positions[])
 {
