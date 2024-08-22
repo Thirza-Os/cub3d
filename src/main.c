@@ -6,24 +6,24 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:23:20 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/22 00:39:25 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/22 19:22:55 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static	void	run_game(t_program *program)
-{
-	program->dda = init_dda(program->player);
-	if (program->dda == NULL)
-		free_cub(program, errno);
-	if (init_mlx(program) != true)
-		free_cub(program, errno);
-	mlx_loop_hook(program->mlx_state->mlx, hooks, program);
-	mlx_loop_hook(program->mlx_state->mlx, &render, (void *)program);
-	mlx_close_hook(program->mlx_state->mlx, &_free_cub, (void *)program);
-	mlx_loop(program->mlx_state->mlx);
-}
+// static	void	run_game(t_program *program)
+// {
+// 	program->dda = init_dda(program->player);
+// 	if (program->dda == NULL)
+// 		free_cub(program, errno);
+// 	if (init_mlx(program) != true)
+// 		free_cub(program, errno);
+// 	mlx_loop_hook(program->mlx_state->mlx, hooks, program);
+// 	mlx_loop_hook(program->mlx_state->mlx, &render, (void *)program);
+// 	mlx_close_hook(program->mlx_state->mlx, &_free_cub, (void *)program);
+// 	mlx_loop(program->mlx_state->mlx);
+// }
 
 int	main(int argc, char **argv)
 {
@@ -49,6 +49,6 @@ int	main(int argc, char **argv)
 	}
 	if (parser(argv[1], program) != true)
 		free_cub(program, 4);
-	run_game(program);
+	// run_game(program);
 	return (0);
 }
