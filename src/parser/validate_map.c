@@ -6,11 +6,12 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/22 01:57:22 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/22 16:12:26 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "libft.h"
 
 static	int	check_characters(char const *map, const char *g_positions[])
 {
@@ -19,8 +20,10 @@ static	int	check_characters(char const *map, const char *g_positions[])
 
 	start_dir = '\0';
 	if (_check_chars(map, &start_dir) != true)
+		return (-1);
+	if (start_dir == '\0')
 	{
-		ft_putendl_fd("Invalid map: No player input", 2);
+		ft_putendl_fd("Invalid map: No Player", 2);
 		return (-1);
 	}
 	index = 0;
@@ -78,16 +81,8 @@ static	bool	fill_map(char const *map, t_program *program)
 	row = 0;
 	while (row < player->max_map.row)
 	{
-		// ft_memset(player->map[row], ' ', player->max_map.row);
 		ft_memcpy(player->map[row], temp_map[row], ft_strlen(temp_map[row]));
-		player->map[row][ft_strlen(temp_map[row])] = '1';
-		int col = 0;
-		while (col < player->max_map.col)
-		{
-			if (player->map[row][col] == ' ' || player->map[row][col] == '\0')
-				player->map[row][col] = '1';
-			col++;
-		}
+		_replace_spaces(player, row, temp_map);
 		row++;
 	}
 	free_char_arr(temp_map);

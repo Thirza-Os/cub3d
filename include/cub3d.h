@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/21 14:26:07 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/22 15:51:26 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ bool	free_parser(char **elements, bool state);
 void	_free_player(t_player *player);
 void	_free_helper(char **str, char **str1);
 void	_free_cub(void *data);
+void	_replace_spaces(t_player *player, int row, char **temp_map);
 
 #endif

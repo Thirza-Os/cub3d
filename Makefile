@@ -1,7 +1,7 @@
 NAME := cub3d
 
 CC			  = cc
-CFLAGS		  = -Wall -Wextra -Werror -Wshadow -Wpedantic -g3
+CFLAGS		  = -Wall -Wextra -Werror -Wshadow -Wpedantic -g3 -fsanitize=address
 
 SRC_DIR = ./src
 ENG_DIR = $(SRC_DIR)/engine

@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/22 02:45:20 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/22 15:52:38 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define TURNLEFT -1
 # define TURNRIGHT 1
 
-# define SCR_WIDTH 1600
-# define SCR_HEIGHT 1200
+# define SCR_WIDTH 800
+# define SCR_HEIGHT 600
 
 # define MAX_IMGS 4
 # define PLAYER_POS "NSEW"

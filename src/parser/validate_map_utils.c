@@ -6,11 +6,12 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:41 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/21 04:00:55 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/22 15:51:26 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "cub_structs.h"
 
 static	bool	_is_player(char map_pos)
 {
@@ -71,4 +72,18 @@ bool	_create_map(t_program *program)
 		index++;
 	}
 	return (true);
+}
+
+void	_replace_spaces(t_player *player, int row, char **temp_map)
+{
+	int col;
+
+	player->map[row][ft_strlen(temp_map[row])] = '1';
+	col = 0;
+	while (col < player->max_map.col)
+	{
+		if (player->map[row][col] == ' ' || player->map[row][col] == '\0')
+			player->map[row][col] = '1';
+		col++;
+	}
 }
