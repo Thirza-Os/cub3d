@@ -6,68 +6,71 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:41 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/20 21:23:41 by tosinga       ########   odam.nl         */
+/*   Updated: 2024/08/23 03:01:22 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-// Offsets used to calculate the index of the neighboring cells.
-// Add offset to x/y count = get the indices x/y neighbor.
-static	bool	check_surrounding_pos(int row, int col, t_program *program)
+int ft_min(int a, int b)
 {
-	int			row_offset;
-	int			col_offset;
-	int			row_neighbor;
-	int			col_neighbor;
-	t_ivector	max_map;
-
-	max_map = program->player->max_map;
-	row_offset = -1;
-	while (row_offset <= 1)
-	{
-		col_offset = -1;
-		while (col_offset <= 1)
-		{
-			row_neighbor = row + row_offset;
-			col_neighbor = col + col_offset;
-			if (row_neighbor < 0 || row_neighbor > max_map.row \
-				|| col_neighbor < 0 || col_neighbor > max_map.col \
-					|| program->player->map[row_neighbor][col_neighbor] == ' ')
-				return (false);
-			col_offset++;
-		}
-		row_offset++;
-	}
-	return (true);
+	if (a < b)
+		return (a);
+	return (b);
 }
 
-// Player & 0: can not be surrounded by any blank spaces
-// Check only cells with 'N' or '0'
-// Check if the surrounding point is out of bounds or empty
-bool	check_surrounded_walls(t_program *program)
+int ft_max(int a, int b)
 {
-	int	row;
-	int	col;
+	if (a > b)
+		return (a);
+	return (b);
+}
 
-	row = 0;
-	col = 0;
-	while (row < program->player->max_map.row)
-	{
-		col = 0;
-		if (program->player->map[row] == NULL)
-			break ;
-		while (col < program->player->max_map.col)
-		{
-			if (ft_strchr(PLAYER_POS, program->player->map[row][col]) != NULL \
-				|| program->player->map[row][col] == '0')
-			{
-				if (check_surrounding_pos(row, col, program) != true)
-					return (false);
-			}
-			col++;
-		}
-		row++;
-	}
-	return (true);
+bool check_surrounded_walls(t_program *program)
+{
+    t_player *player = program->player;
+    int left = player->max_map.col, right = 0;
+    int top = 0, bottom = player->max_map.row - 1;
+
+    // Find actual map boundaries
+    for (int row = 0; row < player->max_map.row; row++) {
+        for (int col = 0; col < player->max_map.col; col++) {
+            if (player->map[row][col] != ' ') {
+                left = ft_min(left, col);
+                right = ft_max(right, col);
+                top = row;
+                break;
+            }
+        }
+    }
+
+    // Check if boundaries are walls
+    for (int col = left; col <= right; col++) {
+        if (player->map[top][col] != '1' || player->map[bottom][col] != '1')
+            return false;
+    }
+    for (int row = top; row <= bottom; row++) {
+        if (player->map[row][left] != '1' || player->map[row][right] != '1')
+            return false;
+    }
+
+    // Check if '0' or player is adjacent to space or out of bounds
+    for (int row = top; row <= bottom; row++) {
+        for (int col = left; col <= right; col++) {
+            if (player->map[row][col] == '0' || ft_strchr(PLAYER_POS, player->map[row][col])) {
+                for (int dr = -1; dr <= 1; dr++) {
+                    for (int dc = -1; dc <= 1; dc++) {
+                        int nr = row + dr;
+                        int nc = col + dc;
+                        if (nr < top || nr > bottom || nc < left || nc > right ||
+                            player->map[nr][nc] == ' ') {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return true;
 }
