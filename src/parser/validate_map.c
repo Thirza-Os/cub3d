@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/23 02:44:53 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/24 02:05:38 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static	bool	set_map_size(char *map, t_program *program)
 			col++;
 		counter++;
 	}
+	player->max_map.row++;
 	if (player->max_map.row < 3)
 		return (false);
 	return (true);
@@ -105,12 +106,17 @@ static bool fill_map(char *map, t_program *program)
     row = 0;
     while (row < player->max_map.row) {
         char *line = temp_map[row];
-        while (*line == ' ') line++; // Skip leading spaces
-        ft_memset(player->map[row], ' ', player->max_map.col);
-        ft_memcpy(player->map[row], line, ft_strlen(line));
+		if (line != NULL)
+		{
+			while (*line == ' ')
+				line++; // Skip leading spaces
+			ft_memset(player->map[row], ' ', player->max_map.col);
+			ft_memcpy(player->map[row], line, ft_strlen(line));
+		}
+		else
+			player->map[row] = NULL;
         row++;
     }
-
     free_char_arr(temp_map);
     return true;
 }

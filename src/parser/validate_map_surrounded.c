@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:41 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/23 03:01:22 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/24 02:13:58 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ bool check_surrounded_walls(t_program *program)
 {
     t_player *player = program->player;
     int left = player->max_map.col, right = 0;
-    int top = 0, bottom = player->max_map.row - 1;
+    int top = 0, bottom = 0;
 
     // Find actual map boundaries
     for (int row = 0; row < player->max_map.row; row++) {
+		if (player->map[row] == NULL)
+			break;
         for (int col = 0; col < player->max_map.col; col++) {
             if (player->map[row][col] != ' ') {
                 left = ft_min(left, col);
