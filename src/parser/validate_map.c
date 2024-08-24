@@ -6,13 +6,13 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/24 02:39:22 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/24 04:04:42 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static	int	check_characters(char *map, const char *g_positions[])
+static	int	check_characters(const char *map, const char *g_positions[])
 {
 	int					index;
 	char				start_dir;
@@ -33,7 +33,7 @@ static	int	check_characters(char *map, const char *g_positions[])
 	return (index);
 }
 
-static	bool	set_map_size(char *map, t_program *program)
+static	bool	set_map_size(const char *map, t_program *program)
 {
 	size_t		counter;
 	size_t		col;
@@ -61,7 +61,7 @@ static	bool	set_map_size(char *map, t_program *program)
 	return (true);
 }
 
-static	bool	fill_map(char *map, t_program *program)
+static	bool	fill_map(const char *map, t_program *program)
 {
 	char		**temp_map;
 
@@ -103,7 +103,7 @@ static	bool	fill_player(t_program *program)
 	return (false);
 }
 
-bool	validate_map(char *map, t_program *program)
+bool	validate_map(const char *map, t_program *program)
 {
 	int					pos;
 	static const char	*g_positions[] = {"N", "S", "W", "E"};
