@@ -6,11 +6,11 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/24 04:04:23 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/24 04:08:35 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 static	void	_move_up_and_down(const t_program *program, int dir)
 {

@@ -6,12 +6,11 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:41 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/24 03:47:14 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/24 04:09:25 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-#include "cub_structs.h"
 
 static	void	_find_boundaries(t_check_wall *ck, t_ivector max_map, \
 								char **map)

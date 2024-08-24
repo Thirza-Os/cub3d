@@ -6,13 +6,11 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/24 01:44:08 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/24 04:09:10 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-#include "cub_structs.h"
-#include "libft.h"
 
 bool	validate_structure_paths(char **elements, t_program *program)
 {
