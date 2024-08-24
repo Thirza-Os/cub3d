@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/24 02:05:38 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/24 02:39:22 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,64 +61,21 @@ static	bool	set_map_size(char *map, t_program *program)
 	return (true);
 }
 
-// static	bool	fill_map(char *map, t_program *program)
-// {
-// 	char		**temp_map;
-// 	int			row;
-// 	t_player	*player;
-//
-// 	player = program->player;
-// 	temp_map = ft_split(map, '\n');
-// 	if (temp_map == NULL)
-// 	{
-// 		ft_putstr_fd("Failed to split the map\n", 2);
-// 		return (false);
-// 	}
-// 	if (_create_map(program) != true)
-// 		return (false);
-// 	row = 0;
-// 	while (row < program->player->max_map.row)
-// 	{
-// 		ft_memset(player->map[row], ' ', player->max_map.row);
-// 		ft_memcpy(player->map[row], temp_map[row], ft_strlen(temp_map[row]));
-// 		row++;
-// 	}
-// 	free_char_arr(temp_map);
-// 	return (true);
-// }
-
-
-static bool fill_map(char *map, t_program *program)
+static	bool	fill_map(char *map, t_program *program)
 {
-    char **temp_map;
-    int row;
-    t_player *player = program->player;
+	char		**temp_map;
 
-    temp_map = ft_split(map, '\n');
-    if (temp_map == NULL) {
-        ft_putstr_fd("Failed to split the map\n", 2);
-        return false;
-    }
-
-    if (_create_map(program) != true)
-        return false;
-
-    row = 0;
-    while (row < player->max_map.row) {
-        char *line = temp_map[row];
-		if (line != NULL)
-		{
-			while (*line == ' ')
-				line++; // Skip leading spaces
-			ft_memset(player->map[row], ' ', player->max_map.col);
-			ft_memcpy(player->map[row], line, ft_strlen(line));
-		}
-		else
-			player->map[row] = NULL;
-        row++;
-    }
-    free_char_arr(temp_map);
-    return true;
+	temp_map = ft_split(map, '\n');
+	if (temp_map == NULL)
+	{
+		ft_putstr_fd("Failed to split the map\n", 2);
+		return (false);
+	}
+	if (_create_map(program) != true)
+		return (false);
+	_set_map(program->player, temp_map);
+	free_char_arr(temp_map);
+	return (true);
 }
 
 static	bool	fill_player(t_program *program)

@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:41 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/23 03:01:23 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/24 02:39:35 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,26 @@ bool	_create_map(t_program *program)
 		index++;
 	}
 	return (true);
+}
+
+void	_set_map(t_player *player, char **temp_map)
+{
+	int		row;
+	char	*line;
+
+	row = 0;
+	while (row < player->max_map.row)
+	{
+		line = temp_map[row];
+		if (line != NULL)
+		{
+			while (*line == ' ')
+				line++;
+			ft_memset(player->map[row], ' ', player->max_map.col);
+			ft_memcpy(player->map[row], line, ft_strlen(line));
+		}
+		else
+			player->map[row] = NULL;
+		row++;
+	}
 }

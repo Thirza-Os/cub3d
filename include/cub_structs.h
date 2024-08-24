@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/20 21:44:01 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/24 03:32:27 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,20 @@ typedef enum e_tokens
 	C,
 	SIZE
 }	t_tokens;
+
+typedef struct s_check_wall
+{
+	int	left;
+	int	right;
+	int	top;
+	int	bottom;
+	int	row;
+	int	col;
+	int	dr;
+	int	dc;
+	int	nr;
+	int	nc;
+}	t_check_wall;
 
 typedef struct s_dvector
 {

@@ -6,73 +6,117 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:41 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/24 02:13:58 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/24 03:47:14 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "cub_structs.h"
 
-int ft_min(int a, int b)
+static	void	_find_boundaries(t_check_wall *ck, t_ivector max_map, \
+								char **map)
 {
-	if (a < b)
-		return (a);
-	return (b);
+	int	row;
+	int	col;
+
+	row = 0;
+	while (row < max_map.row)
+	{
+		if (map[row] == NULL)
+			break ;
+		col = 0;
+		while (col < max_map.col)
+		{
+			if (map[row][col] != ' ')
+			{
+				ck->left = ft_min(ck->left, col);
+				ck->right = ft_max(ck->right, col);
+				ck->top = row;
+				break ;
+			}
+		}
+		row++;
+	}
 }
 
-int ft_max(int a, int b)
+static	bool	_check_boundaries(t_check_wall *ck, char **map)
 {
-	if (a > b)
-		return (a);
-	return (b);
+	ck->col = ck->left;
+	while (ck->col < ck->right)
+	{
+		if (map[ck->top][ck->col] != '1' || map[ck->bottom][ck->col] != '1')
+			return (false);
+		ck->col++;
+	}
+	ck->row = ck->top;
+	while (ck->row <= ck->bottom)
+	{
+		if (map[ck->row][ck->left] != '1' || map[ck->row][ck->right] != '1')
+			return (false);
+		ck->row++;
+	}
+	return (true);
 }
 
-bool check_surrounded_walls(t_program *program)
+static	bool	_check_neighbors(t_check_wall *ck, char **map)
 {
-    t_player *player = program->player;
-    int left = player->max_map.col, right = 0;
-    int top = 0, bottom = 0;
+	ck->dr = -1;
+	while (ck->dr < 1)
+	{
+		ck->dc = -1;
+		while (ck->dc < 1)
+		{
+			ck->nr = ck->row + ck->dr;
+			ck->nc = ck->col + ck->dc;
+			if (ck->nr < ck->top || ck->nr > ck->bottom || \
+				ck->nc < ck->left || ck->nc > ck->right || \
+				map[ck->nr][ck->nc] == ' ')
+			{
+				return (false);
+			}
+			ck->dc++;
+		}
+		ck->dr++;
+	}
+	return (true);
+}
 
-    // Find actual map boundaries
-    for (int row = 0; row < player->max_map.row; row++) {
-		if (player->map[row] == NULL)
-			break;
-        for (int col = 0; col < player->max_map.col; col++) {
-            if (player->map[row][col] != ' ') {
-                left = ft_min(left, col);
-                right = ft_max(right, col);
-                top = row;
-                break;
-            }
-        }
-    }
+static	bool	_check_adjacent(t_check_wall *ck, char **map)
+{
+	ck->row = ck->top;
+	while (ck->row < ck->bottom)
+	{
+		ck->col = ck->left;
+		while (ck->col < ck->right)
+		{
+			if (map[ck->row][ck->col] == '0' || \
+				ft_strchr(PLAYER_POS, map[ck->row][ck->col]))
+			{
+				if (_check_neighbors(ck, map) != true)
+				{
+					return (false);
+				}
+			}
+		}
+		ck->row++;
+	}
+	return (true);
+}
 
-    // Check if boundaries are walls
-    for (int col = left; col <= right; col++) {
-        if (player->map[top][col] != '1' || player->map[bottom][col] != '1')
-            return false;
-    }
-    for (int row = top; row <= bottom; row++) {
-        if (player->map[row][left] != '1' || player->map[row][right] != '1')
-            return false;
-    }
+bool	check_surrounded_walls(t_program *program)
+{
+	t_check_wall	check;
+	t_player		*player;
 
-    // Check if '0' or player is adjacent to space or out of bounds
-    for (int row = top; row <= bottom; row++) {
-        for (int col = left; col <= right; col++) {
-            if (player->map[row][col] == '0' || ft_strchr(PLAYER_POS, player->map[row][col])) {
-                for (int dr = -1; dr <= 1; dr++) {
-                    for (int dc = -1; dc <= 1; dc++) {
-                        int nr = row + dr;
-                        int nc = col + dc;
-                        if (nr < top || nr > bottom || nc < left || nc > right ||
-                            player->map[nr][nc] == ' ') {
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    return true;
+	player = program->player;
+	check.left = player->max_map.col;
+	check.right = 0;
+	check.top = 0;
+	check.bottom = 0;
+	check.row = 0;
+	check.col = 0;
+	_find_boundaries(&check, player->max_map, player->map);
+	if (_check_boundaries(&check, player->map) != true)
+		return (false);
+	return (_check_adjacent(&check, player->map));
 }
