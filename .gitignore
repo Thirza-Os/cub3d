@@ -9,3 +9,4 @@ leaks.txt
 output.txt
 *.seg
 cub_test3r/
+obj/
