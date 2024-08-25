@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/24 03:32:27 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/25 17:54:06 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@
 
 # define SCR_WIDTH 1600
 # define SCR_HEIGHT 1200
+
+# define WALL_BUFFER 0.32
+# define SPAWN_BUFFER 0.5
 
 # define NORTH "NO"
 # define EAST "EA"

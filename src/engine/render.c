@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/20 21:20:00 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/25 17:57:06 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,27 @@ void	render(void *data)
 	_display(mlx_state->img_buffer, mlx_state->img);
 }
 
+static void	adjust_spawn_position(char **map, t_dvector *pos)
+{
+	const double	directions[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+	double			check_row;
+	double			check_col;
+	int				i;
+
+	i = 0;
+	while (i < 4)
+	{
+		check_row = pos->row + directions[i][0] * SPAWN_BUFFER;
+		check_col = pos->col + directions[i][1] * SPAWN_BUFFER;
+		if (hit_wall(map, check_row, check_col))
+		{
+			pos->row -= directions[i][0] * SPAWN_BUFFER;
+			pos->col -= directions[i][1] * SPAWN_BUFFER;
+		}
+		i++;
+	}
+}
+
 t_dda	*init_dda(t_player *player)
 {
 	t_dda	*dda;
@@ -86,6 +107,7 @@ t_dda	*init_dda(t_player *player)
 	}
 	dda->player_pos.col = player->player_pos.col;
 	dda->player_pos.row = player->player_pos.row;
+	adjust_spawn_position(player->map, &dda->player_pos);
 	_init_dda(dda, player);
 	return (dda);
 }
