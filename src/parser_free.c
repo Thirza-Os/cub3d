@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:11:55 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/20 21:12:00 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/25 20:22:28 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ bool	free_parser(char **elements, bool state)
 {
 	size_t	row;
 
+	if (elements == NULL)
+		return (state);
 	row = 0;
 	while (row <= SIZE)
 	{
