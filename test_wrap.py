@@ -6,18 +6,18 @@ import subprocess
 def valid_maps(wd: Path):
     inval_path = wd.joinpath('MAPS/VALID')
 
-    for root, _, files in inval_path.walk():
+    for root, _, files in os.walk(str(inval_path)):
         for file in files:
-            fullname = root.joinpath(file)
+            fullname = Path(root).joinpath(file)
             yield fullname, fullname.suffix
 
 
 def invalid_maps(wd: Path):
     inval_path = wd.joinpath('MAPS/NONVALID')
 
-    for root, _, files in inval_path.walk():
+    for root, _, files in os.walk(str(inval_path)):
         for file in files:
-            fullname = root.joinpath(file)
+            fullname = Path(root).joinpath(file)
             yield fullname, fullname.suffix
 
 
