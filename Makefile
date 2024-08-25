@@ -29,6 +29,8 @@ SRCS    :=  $(SRC_DIR)/main.c\
 			$(PAR_DIR)/tokenize_utils.c\
 
 OBJECTS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+DEPS = $(OBJECTS:.o=.d)
+
 LIB             = ./libft/libft.a
 LIBFT_LOC       = libft
 LIBFT_LIB       = libft/libft.a
@@ -54,7 +56,7 @@ $(NAME): $(OBJECTS) $(LIBMLX)/build/libmlx42.a
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | $(LIBMLX)/build/libmlx42.a
 	@mkdir -p $(@D)
-	$(CC) $(HEADERS) -c $(CFLAGS) -o $@ $<
+	$(CC) $(HEADERS) -MMD -MP -c $(CFLAGS) -o $@ $<
 
 $(LIBMLX)/build/libmlx42.a:
 	@if [ ! -d "$(LIBMLX)" ]; then \
@@ -72,4 +74,5 @@ fclean: clean
 
 re: fclean all
 
+-include $(DEPS)
 .PHONY: all clean fclean re
