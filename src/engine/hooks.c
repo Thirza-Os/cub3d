@@ -6,13 +6,13 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/21 03:52:02 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/25 17:49:31 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static	void	_move_up_and_down(t_program *program, int dir)
+static	void	_move_up_and_down(const t_program *program, int dir)
 {
 	t_dda		*dda;
 	t_dvector	new_pos;
@@ -20,29 +20,55 @@ static	void	_move_up_and_down(t_program *program, int dir)
 	dda = program->dda;
 	new_pos.col = dda->player_pos.col + dda->player_dir.col * MOVESPEED * dir;
 	new_pos.row = dda->player_pos.row + dda->player_dir.row * MOVESPEED * dir;
-	if (!hit_wall(program->player->map, new_pos.row, dda->player_pos.col))
+	if (!hit_wall(program->player->map, \
+			new_pos.row + WALL_BUFFER * dda->player_dir.row, \
+			dda->player_pos.col) \
+		&& !hit_wall(program->player->map, \
+			new_pos.row - WALL_BUFFER * dda->player_dir.row, \
+			dda->player_pos.col))
+	{
 		dda->player_pos.row = new_pos.row;
-	if (!hit_wall(program->player->map, dda->player_pos.row, new_pos.col))
+	}
+	if (!hit_wall(program->player->map, \
+			dda->player_pos.row, \
+			new_pos.col + WALL_BUFFER * dda->player_dir.col)
+		&& !hit_wall(program->player->map, \
+			dda->player_pos.row, \
+			new_pos.col - WALL_BUFFER * dda->player_dir.col))
+	{
 		dda->player_pos.col = new_pos.col;
+	}
 }
 
-static	void	_move_left_rigth(t_program *program, int dir)
+static	void	_move_left_rigth(const t_program *program, int dir)
 {
 	t_dda		*dda;
 	t_dvector	new_pos;
 
 	dda = program->dda;
 	new_pos.col = dda->player_pos.col - dda->player_dir.row * MOVESPEED * dir;
-	if (new_pos.col <= 1.1)
-		return ;
 	new_pos.row = dda->player_pos.row + dda->player_dir.col * MOVESPEED * dir;
-	if (!hit_wall(program->player->map, new_pos.row, dda->player_pos.col))
+	if (!hit_wall(program->player->map, \
+			new_pos.row + WALL_BUFFER * dda->player_dir.col, \
+			dda->player_pos.col) \
+		&& !hit_wall(program->player->map, \
+			new_pos.row - WALL_BUFFER * dda->player_dir.col, \
+			dda->player_pos.col))
+	{
 		dda->player_pos.row = new_pos.row;
-	if (!hit_wall(program->player->map, dda->player_pos.row, new_pos.col))
+	}
+	if (!hit_wall(program->player->map, \
+			dda->player_pos.row, \
+			new_pos.col + WALL_BUFFER * dda->player_dir.row) \
+		&& !hit_wall(program->player->map, \
+			dda->player_pos.row, \
+			new_pos.col - WALL_BUFFER * dda->player_dir.row))
+	{
 		dda->player_pos.col = new_pos.col;
+	}
 }
 
-static	void	_turn_around(t_program const *program, int dir)
+static	void	_turn_around(const t_program *program, int dir)
 {
 	t_dvector	o_dir;
 	double		plane;

@@ -6,12 +6,11 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:41 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/22 18:48:39 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/24 04:02:17 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-#include "cub_structs.h"
 
 static	bool	_is_player(char map_pos)
 {
@@ -20,7 +19,7 @@ static	bool	_is_player(char map_pos)
 	return (false);
 }
 
-bool	_check_chars(char const *map, char *start_dir)
+bool	_check_chars(const char *map, char *start_dir)
 {
 	int		index;
 
@@ -74,20 +73,24 @@ bool	_create_map(t_program *program)
 	return (true);
 }
 
-void	_replace_spaces(t_player *player, int row, char **temp_map)
+void	_set_map(t_player *player, char **temp_map)
 {
-	int col;
+	int		row;
+	char	*line;
 
-	(void)temp_map;
-	col = 0;
-	if (row == 0 || row == player->max_map.row - 1)
+	row = 0;
+	while (row < player->max_map.row)
 	{
-		// player->map[row][ft_strlen(temp_map[row])] = '1';
-		while (col < player->max_map.col)
+		line = temp_map[row];
+		if (line != NULL)
 		{
-			if (player->map[row][col] == ' ')
-				player->map[row][col] = '1';
-			col++;
+			while (*line == ' ')
+				line++;
+			ft_memset(player->map[row], ' ', player->max_map.col);
+			ft_memcpy(player->map[row], line, ft_strlen(line));
 		}
+		else
+			player->map[row] = NULL;
+		row++;
 	}
 }

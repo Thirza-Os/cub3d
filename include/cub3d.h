@@ -6,12 +6,11 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/22 15:51:26 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/24 03:34:59 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
-
 # define CUB3D_H
 
 # include <math.h>
@@ -62,9 +61,11 @@ void	free_char_arr(char **arr);
 */
 bool	free_parser(char **elements, bool state);
 
+int		ft_min(int a, int b);
+int		ft_max(int a, int b);
+
 void	_free_player(t_player *player);
 void	_free_helper(char **str, char **str1);
 void	_free_cub(void *data);
-void	_replace_spaces(t_player *player, int row, char **temp_map);
 
 #endif

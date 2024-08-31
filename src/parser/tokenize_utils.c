@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/22 18:02:35 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/30 03:00:23 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,54 +39,60 @@ char	*_parse_ident(char **elements, int index, const char *line)
 	return (temp);
 }
 
-bool	_check_token(const char *line, char **elements, bool flag)
+char	*_get_raw_map(int fd, char **elements)
 {
-	if (flag == true)
-	{
-		size_t index = 0;
-		while (line[index] == ' ')
-			index++;
-		if (line[index] == '1')
-		{
-			elements[SIZE] = ft_strjoin_cub3d(elements[SIZE], line);
-			if (elements[SIZE] == NULL)
-			{
-				ft_putendl_fd("Failed to join strings", 2);
-				return (false);
-			}
-		}
-		else if (line[index] == '\n')
-			return (true);
-		else
-		{
-			errno = EINVAL;
-			ft_putendl_fd("Invalid input: Invalid map\n", 2);
-			return (false);
-		}
-	}
-	return (true);
+
+	// while (line != NULL)
+	// {
+	//
+	// }
+	// elements[SIZE] = ft_strjoin_cub3d(elements[SIZE], line);
+	// if (elements[SIZE] == NULL)
+	// {
+	// 	ft_putendl_fd("Failed to join strings", 2);
+	// 	return (false);
+	// }
+	// return (NULL);
+	// if (*line == ' ' || *line == '1')
+	// {
+	// 	elements[SIZE] = ft_strjoin_cub3d(elements[SIZE], line);
+	// 	if (elements[SIZE] == NULL)
+	// 	{
+	// 		ft_putendl_fd("Failed to join strings", 2);
+	// 		return (false);
+	// 	}
+	// }
+	// else if (line[0] == '\n')
+	// 	return (true);
+	// else
+	// {
+	// 	errno = EINVAL;
+	// 	ft_putendl_fd("Invalid input: Invalid map\n", 2);
+	// 	return (false);
+	// }
+	// return (true);
 }
 
-char	*ft_strjoin_cub3d(char *s1, char const *s2)
-{
-	char	*str;
-	size_t	s1_len;
-	size_t	index;
-
-	if (s1 == NULL && s2 == NULL)
-		return (NULL);
-	s1_len = ft_strlen(s1);
-	str = ft_calloc(s1_len + ft_strlen(s2) + 1, sizeof(*str));
-	if (str == NULL)
-		return (NULL);
-	index = 0;
-	ft_memcpy(str, s1, s1_len);
-	while (s2[index] != '\0')
-	{
-		str[s1_len] = s2[index];
-		s1_len++;
-		index++;
-	}
-	free(s1);
-	return (str);
-}
+// char	*ft_strjoin_cub3d(char *s1, char const *s2)
+// {
+// 	char	*str;
+// 	size_t	s1_len;
+// 	size_t	index;
+//
+// 	if (s1 == NULL && s2 == NULL)
+// 		return (NULL);
+// 	s1_len = ft_strlen(s1);
+// 	str = ft_calloc(s1_len + ft_strlen(s2) + 1, sizeof(*str));
+// 	if (str == NULL)
+// 		return (NULL);
+// 	index = 0;
+// 	ft_memcpy(str, s1, s1_len);
+// 	while (s2[index] != '\0')
+// 	{
+// 		str[s1_len] = s2[index];
+// 		s1_len++;
+// 		index++;
+// 	}
+// 	free(s1);
+// 	return (str);
+// }

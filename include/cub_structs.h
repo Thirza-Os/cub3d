@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/22 15:52:38 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/25 17:54:06 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 # include "../MLX42/include/MLX42/MLX42.h"
 
-# define COL_SIDE 1
-# define ROW_SIDE 2
+# define X_SIDE 1
+# define Y_SIDE 2
 
 # define MOVESPEED 0.10
 # define ROTSPEED 0.03
@@ -31,8 +31,23 @@
 # define TURNLEFT -1
 # define TURNRIGHT 1
 
-# define SCR_WIDTH 800
-# define SCR_HEIGHT 600
+# define SCR_WIDTH 1600
+# define SCR_HEIGHT 1200
+
+# define WALL_BUFFER 0.32
+# define SPAWN_BUFFER 0.5
+
+# define NORTH "NO"
+# define EAST "EA"
+# define SOUTH "SO"
+# define WEST "WE"
+# define FLOOR "F"
+# define CEILING "C"
+
+# define N_INDEX 0
+# define S_INDEX 1
+# define E_INDEX 2
+# define W_INDEX 3
 
 # define MAX_IMGS 4
 # define PLAYER_POS "NSEW"
@@ -49,6 +64,20 @@ typedef enum e_tokens
 	C,
 	SIZE
 }	t_tokens;
+
+typedef struct s_check_wall
+{
+	int	left;
+	int	right;
+	int	top;
+	int	bottom;
+	int	row;
+	int	col;
+	int	dr;
+	int	dc;
+	int	nr;
+	int	nc;
+}	t_check_wall;
 
 typedef struct s_dvector
 {
@@ -89,7 +118,6 @@ typedef struct s_dda
 	t_ivector	step_map;
 	t_dvector	player_dir;
 	t_dvector	ray_dir;
-	t_ivector	max_map;
 	double		camera_x;
 	double		perp_wall_dist;
 	int			current_side;

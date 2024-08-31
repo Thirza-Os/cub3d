@@ -6,13 +6,11 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/22 20:09:54 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/20 21:23:37 by tosinga       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-#include "libft.h"
-
 
 bool	parser(char *arg, t_program *program)
 {

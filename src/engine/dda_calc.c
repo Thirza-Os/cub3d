@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/22 02:45:37 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/24 04:08:26 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ static	void	_find_wall(t_dda *dda, t_player *player)
 		{
 			dda->side_dist.col += dda->delta_dist.col;
 			dda->map_pos.col += dda->step_map.col;
-			dda->current_side = COL_SIDE;
+			dda->current_side = X_SIDE;
 		}
 		else
 		{
 			dda->side_dist.row += dda->delta_dist.row;
 			dda->map_pos.row += dda->step_map.row;
-			dda->current_side = ROW_SIDE;
+			dda->current_side = Y_SIDE;
 		}
 		if (hit_wall(player->map, dda->map_pos.row, dda->map_pos.col))
 			break ;
@@ -63,7 +63,7 @@ static	void	_find_wall(t_dda *dda, t_player *player)
 
 void	_set_lines(t_dda *dda)
 {
-	if (dda->current_side == COL_SIDE)
+	if (dda->current_side == X_SIDE)
 		dda->perp_wall_dist = (dda->map_pos.col - dda->player_pos.col + \
 			(1.0f - dda->step_map.col) / 2.0) / dda->ray_dir.col;
 	else

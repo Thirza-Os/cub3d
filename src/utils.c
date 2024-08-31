@@ -1,44 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parser_free.c                                      :+:    :+:            */
+/*   utils.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/20 21:11:55 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/25 20:22:28 by lvan-gef      ########   odam.nl         */
+/*   Created: 2024/08/24 03:29:40 by lvan-gef      #+#    #+#                 */
+/*   Updated: 2024/08/24 03:29:44 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-bool	free_parser(char **elements, bool state)
+int	ft_min(int a, int b)
 {
-	size_t	row;
-
-	if (elements == NULL)
-		return (state);
-	row = 0;
-	while (row <= SIZE)
-	{
-		if (elements[row] != NULL)
-			free(elements[row]);
-		row++;
-	}
-	free(elements);
-	return (state);
+	if (a < b)
+		return (a);
+	return (b);
 }
 
-void	_free_helper(char **str, char **str1)
+int	ft_max(int a, int b)
 {
-	if (*str != NULL)
-	{
-		free(*str);
-		*str = NULL;
-	}
-	if (*str1 != NULL)
-	{
-		free(*str1);
-		*str1 = NULL;
-	}
+	if (a > b)
+		return (a);
+	return (b);
 }

@@ -6,46 +6,52 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/22 17:26:41 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/08/30 02:48:12 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "cub_parser.h"
+#include "get_next_line.h"
+#include <assert.h>
 
-static	void	_check_edge_case(int fd, char *line)
+static	void	_hydrate_fd(int fd)
 {
-	if (errno != 0)
+	char	*line;
+
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
-		while (1)
-		{
-			line = get_next_line(fd);
-			if (line == NULL)
-				break ;
-			free(line);
-		}
+		free(line);
+		line = get_next_line(fd);
 	}
+	close(fd);
 }
 
 // Place the identifiers in the right order for parsing.
 // Pre check for double elements.
-static	bool	is_identifier(const char *trimmed_line, char **elements)
+static	bool	parse_config(const char *line, char **elements)
 {
-	static const char	*g_labels[] = {"NO", "SO", "WE", "EA", "F", "C"};
-	int					i;
+	static const char	*labels[] = {"NO", "SO", "WE", "EA", "F", "C"};
+	int					index;
 
-	i = 0;
+	index = 0;
 	errno = 0;
-	while (i < SIZE)
+	while (index < SIZE)
 	{
-		if (!ft_strncmp(trimmed_line, g_labels[i], ft_strlen(g_labels[i])))
+		while (*line != '\0' && *line == ' ')
 		{
-			free(elements[i]);
-			elements[i] = _parse_ident(elements, i, trimmed_line);
-			return (false);
+			line++;
 		}
-		i++;
+		if (!ft_strncmp(line, labels[index], ft_strlen(labels[index])))
+		{
+			free(elements[index]);
+			elements[index] = _parse_ident(elements, index, line);
+			return (true);
+		}
+		index++;
 	}
-	return (true);
+	return (false);
 }
 
 // Get input line by line.
@@ -53,34 +59,26 @@ static	bool	is_identifier(const char *trimmed_line, char **elements)
 // Handle as such:
 // Use the trimmed line for elements, untrimmed line for the map.
 // Pre check for the left trimmed lines in the map (has to be 1).
-static void	get_elements(int fd, char **elements)
+static bool get_config(int fd, char **elements)
 {
 	char		*line;
-	// char		*trimmed_line;
-	bool		flag;
+	bool		is_config;
 
-	// trimmed_line = NULL;
-	while (1)
+	is_config = true;
+	while (is_config)
 	{
-		flag = true;
 		line = get_next_line(fd);
 		if (line == NULL)
-			break ;
-		// trimmed_line = ft_strtrim(line, "\10\11\13\14\15\40");
-		// if (trimmed_line == NULL)
-		// 	break ;
-		if (line[0] && flag == true)
-			flag = is_identifier(line, elements);
+			return (false);
+		is_config = parse_config(line, elements);
 		if (errno != 0)
-			break ;
-		if (_check_token(line, elements, flag) != true)
-			break ;
-		// _free_helper(&trimmed_line, &line);
+		{
+			free(line);
+			return (false);
+		}
 		free(line);
 	}
-	// _free_helper(&trimmed_line, &line);
-	free(line);
-	_check_edge_case(fd, line);
+	return (true);
 }
 
 // allocate space for the elements & fill the char pointer with tokenized input.
@@ -99,9 +97,12 @@ char	**tokenize_input(char *argv)
 	if (fd < 0)
 	{
 		ft_putendl_fd("Failed to open the map", 2);
-		return (NULL);
+		return (elements);
 	}
-	get_elements(fd, elements);
-	close(fd);
+	if (get_config(fd, elements) == true)
+	{
+		_get_raw_map(fd, elements);
+	}
+	_hydrate_fd(fd);
 	return (elements);
 }
