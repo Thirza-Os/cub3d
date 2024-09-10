@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:41 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/09/10 18:38:07 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/10 19:03:03 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ bool	_create_map(t_program *program)
 
 void	_set_map(t_player *player, char **temp_map)
 {
-	int		row;
-	char	*line;
+	int				row;
+	const	char	*line;
 
 	row = 0;
 	while (row < player->max_map.row)

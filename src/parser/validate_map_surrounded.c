@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:41 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/09/10 18:36:36 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/10 19:01:55 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static	bool	_check_first_and_last_non_space(char **map, size_t height)
 	t_check_wall	cw;
 
 	cw.row = 0;
+	cw.col = 0;
 	while (cw.row < height)
 	{
 		cw.len = ft_strlen(map[cw.row]);
@@ -79,6 +80,8 @@ static	bool	_check_is_valid(char **map, size_t height)
 	t_check_wall	cw;
 
 	cw.row = 1;
+	cw.start = 0;
+	cw.end = 0;
 	while (cw.row < height - 1)
 	{
 		cw.len = ft_strlen(map[cw.row]);
