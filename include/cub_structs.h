@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/09/10 18:45:55 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/10 20:15:10 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,6 @@
 
 # define WALL_BUFFER 0.05
 # define SPAWN_BUFFER 0.5
-
-# define NORTH "NO"
-# define EAST "EA"
-# define SOUTH "SO"
-# define WEST "WE"
-# define FLOOR "F"
-# define CEILING "C"
 
 # define N_INDEX 0
 # define S_INDEX 1

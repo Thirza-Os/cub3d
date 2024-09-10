@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:32:48 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/09/10 16:33:04 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/10 20:11:02 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ bool	validate_rgb_input(char **elements, t_program *program);
 bool	validate_map(const char *map, t_program *program);
 bool	check_surrounded_walls(char **map);
 char	*ft_strjoin_cub3d(char *s1, char const *s2);
-bool	is_map_valid(char **map, size_t height);
 
 char	*_parse_ident(char **elements, int index, const char *line);
 bool	_check_rgb_input(char **elements);
