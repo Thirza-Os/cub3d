@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:41 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/24 04:02:17 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/10 18:38:07 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ void	_set_map(t_player *player, char **temp_map)
 		line = temp_map[row];
 		if (line != NULL)
 		{
-			while (*line == ' ')
-				line++;
 			ft_memset(player->map[row], ' ', player->max_map.col);
 			ft_memcpy(player->map[row], line, ft_strlen(line));
 		}

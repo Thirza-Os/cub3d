@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/20 21:41:41 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/10 18:37:48 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,29 +57,24 @@ static	bool	is_identifier(const char *trimmed_line, char **elements)
 static void	get_elements(int fd, char **elements)
 {
 	char		*line;
-	char		*trimmed_line;
 	bool		flag;
 
-	trimmed_line = NULL;
 	while (1)
 	{
 		flag = true;
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		trimmed_line = ft_strtrim(line, "\10\11\13\14\15\40");
-		if (trimmed_line == NULL)
-			break ;
-		if (trimmed_line[0] && flag == true)
-			flag = is_identifier(trimmed_line, elements);
+		if (line && flag == true)
+			flag = is_identifier(line, elements);
 		if (errno != 0)
 			break ;
-		if (_check_token(trimmed_line, elements, flag) != true)
+		if (_check_token(line, elements, flag) != true)
 			break ;
-		_free_helper(&trimmed_line, &line);
+		_free_helper(&line, &line);
 	}
-	_free_helper(&trimmed_line, &line);
-	_check_edge_case(fd, trimmed_line, line);
+	_free_helper(&line, &line);
+	_check_edge_case(fd, line, line);
 }
 
 // allocate space for the elements & fill the char pointer with tokenized input.

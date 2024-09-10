@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/20 21:23:37 by tosinga       ########   odam.nl         */
+/*   Updated: 2024/09/09 17:48:23 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	_check_token(const char *line, char **elements, bool flag)
 {
 	if (flag == true)
 	{
-		if (line[0] == '1')
+		if (line[0] == '1' || line[0] == ' ')
 		{
 			elements[SIZE] = ft_strjoin_cub3d(elements[SIZE], line);
 			if (elements[SIZE] == NULL)

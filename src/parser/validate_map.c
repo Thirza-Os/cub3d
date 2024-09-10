@@ -6,11 +6,13 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/24 04:04:42 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/10 18:40:58 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "cub_parser.h"
+#include "libft.h"
 
 static	int	check_characters(const char *map, const char *g_positions[])
 {
@@ -121,7 +123,7 @@ bool	validate_map(const char *map, t_program *program)
 		return (false);
 	if (fill_player(program) != true)
 		return (false);
-	if (check_surrounded_walls(program) != true)
+	if (check_surrounded_walls(program->player->map) != true)
 	{
 		ft_putstr_fd("Map is not surrounded\n", 2);
 		return (false);

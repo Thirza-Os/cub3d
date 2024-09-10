@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/25 17:54:06 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/10 18:00:10 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@
 # define SCR_WIDTH 1600
 # define SCR_HEIGHT 1200
 
-# define WALL_BUFFER 0.32
-# define SPAWN_BUFFER 0.5
+// # define WALL_BUFFER 0.32
+// # define SPAWN_BUFFER 0.5
+# define WALL_BUFFER 0.0
+# define SPAWN_BUFFER 0.0
 
 # define NORTH "NO"
 # define EAST "EA"
@@ -67,16 +69,11 @@ typedef enum e_tokens
 
 typedef struct s_check_wall
 {
-	int	left;
-	int	right;
-	int	top;
-	int	bottom;
-	int	row;
-	int	col;
-	int	dr;
-	int	dc;
-	int	nr;
-	int	nc;
+	size_t	start;
+	size_t	end;
+	size_t	len;
+	size_t	row;
+	size_t	col;
 }	t_check_wall;
 
 typedef struct s_dvector

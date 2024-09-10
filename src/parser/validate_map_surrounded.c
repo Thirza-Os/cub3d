@@ -6,116 +6,102 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:41 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/24 04:09:25 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/10 18:36:36 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static	void	_find_boundaries(t_check_wall *ck, t_ivector max_map, \
-								char **map)
+static	bool	_has_valid_chars(char **map, t_check_wall cw, size_t height)
 {
-	int	row;
-	int	col;
-
-	row = 0;
-	while (row < max_map.row)
-	{
-		if (map[row] == NULL)
-			break ;
-		col = 0;
-		while (col < max_map.col)
-		{
-			if (map[row][col] != ' ')
-			{
-				ck->left = ft_min(ck->left, col);
-				ck->right = ft_max(ck->right, col);
-				ck->top = row;
-				break ;
-			}
-		}
-		row++;
-	}
-}
-
-static	bool	_check_boundaries(t_check_wall *ck, char **map)
-{
-	ck->col = ck->left;
-	while (ck->col < ck->right)
-	{
-		if (map[ck->top][ck->col] != '1' || map[ck->bottom][ck->col] != '1')
-			return (false);
-		ck->col++;
-	}
-	ck->row = ck->top;
-	while (ck->row <= ck->bottom)
-	{
-		if (map[ck->row][ck->left] != '1' || map[ck->row][ck->right] != '1')
-			return (false);
-		ck->row++;
-	}
-	return (true);
-}
-
-static	bool	_check_neighbors(t_check_wall *ck, char **map)
-{
-	ck->dr = -1;
-	while (ck->dr < 1)
-	{
-		ck->dc = -1;
-		while (ck->dc < 1)
-		{
-			ck->nr = ck->row + ck->dr;
-			ck->nc = ck->col + ck->dc;
-			if (ck->nr < ck->top || ck->nr > ck->bottom || \
-				ck->nc < ck->left || ck->nc > ck->right || \
-				map[ck->nr][ck->nc] == ' ')
-			{
-				return (false);
-			}
-			ck->dc++;
-		}
-		ck->dr++;
-	}
-	return (true);
-}
-
-static	bool	_check_adjacent(t_check_wall *ck, char **map)
-{
-	ck->row = ck->top;
-	while (ck->row < ck->bottom)
-	{
-		ck->col = ck->left;
-		while (ck->col < ck->right)
-		{
-			if (map[ck->row][ck->col] == '0' || \
-				ft_strchr(PLAYER_POS, map[ck->row][ck->col]))
-			{
-				if (_check_neighbors(ck, map) != true)
-				{
-					return (false);
-				}
-			}
-		}
-		ck->row++;
-	}
-	return (true);
-}
-
-bool	check_surrounded_walls(t_program *program)
-{
-	t_check_wall	check;
-	t_player		*player;
-
-	player = program->player;
-	check.left = player->max_map.col;
-	check.right = 0;
-	check.top = 0;
-	check.bottom = 0;
-	check.row = 0;
-	check.col = 0;
-	_find_boundaries(&check, player->max_map, player->map);
-	if (_check_boundaries(&check, player->map) != true)
+	while (cw.end > cw.start && map[cw.row][cw.end] == ' ')
+		cw.end--;
+	if (map[cw.row][cw.start] != '1' || map[cw.row][cw.end] != '1')
 		return (false);
-	return (_check_adjacent(&check, player->map));
+	if (cw.row == 0 || cw.row == height - 1)
+	{
+		cw.col = cw.start;
+		while (cw.col <= cw.end)
+		{
+			if (map[cw.row][cw.col] != '1' && map[cw.row][cw.col] != ' ')
+				return (false);
+			cw.col++;
+		}
+	}
+	return (true);
+}
+
+static	bool	_check_first_and_last_non_space(char **map, size_t height)
+{
+	t_check_wall	cw;
+
+	cw.row = 0;
+	while (cw.row < height)
+	{
+		cw.len = ft_strlen(map[cw.row]);
+		cw.start = 0;
+		cw.end = cw.len - 1;
+		while (cw.start < cw.len && map[cw.row][cw.start] == ' ')
+			cw.start++;
+		if (cw.start == cw.len)
+			continue ;
+		if (_has_valid_chars(map, cw, height) != true)
+			return (false);
+		cw.row++;
+	}
+	return (true);
+}
+
+static	bool	_check_inner_loop(char **map, t_check_wall cw, size_t height)
+{
+	while (cw.col < cw.len)
+	{
+		if (map[cw.row][cw.col] != '1' && map[cw.row][cw.col] != ' ')
+		{
+			if (cw.row > 0 && (cw.col >= ft_strlen(map[cw.row - 1]) || \
+				map[cw.row - 1][cw.col] == ' '))
+				return (false);
+			if (cw.row < height - 1 && (cw.col >= ft_strlen(map[cw.row + 1]) || \
+				map[cw.row + 1][cw.col] == ' '))
+				return (false);
+			if (cw.col > 0 && map[cw.row][cw.col - 1] == ' ')
+				return (false);
+			if (cw.col < cw.len - 1 && map[cw.row][cw.col + 1] == ' ')
+				return (false);
+		}
+		cw.col++;
+	}
+	return (true);
+}
+
+static	bool	_check_is_valid(char **map, size_t height)
+{
+	t_check_wall	cw;
+
+	cw.row = 1;
+	while (cw.row < height - 1)
+	{
+		cw.len = ft_strlen(map[cw.row]);
+		cw.col = 0;
+		if (_check_inner_loop(map, cw, height) != true)
+			return (false);
+		cw.row++;
+	}
+	return (true);
+}
+
+bool	check_surrounded_walls(char **map)
+{
+	size_t	height;
+
+	height = 0;
+	while (map[height] != NULL)
+		height++;
+	if (height == 0)
+		return (false);
+	if (_check_first_and_last_non_space(map, height) != true)
+		return (false);
+	if (_check_is_valid(map, height) != true)
+		return (false);
+	return (true);
 }
