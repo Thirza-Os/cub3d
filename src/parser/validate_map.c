@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/09/10 18:45:55 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/10 20:34:46 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ static	bool	fill_map(const char *map, t_program *program)
 		return (false);
 	}
 	if (_create_map(program) != true)
+	{
+		free_char_arr(temp_map);
 		return (false);
+	}
 	_set_map(program->player, temp_map);
 	free_char_arr(temp_map);
 	return (true);
