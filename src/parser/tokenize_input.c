@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/09/10 18:37:48 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/11 01:45:12 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	**tokenize_input(char *argv)
 	if (fd < 0)
 	{
 		ft_putendl_fd("Failed to open the map", 2);
-		return (NULL);
+		return (elements);
 	}
 	get_elements(fd, elements);
 	close(fd);
