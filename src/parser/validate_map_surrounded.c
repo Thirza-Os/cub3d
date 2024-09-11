@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:41 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/09/10 19:01:55 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/11 03:11:43 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static	bool	_check_is_valid(char **map, size_t height)
 	return (true);
 }
 
-bool	check_surrounded_walls(char **map)
+bool	_check_surrounded_walls(char **map)
 {
 	size_t	height;
 

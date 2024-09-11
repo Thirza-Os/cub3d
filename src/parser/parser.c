@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/09/11 01:56:18 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/11 03:01:10 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	parser(char *arg, t_program *program)
 		return (free_parser(elements, false));
 	if (validate_nr_of_identifiers(elements) != true)
 		return (free_parser(elements, false));
-	if (validate_structure_paths(elements, program) != true)
+	if (validate_paths(elements, program) != true)
 		return (free_parser(elements, false));
 	if (validate_rgb_input(elements, program) != true)
 		return (free_parser(elements, false));

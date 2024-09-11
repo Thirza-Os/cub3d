@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/08/25 17:57:06 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/11 02:32:03 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 static	void	_init_dda(t_dda *dda, const t_player *player)
 {
 	int				index;
-	const char		dirs[4] = "NESW";
 	const double	values[4][4] = {{0, -1, 0.66, 0}, {1, 0, 0, 0.66}, \
 									{0, 1, -0.66, 0}, {-1, 0, 0, -0.66}};
 
 	index = 0;
 	while (index < 4)
 	{
-		if (dirs[index] == player->starting_dir)
+		if (PLAYER_POS[index] == player->starting_dir)
 		{
 			dda->player_dir.col = values[index][0];
 			dda->player_dir.row = values[index][1];

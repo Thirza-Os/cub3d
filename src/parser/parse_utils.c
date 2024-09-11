@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:22 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/20 21:27:28 by tosinga       ########   odam.nl         */
+/*   Updated: 2024/09/11 03:02:09 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	check_cub(char *arg)
 	return (true);
 }
 
-bool	check_png(char *arg)
+bool	_check_png(char *arg)
 {
 	size_t	len;
 
@@ -51,7 +51,7 @@ bool	check_png(char *arg)
 	return (true);
 }
 
-int	ft_atorgb(const char *str)
+int	_atorgb(const char *str)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/09/10 20:34:46 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/11 03:11:43 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ bool	validate_map(const char *map, t_program *program)
 		return (false);
 	if (fill_player(program) != true)
 		return (false);
-	if (check_surrounded_walls(program->player->map) != true)
+	if (_check_surrounded_walls(program->player->map) != true)
 	{
 		ft_putstr_fd("Map is not surrounded\n", 2);
 		return (false);

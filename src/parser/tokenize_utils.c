@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/09/09 17:48:23 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/11 03:11:43 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	_check_token(const char *line, char **elements, bool flag)
 	{
 		if (line[0] == '1' || line[0] == ' ')
 		{
-			elements[SIZE] = ft_strjoin_cub3d(elements[SIZE], line);
+			elements[SIZE] = _ft_strjoin_cub3d(elements[SIZE], line);
 			if (elements[SIZE] == NULL)
 			{
 				ft_putendl_fd("Failed to join strings", 2);
@@ -64,7 +64,7 @@ bool	_check_token(const char *line, char **elements, bool flag)
 	return (true);
 }
 
-char	*ft_strjoin_cub3d(char *s1, char const *s2)
+char	*_ft_strjoin_cub3d(char *s1, char const *s2)
 {
 	char	*str;
 	size_t	s1_len;
