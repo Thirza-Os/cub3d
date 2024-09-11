@@ -6,11 +6,25 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/09/11 02:46:15 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/11 03:19:21 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+static	void	_free_helper(char **str, char **str1)
+{
+	if (*str != NULL)
+	{
+		free(*str);
+		*str = NULL;
+	}
+	if (*str1 != NULL)
+	{
+		free(*str1);
+		*str1 = NULL;
+	}
+}
 
 static	void	_check_edge_case(int fd, char *trim, char *line)
 {
