@@ -10,7 +10,6 @@ OBJ_DIR = ./obj
 
 SRCS    :=  $(SRC_DIR)/main.c\
             $(SRC_DIR)/cub_free.c\
-            $(SRC_DIR)/parser_free.c\
 			$(ENG_DIR)/buffer.c\
             $(ENG_DIR)/dda_calc.c\
             $(ENG_DIR)/render.c\
