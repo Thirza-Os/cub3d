@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/08/24 04:09:10 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/11 02:49:27 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ bool	validate_structure_paths(char **elements, t_program *program)
 	index = 0;
 	while (index < MAX_IMGS)
 	{
-		if (check_png(elements[index]) != true)
-			return (false);
 		program->paths[index] = ft_strtrim(elements[index], WHITESPACE);
 		if (program->paths[index] == NULL)
 		{
 			ft_putendl_fd("Path is NULL", 2);
 			return (false);
 		}
+		if (check_png(elements[index]) != true)
+			return (false);
 		index++;
 	}
 	return (true);
