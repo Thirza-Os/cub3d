@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/09/11 01:45:12 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/11 02:46:15 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ static	void	_check_edge_case(int fd, char *trim, char *line)
 	}
 }
 
-// Place the identifiers in the right order for parsing.
-// Pre check for double elements.
-static	bool	is_identifier(const char *trimmed_line, char **elements)
+static	bool	_is_identifier(const char *trimmed_line, char **elements)
 {
 	static const char	*g_labels[] = {"NO", "SO", "WE", "EA", "F", "C"};
 	int					i;
@@ -49,12 +47,7 @@ static	bool	is_identifier(const char *trimmed_line, char **elements)
 	return (true);
 }
 
-// Get input line by line.
-// Check if the line contains identifier or map input.
-// Handle as such:
-// Use the trimmed line for elements, untrimmed line for the map.
-// Pre check for the left trimmed lines in the map (has to be 1).
-static void	get_elements(int fd, char **elements)
+static void	_get_elements(int fd, char **elements)
 {
 	char		*line;
 	bool		flag;
@@ -66,7 +59,7 @@ static void	get_elements(int fd, char **elements)
 		if (line == NULL)
 			break ;
 		if (line && flag == true)
-			flag = is_identifier(line, elements);
+			flag = _is_identifier(line, elements);
 		if (errno != 0)
 			break ;
 		if (_check_token(line, elements, flag) != true)
@@ -77,7 +70,6 @@ static void	get_elements(int fd, char **elements)
 	_check_edge_case(fd, line, line);
 }
 
-// allocate space for the elements & fill the char pointer with tokenized input.
 char	**tokenize_input(char *argv)
 {
 	int			fd;
@@ -95,7 +87,7 @@ char	**tokenize_input(char *argv)
 		ft_putendl_fd("Failed to open the map", 2);
 		return (elements);
 	}
-	get_elements(fd, elements);
+	_get_elements(fd, elements);
 	close(fd);
 	return (elements);
 }
