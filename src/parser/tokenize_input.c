@@ -6,7 +6,7 @@
 /*   By: tosinga <tosinga@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/20 21:23:37 by tosinga       #+#    #+#                 */
-/*   Updated: 2024/09/11 03:19:21 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/12 16:29:43 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	_get_elements(int fd, char **elements)
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		if (line && flag == true)
+		if (flag == true)
 			flag = _is_identifier(line, elements);
 		if (errno != 0)
 			break ;

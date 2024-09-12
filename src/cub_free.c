@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:13 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/09/10 20:33:48 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/12 15:50:03 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,19 @@ void	_free_player(t_player *player)
 	if (player->map != NULL)
 	{
 		row = 0;
-		while (row < player->max_map.row)
+		while (row <= player->max_map.row)
 		{
 			if (player->map[row] != NULL)
+			{
+				printf("index: %d, free: %p\n", row, (void *)player->map[row]);
 				free(player->map[row]);
+			}
 			row++;
 		}
-		if (player->map[row] != NULL)
-			free(player->map[row]);
+		// printf("index: %d, free: %p\n", 14, (void *)player->map[14]);
+		// free(player->map[14]);
+		// if (player->map[row] != NULL)
+		// 	free(player->map[row]);
 		free(player->map);
 	}
 	free(player);

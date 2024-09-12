@@ -6,7 +6,7 @@
 /*   By: lvan-gef <lvan-gef@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/09 22:22:25 by lvan-gef      #+#    #+#                 */
-/*   Updated: 2024/09/10 20:15:10 by lvan-gef      ########   odam.nl         */
+/*   Updated: 2024/09/12 16:36:16 by lvan-gef      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define X_SIDE 1
 # define Y_SIDE 2
 
-# define MOVESPEED 0.10
+# define MOVESPEED 0.15
 # define ROTSPEED 0.03
 
 # define FORWARD 1
